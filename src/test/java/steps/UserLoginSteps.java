@@ -4,11 +4,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.HomePage;
-import pages.LoginBasePage;
+import pages.LoginPage;
 
 public class UserLoginSteps {
 
-    LoginBasePage loginPage;
+    LoginPage loginPage;
     HomePage homePage;
 
 
@@ -20,7 +20,7 @@ public class UserLoginSteps {
 
     @When("I login")
     public void logIntoDelius() {
-        loginPage = new LoginBasePage();
+        loginPage = new LoginPage();
         loginPage.login();
     }
 
