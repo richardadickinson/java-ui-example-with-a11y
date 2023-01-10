@@ -3,16 +3,14 @@ package steps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import pages.HomePage;
-import pages.LoginPage;
+import pages.LoginBasePage;
 
 public class UserLoginSteps {
 
-    LoginPage loginPage;
+    LoginBasePage loginPage;
     HomePage homePage;
 
-    WebDriver webDriver;
 
     @Given("I have a valid user credentials")
     public void given_i_have_a_valid_user(){
@@ -22,11 +20,13 @@ public class UserLoginSteps {
 
     @When("I login")
     public void logIntoDelius() {
+        loginPage = new LoginBasePage();
         loginPage.login();
     }
 
     @Then("the Homepage should appear")
-    public void homepageShouldAppear(){
+    public void homepageShouldAppear() throws Throwable {
+        homePage = new HomePage();
         homePage.assertPageTitle();
 
     }
