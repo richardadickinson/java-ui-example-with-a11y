@@ -7,7 +7,7 @@ import static utils.WebDriverUtils.getWebDriver;
 public class HomePage extends BasePageObject {
 
     public void assertPageTitle() {
-        Assert.assertEquals(getWebDriver().getTitle(), "National Delius Home Page");
+        Assert.assertEquals(getWebDriver().getTitle(), "National Delius Home Page"); // Todo: will be repeated on most pages
     }
 
 
