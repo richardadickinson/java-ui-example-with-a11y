@@ -25,7 +25,7 @@ public class UserLoginSteps {
     }
 
     @Then("the Homepage should appear")
-    public void homepageShouldAppear() throws Throwable {
+    public void homepageShouldAppear() {
         homePage = new HomePage();
         homePage.assertPageTitle();
 

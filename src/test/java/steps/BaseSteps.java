@@ -3,19 +3,27 @@ package steps;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
-import static java.lang.Thread.sleep;
+import java.io.IOException;
+
+import static utils.PropertiesFileReader.getHostName;
 import static utils.WebDriverUtils.*;
 
 public class BaseSteps {
-    private static final String baseUrl = "https://ndelius.test.probation.service.justice.gov.uk";
+    private static final String baseUrl;
 
-    @Before
-    public void launchBrowser() throws InterruptedException {
-        setDriver();
-        navigate(baseUrl);
-        sleep(2000);
+    static {
+        try {
+            baseUrl = getHostName();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    @Before
+    public void launchBrowser() {
+        setDriver();
+        navigate(baseUrl);
+    }
 
     @After
     public void tearDown(){
