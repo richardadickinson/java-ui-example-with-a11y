@@ -1,12 +1,12 @@
-package steps;
+package stepDefinitions;
 
-import io.cucumber.java.en.When;
-import testDataApi.offender;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import testDataApi.offender;
 
 import java.io.IOException;
 import java.util.Map;
@@ -30,6 +30,8 @@ public class TestDataApiSteps {
         Assert.assertEquals(insertResponse.statusCode(), 201);
         Map<String,Object> respBody = insertResponse.body().as(new TypeRef<>() {});
         System.out.println("CRN: " + respBody.get("crn"));
+        String threadId = "Thread ID" + Thread.currentThread().getId();
+        System.out.println(threadId);
         crn = (String) respBody.get("crn");
         Assert.assertEquals(respBody.get("preferredName"), "PreferredName");
         Assert.assertNotNull(respBody.get("crn"));

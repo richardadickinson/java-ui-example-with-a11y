@@ -5,53 +5,42 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.io.IOException;
-
 import static config.WebDriverConfig.defaultDimensions;
-import static utils.PropertiesFileReader.getPropValue;
 
 public class WebDriverUtils {
 
-    private static WebDriver webDriver;
+    private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
-    static {
-        try {
-            webDriver = selectDriver();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static WebDriver selectDriver() throws IOException {
-        String driverType = getPropValue("browser");
-        switch (driverType) {
+    private static ThreadLocal<WebDriver> selectDriver() {
+        switch (System.getenv("BROWSER")) {
             case "Safari":
-                webDriver = new SafariDriver();
+                webDriver.set(new SafariDriver());
                 break;
             case "Edge":
-                webDriver = new EdgeDriver();
+                webDriver.set(new EdgeDriver());
                 break;
             default:
-                webDriver = new ChromeDriver();
+                webDriver.set(new ChromeDriver());
         }
         return webDriver;
-    }
-
-    public static void setDriver() {
-        webDriver.manage().window().setSize(defaultDimensions);
-    }
-
-    public static void navigate(String url){
-        webDriver.get(url);
-    }
-
-    public static void quit(){
-        webDriver.manage().deleteAllCookies();
-        webDriver.quit();
     }
 
     public static WebDriver getWebDriver(){
-        return webDriver;
+        return webDriver.get();
+    }
+
+    public static void setDriver() {
+        selectDriver();
+        webDriver.get().manage().window().setSize(defaultDimensions);
+    }
+
+    public static void navigate(String url){
+        webDriver.get().get(url);
+    }
+
+    public static void quit(){
+        webDriver.get().manage().deleteAllCookies();
+        webDriver.get().quit();
     }
 
 }

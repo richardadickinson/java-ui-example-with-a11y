@@ -6,8 +6,8 @@ ToDo list:
 check TestNG functions for this 
 3. ability to automatically assert page header
 4. Data creation - API - RestAssured
-   2. e.g. login, create an offender, search offender, delete offender
-   3. user data (usernames, passwords)
-   4. reference data 
+   1. e.g. login, create an offender, search offender, delete offender
+   2. user data (usernames, passwords)
+   3. reference data 
 5. Database query management
 6. Reporting
