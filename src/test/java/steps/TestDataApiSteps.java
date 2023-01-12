@@ -17,6 +17,7 @@ public class TestDataApiSteps {
 
     private Response insertResponse;
     private Response updateResponse;
+    private Response getResponse;
     private String crn;
     @Given("Create offender endpoint is called")
     public void create_offender_endpoint_is_called() throws IOException
@@ -37,12 +38,14 @@ public class TestDataApiSteps {
     @When("offender is updated")
     public void offender_is_updated() throws IOException {
         updateResponse = offender.UpdateOffender(ApiTestRequestPath + "update-offender.json", crn);
-    }
-    @Then("updates are validated")
-    public void updates_are_validated()
-    {
         Assert.assertEquals(updateResponse.statusCode(), 200);
-        Map<String,Object> respBody = updateResponse.body().as(new TypeRef<>() {});
+    }
+    @Then("updates are validated by GET call")
+    public void updates_are_validated_by_GET_call()
+    {
+        getResponse = offender.GetOffender(crn);
+        Assert.assertEquals(getResponse.statusCode(), 200);
+        Map<String,Object> respBody = getResponse.body().as(new TypeRef<>() {});
         Assert.assertEquals(respBody.get("preferredName"), "Criminal");
         Assert.assertEquals(respBody.get("thirdName"), "Cheese");
     }

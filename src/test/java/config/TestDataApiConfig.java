@@ -11,16 +11,16 @@ public class TestDataApiConfig {
         CONTACT ("contact/", "contact/update/");
 
 
-        private final String insertEndpointName;
+        private final String endpointName;
         private final String updateEndpointName;
 
-        Endpoints(String insertEndpointName, String updateEndpointName) {
-            this.insertEndpointName = insertEndpointName;
+        Endpoints(String endpointName, String updateEndpointName) {
+            this.endpointName = endpointName;
             this.updateEndpointName  = updateEndpointName;
         }
 
-        public String getInsertEndpointName() {
-            return insertEndpointName;
+        public String getEndpointName() {
+            return endpointName;
         }
         public String getUpdateEndpointName() { return updateEndpointName; }
     }

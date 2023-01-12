@@ -12,6 +12,21 @@ public class testDataApiUtils
 {
     static Users apiLoginUser = API_LOGIN_USER;
     static int statusCode = 201;
+
+    public static Response Get(String endpoint)
+    {
+        return
+                given()
+                        .auth().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(BaseAddress + endpoint)
+                        .then()
+                        .statusCode(200)
+                        .extract().response();
+
+    }
+
     public static Response Post(String jsonBody, String endPoint)
     {
         if (endPoint.contains("update")) statusCode = 200;
@@ -25,7 +40,6 @@ public class testDataApiUtils
                         .then()
                         //.log().all()  //DEBUG
                         .statusCode(statusCode)
-                        .extract()
-                        .response();
+                        .extract().response();
     }
 }
