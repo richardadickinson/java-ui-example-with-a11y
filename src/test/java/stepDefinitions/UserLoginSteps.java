@@ -1,4 +1,4 @@
-package steps;
+package stepDefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +14,8 @@ public class UserLoginSteps {
 
     @Given("I have a valid user credentials")
     public void given_i_have_a_valid_user(){
+        String threadId = "Thread ID" + Thread.currentThread().getId();
+        System.out.println(threadId);
         System.out.println("test 123");
 
     }
