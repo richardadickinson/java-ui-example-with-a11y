@@ -19,13 +19,14 @@ public class BaseSteps {
         }
     }
 
-    @Before
+
+    @Before("not @api")
     public void launchBrowser() {
         setDriver();
         navigate(baseUrl);
     }
 
-    @After
+    @After("not @api")
     public void tearDown(){
         quit();
     }

@@ -16,7 +16,8 @@ public class PropertiesFileReader {
     }
 
     public static String getPropValue(String key) throws IOException {
-        String env = System.getenv("ENV");
+        //String env = System.getenv("ENV");
+        String env = "test";
         try {
             Properties prop = new Properties();
             String propFileName = env+".properties";
@@ -30,6 +31,7 @@ public class PropertiesFileReader {
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
+            assert inputStream != null;
             inputStream.close();
         }
         return result;
