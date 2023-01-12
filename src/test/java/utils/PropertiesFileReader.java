@@ -25,6 +25,7 @@ public class PropertiesFileReader {
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
+            assert inputStream != null;
             inputStream.close();
         }
         return result;

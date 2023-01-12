@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="ndelius test Suite" >
-    <test name="login scenarios" preserve-order="true" thread-count="2">
-        <classes>
-            <class name="stepDefinitions.RunCucumberTest"/>
-        </classes>
-    </test>
-</suite>

@@ -9,13 +9,14 @@ import static utils.WebDriverUtils.*;
 public class BaseSteps {
     private static final String baseUrl = System.getenv("URL");
 
-    @Before
+
+    @Before("not @api")
     public void launchBrowser() {
         setDriver();
         navigate(baseUrl);
     }
 
-    @After
+    @After("not @api")
     public void tearDown(){
         quit();
     }
