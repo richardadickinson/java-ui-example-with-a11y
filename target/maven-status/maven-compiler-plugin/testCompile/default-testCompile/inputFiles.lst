@@ -1,0 +1,10 @@
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/RunCucumberTest.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/steps/BaseSteps.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/utils/PropertiesFileReader.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/utils/WebDriverUtils.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/steps/UserLoginSteps.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/pages/BasePageObject.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/config/WebDriverConfig.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/BaseAbstractTest.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/pages/HomePage.java
+/Users/aurinelle.bouekassa-taboudi/GitHubRepos/ndelius-ui-automation/src/test/java/pages/LoginPage.java
