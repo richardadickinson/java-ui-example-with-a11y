@@ -10,12 +10,7 @@ public class PropertiesFileReader {
     static String result = "";
     private static InputStream inputStream;
 
-    public static String getHostName() throws IOException {
-        String url = System.getenv("URL");
-        return getPropValue(url);
-    }
-
-    public static String getPropValue(String key) throws IOException {
+    public static String getPropertyValueFromFile(String key) throws IOException {
         String env = System.getenv("ENV");
         try {
             Properties prop = new Properties();

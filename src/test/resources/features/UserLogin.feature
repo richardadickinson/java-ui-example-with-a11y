@@ -1,4 +1,4 @@
-Feature: login
+Feature: login 1
 
   Scenario: Standard user login 1
     Given I have a valid user credentials
