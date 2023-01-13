@@ -1,11 +1,13 @@
 package stepDefinitions;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import testDataApi.Event;
 import testDataApi.Offender;
 
 import java.io.IOException;
@@ -19,6 +21,9 @@ public class TestDataApiSteps {
     private Response updateResponse;
     private Response getResponse;
     private String crn;
+    private String eventId;
+
+    //Scenario: Create, update and Get an offender
     @Given("Create offender endpoint is called")
     public void create_offender_endpoint_is_called() throws IOException
     {
@@ -42,14 +47,53 @@ public class TestDataApiSteps {
         updateResponse = Offender.updateOffender(apiTestRequestPath + "update-offender.json", crn);
         Assert.assertEquals(updateResponse.statusCode(), 200);
     }
-    @Then("updates are validated by GET call")
-    public void updates_are_validated_by_GET_call()
+    @Then("offender updates are validated by GET call")
+    public void offender_updates_are_validated_by_GET_call()
     {
         getResponse = Offender.getOffender(crn);
         Assert.assertEquals(getResponse.statusCode(), 200);
         Map<String,Object> respBody = getResponse.body().as(new TypeRef<>() {});
         Assert.assertEquals(respBody.get("preferredName"), "Criminal");
         Assert.assertEquals(respBody.get("thirdName"), "Cheese");
+    }
+
+    //Scenario: Create, update and Get an Event
+    @Given("an offender with event is created")
+    public void an_offender_with_event_is_created() throws IOException
+    {
+        crn = Offender.createOffenderGetCRN(apiTestRequestPath + "create-offender.json");
+        insertResponse = Event.createEvent(apiTestRequestPath + "create-event.json", crn);
+        Assert.assertEquals(insertResponse.statusCode(), 201);
+    }
+    @Then("event is created with new event Id")
+    public void event_is_created_with_new_eventId()
+    {
+        Map<String,Object> respBody = insertResponse.body().as(new TypeRef<>() {});
+        Assert.assertEquals(respBody.get("eventNumber"), "1");
+        Assert.assertNotNull(respBody.get("eventId"));
+        eventId = String.valueOf(respBody.get("eventId"));
+        System.out.println(eventId);
+    }
+    @When("event is updated by CRN")
+    public void event_is_updated_by_CRN() throws IOException
+    {
+        updateResponse = Event.updateEventByCRN(apiTestRequestPath + "update-event.json", crn, "1");
+        Assert.assertEquals(updateResponse.statusCode(), 200);
+    }
+    @When("event is updated by Event ID")
+    public void event_is_updated_by_EventID() throws IOException, InterruptedException
+    {
+        updateResponse = Event.updateEventByEventID(apiTestRequestPath + "update-event.json", eventId);
+        Assert.assertEquals(updateResponse.statusCode(), 200);
+    }
+    @Then("event updates are validated by GET call")
+    public void event_updates_are_validated_by_GET_call()
+    {
+        getResponse = Event.getEvent(eventId);
+        Map<String,Object> respBody = insertResponse.body().as(new TypeRef<>() {});
+        System.out.println(respBody.values());
+        Assert.assertEquals(respBody.get("convictionDate"), "2018-10-02T00:00:00Z[UTC]");
+        //Assert.assertEquals(respBody.get("referralDate"), "2021-11-08T00:00:00Z[UTC]");
     }
 
 }

@@ -4,6 +4,10 @@ import config.Users;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static config.TestDataApiConfig.baseAddress;
 import static config.Users.API_LOGIN_USER;
 import static io.restassured.RestAssured.given;
@@ -24,12 +28,12 @@ public class TestDataApiUtils
                         .then()
                         .statusCode(200)
                         .extract().response();
-
     }
 
     public static Response post(String jsonBody, String endPoint)
     {
-        if (endPoint.contains("update")) statusCode = 200;
+        if (endPoint.contains("update"))
+        { statusCode = 200; } else{ statusCode = 201;}
         return
                 given()
                         .auth().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
@@ -41,5 +45,10 @@ public class TestDataApiUtils
                         //.log().all()  //DEBUG
                         .statusCode(statusCode)
                         .extract().response();
+    }
+
+    public static String generateStringFromResource(String path) throws IOException
+    {
+        return new String(Files.readAllBytes(Paths.get(path)));
     }
 }
