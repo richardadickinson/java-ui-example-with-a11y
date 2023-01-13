@@ -1,0 +1,32 @@
+{
+  "event": {
+    "mainOffenceCode": "00856",
+    "mainOffenceDate": "2022-11-22T00:00:00Z[UTC]",
+    "mainOffenceCount": 1,
+    "referralDate": "2022-11-23T00:00:00Z[UTC]",
+    "convictionDate": "2022-12-05T00:00:00Z[UTC]",
+    "courtCode": "ABDSUM",
+    "appearanceTypeCode": "301",
+    "pleaCode": "PL01",
+    "notes": "notes",
+    "probationAreaCode": "N07",
+    "teamCode": "DRHUAT",
+    "staffCode": "C00P046"
+  },
+  "disposal": {
+    "disposalType": "201",
+    "disposalDate": "2022-12-02T00:00:00Z[UTC]",
+    "length": 12,
+    "lengthUnits": "M",
+    "reductionOfCrime": false,
+    "recommendationsNotStated": false,
+    "publicProtection": false,
+    "punishment": false,
+    "reformAndRehabilitation": false,
+    "reparation": false
+  },
+  "orderManager": {
+    "allocationReason": "IN1",
+    "allocationDate": "2022-12-02T00:00:00Z[UTC]"
+  }
+}
