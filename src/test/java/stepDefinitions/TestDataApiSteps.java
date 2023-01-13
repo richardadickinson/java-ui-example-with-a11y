@@ -90,10 +90,9 @@ public class TestDataApiSteps {
     public void event_updates_are_validated_by_GET_call()
     {
         getResponse = Event.getEvent(eventId);
-        Map<String,Object> respBody = insertResponse.body().as(new TypeRef<>() {});
+        Map<String,Object> respBody = getResponse.body().as(new TypeRef<>() {});
         System.out.println(respBody.values());
-        Assert.assertEquals(respBody.get("convictionDate"), "2018-10-02T00:00:00Z[UTC]");
-        //Assert.assertEquals(respBody.get("referralDate"), "2021-11-08T00:00:00Z[UTC]");
+        Assert.assertEquals(respBody.get("convictionDate"), "2017-12-02T00:00:00Z[UTC]");
     }
 
 }
