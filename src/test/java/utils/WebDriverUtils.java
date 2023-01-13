@@ -5,18 +5,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.io.IOException;
+
 import static config.WebDriverConfig.defaultDimensions;
 
 public class WebDriverUtils {
 
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
-    private static ThreadLocal<WebDriver> selectDriver() {
-        switch (System.getenv("BROWSER")) {
-            case "Safari":
+    private static ThreadLocal<WebDriver> selectDriver() throws IOException {
+        String browser = PropertiesFileReader.getPropertyValueFromFile("browser");
+        switch (browser) {
+            case "safari":
                 webDriver.set(new SafariDriver());
                 break;
-            case "Edge":
+            case "edge":
                 webDriver.set(new EdgeDriver());
                 break;
             default:
@@ -29,7 +32,7 @@ public class WebDriverUtils {
         return webDriver.get();
     }
 
-    public static void setDriver() {
+    public static void setDriver() throws IOException {
         selectDriver();
         webDriver.get().manage().window().setSize(defaultDimensions);
     }

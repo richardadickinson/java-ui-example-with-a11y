@@ -11,7 +11,7 @@ public class PropertiesFileReader {
     private static InputStream inputStream;
 
     public static String getPropertyValueFromFile(String key) throws IOException {
-        String env = System.getenv("ENV");
+        String env = System.getProperty("environment");
         try {
             Properties prop = new Properties();
             String propFileName = env+".properties";
