@@ -32,15 +32,14 @@ public class Offender
         Response resp = createOffender(path);
         Assert.assertEquals(resp.statusCode(), 201);
         Map<String,Object> respBody = resp.body().as(new TypeRef<>() {});
-        System.out.println((String) respBody.get("crn"));  //DEBUG
+        //System.out.println((String) respBody.get("crn"));  //DEBUG
         return (String) respBody.get("crn");
     }
 
     public static Response updateOffender(String path, String crn) throws IOException
     {
         String jsonBody = generateStringFromResource(path);
-        String endpointBuilder = offender.getUpdateEndpointName() + crn;
-        return post(jsonBody, endpointBuilder);
+        return post(jsonBody, offender.getUpdateEndpointName() + crn);
     }
 
 
