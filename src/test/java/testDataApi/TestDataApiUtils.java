@@ -17,7 +17,7 @@ public class TestDataApiUtils
     static Users apiLoginUser = API_LOGIN_USER;
     static int statusCode = 201;
 
-    public static Response get(String endpoint)
+    public synchronized static Response get(String endpoint)
     {
         return
                 given()
@@ -30,7 +30,7 @@ public class TestDataApiUtils
                         .extract().response();
     }
 
-    public static Response post(String jsonBody, String endPoint)
+    public synchronized static Response post(String jsonBody, String endPoint)
     {
         if (endPoint.contains("update"))
         { statusCode = 200; } else{ statusCode = 201;}
