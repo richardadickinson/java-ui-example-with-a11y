@@ -1,6 +1,6 @@
 package stepDefinitions;
 
-import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,6 +23,13 @@ public class TestDataApiSteps {
     private String crn;
     private String eventId;
 
+    @Before
+    public void debugThreads()
+    {
+        String threadId = "Thread ID" + Thread.currentThread().getId();
+        System.out.println(threadId);
+    }
+
     //Scenario: Create, update and Get an offender
     @Given("Create offender endpoint is called")
     public void create_offender_endpoint_is_called() throws IOException
@@ -35,8 +42,6 @@ public class TestDataApiSteps {
         Assert.assertEquals(insertResponse.statusCode(), 201);
         Map<String,Object> respBody = insertResponse.body().as(new TypeRef<>() {});
         System.out.println("CRN: " + respBody.get("crn"));
-        //String threadId = "Thread ID" + Thread.currentThread().getId();
-        //System.out.println(threadId);
         crn = (String) respBody.get("crn");
         Assert.assertEquals(respBody.get("preferredName"), "PreferredName");
         Assert.assertNotNull(respBody.get("crn"));
@@ -91,7 +96,7 @@ public class TestDataApiSteps {
     {
         getResponse = Event.getEvent(eventId);
         Map<String,Object> respBody = getResponse.body().as(new TypeRef<>() {});
-        System.out.println(respBody.values());
+        //System.out.println(respBody.values());  //DEBUG
         Assert.assertEquals(respBody.get("convictionDate"), "2017-12-02T00:00:00Z[UTC]");
     }
 
