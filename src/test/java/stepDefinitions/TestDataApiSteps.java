@@ -9,6 +9,7 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import testDataApi.Event;
 import testDataApi.Offender;
+import testDataApi.Contact;
 
 import java.io.IOException;
 import java.util.Map;
@@ -22,11 +23,12 @@ public class TestDataApiSteps {
     private Response getResponse;
     private String crn;
     private String eventId;
+    private String contactId;
 
     @Before
     public void debugThreads()
     {
-        String threadId = "Thread ID" + Thread.currentThread().getId();
+        String threadId = "Thread ID" + Thread.currentThread().threadId();
         System.out.println(threadId);
     }
 
@@ -86,7 +88,7 @@ public class TestDataApiSteps {
         Assert.assertEquals(updateResponse.statusCode(), 200);
     }
     @When("event is updated by Event ID")
-    public void event_is_updated_by_EventID() throws IOException, InterruptedException
+    public void event_is_updated_by_EventID() throws IOException
     {
         updateResponse = Event.updateEventByEventID(apiTestRequestPath + "update-event.json", eventId);
         Assert.assertEquals(updateResponse.statusCode(), 200);
@@ -100,4 +102,36 @@ public class TestDataApiSteps {
         Assert.assertEquals(respBody.get("convictionDate"), "2017-12-02T00:00:00Z[UTC]");
     }
 
+    //Scenario: Create, update and GET a Contact
+    @Given("an offender with contact is created")
+    public void offender_with_contact_created() throws IOException
+    {
+        crn = Offender.createOffenderGetCRN(apiTestRequestPath + "create-offender.json");
+        insertResponse = Contact.createContact(apiTestRequestPath + "create-contact.json", crn);
+        Assert.assertEquals(insertResponse.statusCode(), 201);
+    }
+    @Then("contact is created with a contact Id")
+    public void contact_created_with_contactId()
+    {
+        Map<String,Object> respBody = insertResponse.body().as(new TypeRef<>() {});
+        Assert.assertEquals(respBody.get("offenderCRN"), crn);
+        Assert.assertNotNull(respBody.get("contactID"));
+        contactId = String.valueOf(respBody.get("contactID"));
+        System.out.println(contactId);
+    }
+    @When("contact is updated")
+    public void contact_updated()
+    {
+        updateResponse = Contact.updateContact(apiTestRequestPath + "update-contact.json", contactId, crn);
+        Assert.assertEquals(updateResponse.statusCode(), 200);
+    }
+    @Then("contact updates are validated by GET call")
+    public void contact_updates_validated_by_get()
+    {
+        getResponse = Contact.getContact(contactId);
+        Assert.assertEquals(getResponse.statusCode(), 200);
+        Map<String,Object> respBody = getResponse.body().as(new TypeRef<>() {});
+        //System.out.println(respBody.values());  //DEBUG
+        Assert.assertTrue(respBody.get("notes").toString().contains("testing notes for updating contact by Id"));
+    }
 }

@@ -18,3 +18,9 @@ Feature: Tests for using Test Data API
     Then event is created with new event Id
     When event is updated by Event ID
     Then event updates are validated by GET call
+
+    Scenario: Create, update and GET a Contact
+      Given an offender with contact is created
+      Then contact is created with a contact Id
+      When contact is updated
+      Then contact updates are validated by GET call
