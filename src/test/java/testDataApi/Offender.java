@@ -42,7 +42,4 @@ public class Offender
         return post(jsonBody, offender.getUpdateEndpointName() + crn);
     }
 
-
-
-
 }

@@ -8,29 +8,22 @@ import pages.LoginPage;
 
 public class UserLoginSteps {
 
-    LoginPage loginPage;
-    HomePage homePage;
-
+    LoginPage loginPage = new LoginPage();
+    HomePage homePage = new HomePage();
 
     @Given("I have a valid user credentials")
-    public void given_i_have_a_valid_user(){
-        String threadId = "Thread ID" + Thread.currentThread().getId();
-        System.out.println(threadId);
-        System.out.println("test 123");
-
-    }
+    public void given_i_have_a_valid_user(){}
 
     @When("I login")
-    public void logIntoDelius() {
-        loginPage = new LoginPage();
+    public void logIntoDelius()
+    {
         loginPage.login();
     }
 
     @Then("the Homepage should appear")
-    public void homepageShouldAppear() {
-        homePage = new HomePage();
-        homePage.assertPageTitle();
-
+    public void homepageShouldAppear()
+    {
+        homePage.assertPageTitle(HomePage.pageTitle);
     }
 
 }

@@ -1,15 +1,14 @@
 package stepDefinitions;
 
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import testDataApi.Contact;
 import testDataApi.Event;
 import testDataApi.Offender;
-import testDataApi.Contact;
 
 import java.io.IOException;
 import java.util.Map;
@@ -24,13 +23,6 @@ public class TestDataApiSteps {
     private String crn;
     private String eventId;
     private String contactId;
-
-    @Before
-    public void debugThreads()
-    {
-        String threadId = "Thread ID" + Thread.currentThread().threadId();
-        System.out.println(threadId);
-    }
 
     //Scenario: Create, update and Get an offender
     @Given("Create offender endpoint is called")

@@ -23,7 +23,7 @@ public class Contact
     public static Response updateContact(String path, String contactId, String crn)
     {
         String jsonBody = updateValueInJson(path, "offenderCRN", crn);
-        System.out.println(jsonBody);  //DEBUG
+        //System.out.println(jsonBody);  //DEBUG
         return post(jsonBody, contact.getUpdateEndpointName() + contactId);
     }
 }
