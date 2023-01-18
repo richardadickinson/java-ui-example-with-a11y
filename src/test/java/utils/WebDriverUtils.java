@@ -13,19 +13,13 @@ public class WebDriverUtils {
 
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
-    private static ThreadLocal<WebDriver> selectDriver() throws IOException {
+    private static void selectDriver() throws IOException {
         String browser = PropertiesFileReader.getPropertyValueFromFile("browser");
         switch (browser) {
-            case "safari":
-                webDriver.set(new SafariDriver());
-                break;
-            case "edge":
-                webDriver.set(new EdgeDriver());
-                break;
-            default:
-                webDriver.set(new ChromeDriver());
+            case "safari" -> webDriver.set(new SafariDriver());
+            case "edge" -> webDriver.set(new EdgeDriver());
+            default -> webDriver.set(new ChromeDriver());
         }
-        return webDriver;
     }
 
     public static WebDriver getWebDriver(){
@@ -34,16 +28,20 @@ public class WebDriverUtils {
 
     public static void setDriver() throws IOException {
         selectDriver();
-        webDriver.get().manage().window().setSize(defaultDimensions);
+        getWebDriver().manage().window().setSize(defaultDimensions);
     }
 
-    public static void navigate(String url){
-        webDriver.get().get(url);
+    public static void navigate(String url)
+    {
+        System.out.println("URL: " +url); //DEBUG
+        getWebDriver().get(url);
     }
 
-    public static void quit(){
-        webDriver.get().manage().deleteAllCookies();
-        webDriver.get().quit();
+    public static void quit()
+    {
+        WebDriver wd = getWebDriver();
+        wd.manage().deleteAllCookies();
+        wd.quit();
     }
 
 }
