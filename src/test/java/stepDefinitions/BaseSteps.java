@@ -13,7 +13,7 @@ public class BaseSteps {
 
     @Before("not @api")
     public void launchBrowser() throws IOException {
-        String baseUrl = getPropertyValueFromFile("baseUrl");
+        String baseUrl = getPropertyValueFromFile("base_url");
         setDriver();
         navigate(baseUrl);
     }

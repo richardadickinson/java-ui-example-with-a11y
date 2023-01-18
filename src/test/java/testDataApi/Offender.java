@@ -11,39 +11,34 @@ import static config.TestDataApiConfig.Endpoints;
 import static config.TestDataApiConfig.Endpoints.OFFENDER;
 import static testDataApi.TestDataApiUtils.*;
 
-public class Offender
-{
+public class Offender {
     static Endpoints offender = OFFENDER;
 
 
-    public static Response getOffender(String crn)
-    {
+    public static Response getOffender(String crn) {
         return get(offender.getEndpointName() + crn);
     }
-    public static Response createOffender(String path) throws IOException
-    {
+
+    public static Response createOffender(String path) throws IOException {
         String jsonBody = generateStringFromResource(path);
         //System.out.println(jsonBody);  //DEBUG
         return post(jsonBody, offender.getEndpointName());
     }
 
-    public static String createOffenderGetCRN(String path) throws IOException
-    {
+    public static String createOffenderGetCRN(String path) throws IOException {
         Response resp = createOffender(path);
         Assert.assertEquals(resp.statusCode(), 201);
-        Map<String,Object> respBody = resp.body().as(new TypeRef<>() {});
+        Map<String, Object> respBody = resp.body().as(new TypeRef<>() {
+        });
         System.out.println((String) respBody.get("crn"));  //DEBUG
         return (String) respBody.get("crn");
     }
 
-    public static Response updateOffender(String path, String crn) throws IOException
-    {
+    public static Response updateOffender(String path, String crn) throws IOException {
         String jsonBody = generateStringFromResource(path);
         String endpointBuilder = offender.getUpdateEndpointName() + crn;
         return post(jsonBody, endpointBuilder);
     }
-
-
 
 
 }
