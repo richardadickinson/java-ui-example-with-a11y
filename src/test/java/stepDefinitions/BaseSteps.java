@@ -10,6 +10,11 @@ import static utils.WebDriverUtils.*;
 
 
 public class BaseSteps {
+    @Before
+    public void debugThreads() {
+        String threadId = "Thread ID" + Thread.currentThread().getId();
+        System.out.println(threadId);
+    }
 
     @Before("not @api")
     public void launchBrowser() throws IOException {
@@ -19,7 +24,7 @@ public class BaseSteps {
     }
 
     @After("not @api")
-    public void tearDown(){
+    public void tearDown() {
         quit();
     }
 
