@@ -22,7 +22,7 @@ public class WebDriverUtils {
         }
     }
 
-    public static WebDriver getWebDriver(){
+    public static WebDriver getWebDriver() {
         return webDriver.get();
     }
 
@@ -31,14 +31,12 @@ public class WebDriverUtils {
         getWebDriver().manage().window().setSize(defaultDimensions);
     }
 
-    public static void navigate(String url)
-    {
-        System.out.println("URL: " +url); //DEBUG
+    public static void navigate(String url) {
+        System.out.println("URL: " + url); //DEBUG
         getWebDriver().get(url);
     }
 
-    public static void quit()
-    {
+    public static void quit() {
         WebDriver wd = getWebDriver();
         wd.manage().deleteAllCookies();
         wd.quit();

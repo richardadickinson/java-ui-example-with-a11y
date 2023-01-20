@@ -12,17 +12,16 @@ public class UserLoginSteps {
     HomePage homePage = new HomePage();
 
     @Given("I have a valid user credentials")
-    public void given_i_have_a_valid_user(){}
+    public void given_i_have_a_valid_user() {
+    }
 
     @When("I login")
-    public void logIntoDelius()
-    {
+    public void logIntoDelius() {
         loginPage.login();
     }
 
     @Then("the Homepage should appear")
-    public void homepageShouldAppear()
-    {
+    public void homepageShouldAppear() {
         homePage.assertPageTitle(HomePage.pageTitle);
     }
 

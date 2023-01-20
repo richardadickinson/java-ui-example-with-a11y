@@ -9,25 +9,22 @@ import static utils.PropertiesFileReader.getPropertyValueFromFile;
 import static utils.WebDriverUtils.*;
 
 
-public class BaseSteps
-{
+public class BaseSteps {
     @Before
-    public void debugThreads()
-    {
-        String threadId = "Thread ID" + Thread.currentThread().threadId();
+    public void debugThreads() {
+        String threadId = "Thread ID" + Thread.currentThread().getId();
         System.out.println(threadId);
     }
 
     @Before("not @api")
-    public void launchBrowser() throws IOException
-    {
-        String baseUrl = getPropertyValueFromFile("baseUrl");
+    public void launchBrowser() throws IOException {
+        String baseUrl = getPropertyValueFromFile("base_url");
         setDriver();
         navigate(baseUrl);
     }
 
     @After("not @api")
-    public void tearDown(){
+    public void tearDown() {
         quit();
     }
 

@@ -16,8 +16,7 @@ public abstract class BasePageObject {
         PageFactory.initElements(webDriver, this);
     }
 
-    public void assertPageTitle(String pageTitle)
-    {
+    public void assertPageTitle(String pageTitle) {
         Assert.assertEquals(getWebDriver().getTitle(), pageTitle);
     }
 
