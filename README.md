@@ -1,20 +1,36 @@
-ToDo list:
+# ndelius-ui-automation
 
-1. figure out how to read properties file for given env config etc...
-   1. goal is to be able to run login scenario on multiple: DONE
-   2. need to investigate Edge - DONE
-2. ability to run multiple threads (tests should be written so that they are independent) - DONE - set DB_PASSWORD=value in your env and the run cmd  
-mvn test - this will run all the tests - all should be passing except   Scenario: Create, update by CRN and Get an Event and Scenario: Create, update by event ID and Get an Event
+The test suite herein contains automated end-to-end tests for the Delius application and its satellite resources,
+including Secure Partner Gateway (SPG) and Alfresco document management. This automated test pack uses
+[Cucumber](https://cucumber.io/docs) and testNG.
 
+## Java version
 
-3. ability to automatically assert page header
-4. Data creation - API - RestAssured  -- in progress @Richard
-   1. e.g. login, create an offender, search offender, update offender  -- all done
-   2. user data (usernames, passwords)  -- enums added
-   3. reference data  -- added as JSON for now with method to update values, 
-                      -- we may want to reconsider this as we get a feel for how much variation there is.
-   4. Delete - no API endpoints yet - do we wait or use SQL??
-5. Database query management  -- in progress @Aurinelle - connection logic is created but assertion is NullPointerException-DatabaseAssertions.java:14
-6. Reporting  -- use cucumber??  I've enabled it but it needs improving on.
-7. smoke test added to this for higher env to run in Edge - POC needed
-8. Set default timeouts - I saw it wait 5 mins before timing out a failure to load the Home page
+Use Java 18 or above.
+
+## Running the Tests
+
+### Locally
+
+To run the tests against the Delius Test environment from your local machine:
+
+1. set the database password as an environment variable by running
+```shell
+export DB_PASSWORD="value"
+```
+
+2. Open a tunnel to the database:
+
+```shell
+ssh ssh -L localhost:1801:delius-db-1.test.delius.probation.hmpps.dsd.io:1521 delius-db-1.test.delius.probation.hmpps.dsd.io -Nv -Snone
+```
+
+3. Run the tests:
+    - Run the tests in IntelliJ, adding required tags to the program arguments in your runner, if needed:
+   ```
+    --tags @insert-your-tag-expression-here
+   ```
+    - Run the tests directly with Maven:
+   ```shell
+   CUCUMBER_FILTER_TAGS='insert-your-tag-expression-here' mvn clean test
+   ```

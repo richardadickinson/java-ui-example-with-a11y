@@ -1,0 +1,17 @@
+# idea conf files
+.idea
+
+# building
+target
+build
+null
+tmp
+temp
+dist
+test-output
+build.log
+
+# misc
+
+
+# project files to ignore
