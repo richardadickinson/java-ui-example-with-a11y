@@ -16,9 +16,10 @@ public class PropertiesFileReader {
     private static InputStream inputStream;
 
     public static String getPropertyValueFromFile(String key) throws IOException {
+        String env = System.getenv("ENV").toLowerCase();
         try {
             Properties prop = new Properties();
-            String propFileName = "test.properties";
+            String propFileName = env+".properties";
             inputStream = PropertiesFileReader.class.getClassLoader().getResourceAsStream(propFileName);
             if (inputStream != null) {
                 prop.load(inputStream);

@@ -12,14 +12,14 @@ Use Java 18 or above.
 
 ### Locally
 
-To run the tests against the Delius Test environment from your local machine:
+To run the tests against the Delius environment from your local machine:
 
-1. set the database password as an environment variable by running
+1. set the environment and database password as an environment variable by running:
 ```shell
 export DB_PASSWORD="value"
+export ENV="test" [either "test, stage, pre-prod"]
 ```
-
-2. Open a tunnel to the database:
+3. Open a tunnel to the database:
 
 ```shell
 ssh ssh -L localhost:1801:delius-db-1.test.delius.probation.hmpps.dsd.io:1521 delius-db-1.test.delius.probation.hmpps.dsd.io -Nv -Snone
