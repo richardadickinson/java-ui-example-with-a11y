@@ -3,6 +3,9 @@ package testDataApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.Users;
+import io.restassured.RestAssured;
+import io.restassured.config.HttpClientConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -20,10 +23,17 @@ public class TestDataApiUtils {
     static Users apiLoginUser = API_LOGIN_USER;
     static int statusCode = 201;
 
+    static RestAssuredConfig config= RestAssured.config()
+            .httpClient(HttpClientConfig.httpClientConfig()
+                                .setParam("http.socket.timeout",1000)
+                                .setParam("http.connection.timeout", 1000));
+
     public synchronized static Response get(String endpoint) {
         return
                 given()
+                        .config(config)
                         .auth().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
+                        .header("Connection", "keep-alive")
                         .contentType(ContentType.JSON)
                         .when()
                         .get(apiBaseAddress + endpoint)
@@ -40,7 +50,9 @@ public class TestDataApiUtils {
         }
         return
                 given()
+                        .config(config)
                         .auth().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
+                        .header("Connection", "keep-alive")
                         .contentType(ContentType.JSON)
                         .body(jsonBody)
                         .when()
