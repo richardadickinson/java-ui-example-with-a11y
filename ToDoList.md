@@ -1,11 +1,10 @@
 ToDo list:
 
 1. figure out how to read properties file for given environment 
-   - goal is to be able to run login scenario on multiple environments
+   - goal is to be able to run login scenario on multiple environments - DONE
    
 2. ability to configure and run tests on multiple threads (tests should be written so that they are independent) - DONE
    - configure and control thread numbers and browsers
-mvn test - this will run all the tests - all should be passing except   Scenario: Create, update by CRN and Get an Event and Scenario: Create, update by event ID and Get an Event
 
 3. ability to automatically assert each page header
 
@@ -16,7 +15,7 @@ mvn test - this will run all the tests - all should be passing except   Scenario
                       -- we may want to reconsider this as we get a feel for how much variation there is.
    4. Delete - no API endpoints yet - do we wait or use SQL??
    
-5. Database query management  -- 
+5. Database query management  -- DONE
    - connection pool 
    - POC use db query in step assertion
    
@@ -29,3 +28,4 @@ mvn test - this will run all the tests - all should be passing except   Scenario
 9. create a proper README.md to start building on. Include:
    1. java version
    2. how to run locally - with mvn and directly from intelliJ
+10. session variables - do we even want them?
