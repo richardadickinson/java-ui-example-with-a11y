@@ -16,13 +16,9 @@ public class ConnectionPool {
         String dbUsername = getPropertyValueFromFile("db_username");
         String dbPassword = System.getenv("DB_PASSWORD");
 
-        // Registering drivers
-        DriverManager.registerDriver(
-                new oracle.jdbc.OracleDriver());
+        DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 
-        // Reference to connection interface
-        return DriverManager.getConnection(url, dbUsername,
-                dbPassword);
+        return DriverManager.getConnection(url, dbUsername, dbPassword);
     }
 
     public static PreparedStatement assignStringValueToSqlParam(String fileName, int index, String value) throws Throwable {
@@ -42,8 +38,8 @@ public class ConnectionPool {
             } else if (rs.getMetaData().getColumnCount() != 1) {
                 throw new RuntimeException("Unexpected number of columns returned: " + rowCount);
             }
-            int firstColumntIndex = 1;
-            String value = rs.getString(firstColumntIndex);
+            int firstColumnIndex = 1;
+            String value = rs.getString(firstColumnIndex);
             logger.info("Returned value: {}", value);
             return value;
         } catch (SQLException e) {
