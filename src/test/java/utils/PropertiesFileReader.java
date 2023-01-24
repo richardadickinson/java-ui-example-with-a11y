@@ -14,24 +14,25 @@ public class PropertiesFileReader {
     static String result = "";
     private static InputStream inputStream;
 
-    public synchronized static String getPropertyValueFromFile(String key) throws IOException {
-        try {
-            Properties prop = new Properties();
-            String propFileName = "test.properties";
-            inputStream = PropertiesFileReader.class.getClassLoader().getResourceAsStream(propFileName);
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-            result = prop.getProperty(key);
-        } catch (Exception e) {
-            logger.error("Exception: " + e);
-        } finally {
-            assert inputStream != null;
-            inputStream.close();
+public synchronized static String getPropertyValueFromFile(String key) throws IOException {
+    String env = System.getenv("ENV").toLowerCase();
+    try {
+        Properties prop = new Properties();
+        String propFileName = env+".properties";
+        inputStream = PropertiesFileReader.class.getClassLoader().getResourceAsStream(propFileName);
+        if (inputStream != null) {
+            prop.load(inputStream);
+        } else {
+            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
         }
-        return result;
+        result = prop.getProperty(key);
+    } catch (Exception e) {
+        logger.error("Exception: " + e);
+    } finally {
+        assert inputStream != null;
+        inputStream.close();
     }
+    return result;
+}
 
 }
