@@ -11,11 +11,10 @@ import java.util.Properties;
 public class PropertiesFileReader {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertiesFileReader.class);
-
     static String result = "";
     private static InputStream inputStream;
 
-    public static String getPropertyValueFromFile(String key) throws IOException {
+    public synchronized static String getPropertyValueFromFile(String key) throws IOException {
         try {
             Properties prop = new Properties();
             String propFileName = "test.properties";
