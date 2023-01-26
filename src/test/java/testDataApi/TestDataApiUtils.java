@@ -32,7 +32,7 @@ public class TestDataApiUtils {
         return
                 given()
                         .config(config)
-                        .auth().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
+                        .auth().preemptive().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
                         .header("Connection", "keep-alive")
                         .contentType(ContentType.JSON)
                         .when()
@@ -51,7 +51,7 @@ public class TestDataApiUtils {
         return
                 given()
                         .config(config)
-                        .auth().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
+                        .auth().preemptive().basic(apiLoginUser.getUsername(), apiLoginUser.getPassword())
                         .header("Connection", "keep-alive")
                         .contentType(ContentType.JSON)
                         .body(jsonBody)
