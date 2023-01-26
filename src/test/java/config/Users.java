@@ -2,8 +2,8 @@ package config;
 
 public enum Users {
 
-    API_LOGIN_USER("NDelius30", "Password1", "nDelius30", "nDelius30"),
-    UMT_ADMIN("NDelius21", "Password1", "ndelius21", "ndelius21");
+    API_LOGIN_USER("ndelius30", "Password1", "nDelius30", "nDelius30"),
+    UMT_ADMIN("ndelius21", "Password1", "ndelius21", "ndelius21");
 
     private final String firstName;
     private final String password;

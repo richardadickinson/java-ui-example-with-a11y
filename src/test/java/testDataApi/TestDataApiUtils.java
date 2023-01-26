@@ -25,8 +25,8 @@ public class TestDataApiUtils {
 
     static RestAssuredConfig config= RestAssured.config()
             .httpClient(HttpClientConfig.httpClientConfig()
-                                .setParam("http.socket.timeout",1000)
-                                .setParam("http.connection.timeout", 1000));
+                                .setParam("http.socket.timeout",5000)
+                                .setParam("http.connection.timeout", 5000));
 
     public synchronized static Response get(String endpoint) {
         return

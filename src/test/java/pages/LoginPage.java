@@ -18,10 +18,14 @@ public class LoginPage extends BasePageObject {
     private WebElement loginButton;
 
     public void login() {
-        assertPageTitle(pageTitle);
+        assertPageTitle();
         usernameField.sendKeys(Users.UMT_ADMIN.getUsername());
         passwordField.sendKeys(Users.UMT_ADMIN.getPassword());
         loginButton.click();
+    }
+
+    public void assertPageTitle(){
+        assertPageTitle(pageTitle);
     }
 
 }
