@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePageObject {
 
-    private static final String pageTitle = "National Delius - Login";
+    public static final String pageTitle = "National Delius - Login";
 
     @FindBy(id = "j_username")
     private WebElement usernameField;
@@ -18,14 +18,10 @@ public class LoginPage extends BasePageObject {
     private WebElement loginButton;
 
     public void login() {
-        assertPageTitle();
+        assertPageTitle(pageTitle);
         usernameField.sendKeys(Users.UMT_ADMIN.getUsername());
         passwordField.sendKeys(Users.UMT_ADMIN.getPassword());
         loginButton.click();
-    }
-
-    public void assertPageTitle(){
-        assertPageTitle(pageTitle);
     }
 
 }
