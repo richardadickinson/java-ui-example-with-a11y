@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePageObject {
 
-    private static final String pageTitle = "National Delius - Login";
+    public static final String pageTitle = "National Delius - Login";
 
     @FindBy(id = "j_username")
     private WebElement usernameField;

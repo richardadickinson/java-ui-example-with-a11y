@@ -6,8 +6,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.WebDriverUtils;
 
-import static utils.WebDriverUtils.getWebDriver;
-
 public abstract class BasePageObject {
 
     private WebDriver webDriver = WebDriverUtils.getWebDriver();
@@ -17,7 +15,7 @@ public abstract class BasePageObject {
     }
 
     public void assertPageTitle(String pageTitle) {
-        Assert.assertEquals(getWebDriver().getTitle(), pageTitle);
+        Assert.assertEquals(webDriver.getTitle(), pageTitle, "Page title matches");
     }
 
 }
