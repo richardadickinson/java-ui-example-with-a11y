@@ -32,7 +32,7 @@ public class WebDriverUtils {
     }
 
     public static void navigate(String url) {
-        System.out.println("URL: " + url); //DEBUG
+        //System.out.println("URL: " + url); //DEBUG
         getWebDriver().get(url);
     }
 
