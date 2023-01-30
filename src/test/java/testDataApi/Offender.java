@@ -9,6 +9,7 @@ import java.util.Map;
 
 import static config.TestDataApiConfig.Endpoints;
 import static config.TestDataApiConfig.Endpoints.OFFENDER;
+import static pages.BasePageObject.data;
 import static testDataApi.TestDataApiUtils.*;
 
 public class Offender {
@@ -30,7 +31,9 @@ public class Offender {
         Map<String, Object> respBody = resp.body().as(new TypeRef<>() {
         });
         //System.out.println((String) respBody.get("crn"));  //DEBUG
-        return (String) respBody.get("crn");
+        String crn = (String) respBody.get("crn");
+        data.setCrn(crn);
+        return crn;
     }
 
     public static Response updateOffender(String path, String crn) throws IOException {
