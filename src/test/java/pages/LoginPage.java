@@ -4,10 +4,9 @@ import config.Users;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static pages.PageNavigation.LOGIN_PAGE;
+
 public class LoginPage extends BasePageObject {
-
-    public static final String pageTitle = "National Delius - Login";
-
     @FindBy(id = "j_username")
     private WebElement usernameField;
 
@@ -17,11 +16,15 @@ public class LoginPage extends BasePageObject {
     @FindBy(css = ".btn-success")
     private WebElement loginButton;
 
-    public void login() {
-        assertPageTitle(pageTitle);
+    public LoginPage() {
+        super(LOGIN_PAGE);
+    }
+
+    public HomePage login() {
         usernameField.sendKeys(Users.UMT_ADMIN.getUsername());
         passwordField.sendKeys(Users.UMT_ADMIN.getPassword());
         loginButton.click();
+        return new HomePage();
     }
 
 }

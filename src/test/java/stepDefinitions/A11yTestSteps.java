@@ -15,7 +15,6 @@ public class A11yTestSteps {
 
     @Given("the Login page is loaded")
     public static void theLoginPageIsLoaded(){
-        loginPage.assertPageTitle(loginPage.pageTitle);
     }
 
     @Then("Axe analyses the {string} page and produces a report")
