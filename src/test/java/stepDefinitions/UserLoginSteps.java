@@ -24,7 +24,7 @@ public class UserLoginSteps {
 
     @When("I login")
     public void logIntoDelius() {
-        loginPage.login();
+        homePage = loginPage.login();
     }
 
     @Then("the Homepage should appear")

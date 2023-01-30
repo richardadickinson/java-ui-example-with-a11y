@@ -133,4 +133,14 @@ public class TestDataApiSteps {
         Assert.assertTrue(respBody.get("notes").toString().contains("testing notes for updating contact by Id"));
     }
 
+    @Given("an offender with an event and contact is created")
+    public void create_offender_with_event_and_contact() throws IOException {
+        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        insertResponse = Event.createEvent(apiRequestPath + "create-event.json", crn);
+        Assert.assertEquals(insertResponse.statusCode(), 201);
+        insertResponse = Contact.createContact(apiRequestPath + "create-contact.json", crn);
+        Assert.assertEquals(insertResponse.statusCode(), 201);
+    }
+
+
 }
