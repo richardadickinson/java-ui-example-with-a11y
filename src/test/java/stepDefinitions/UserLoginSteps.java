@@ -1,15 +1,18 @@
 package stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.HomePage;
 import pages.LoginPage;
 
+import static utils.WebDriverUtils.getWebDriver;
+
 public class UserLoginSteps {
 
-    LoginPage loginPage = new LoginPage();
-    HomePage homePage = new HomePage();
+    LoginPage loginPage = new LoginPage(getWebDriver());
+    HomePage homePage = new HomePage(getWebDriver());
 
     @Given("I have a valid user credentials")
     public void given_i_have_a_valid_user() {

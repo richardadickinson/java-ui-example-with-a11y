@@ -2,18 +2,18 @@ package utils.dbUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.TestConfigManager;
 
 import java.sql.*;
 
-import static utils.PropertiesFileReader.getPropertyValueFromFile;
 import static utils.dbUtils.SqlFileReader.readContentsOfSqlFile;
 
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
     private static Connection establishDatabaseConnection() throws Throwable {
-        String url = getPropertyValueFromFile("db_url");
-        String dbUsername = getPropertyValueFromFile("db_username");
+        String url = TestConfigManager.get().getDatabaseUrl();
+        String dbUsername = TestConfigManager.get().getDatabaseUsername();
         String dbPassword = System.getenv("DB_PASSWORD");
 
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
