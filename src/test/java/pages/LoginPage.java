@@ -1,13 +1,16 @@
 package pages;
 
 import config.Users;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePageObject {
 
     public static final String pageTitle = "National Delius - Login";
-
+    public LoginPage(WebDriver webDriver) {
+        super(webDriver);
+    }
     @FindBy(id = "j_username")
     private WebElement usernameField;
 
