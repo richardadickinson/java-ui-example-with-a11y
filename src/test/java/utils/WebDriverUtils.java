@@ -17,7 +17,7 @@ public class WebDriverUtils {
         return webDriver.get();
     }
 
-    public static ThreadLocal<WebDriver> initialiseWebDriver() throws IOException {
+    public static void initialiseWebDriver() throws IOException {
         BrowserType browser = TestConfigManager.get().getBrowserType();
         switch (browser) {
             case CHROME -> webDriver.set(new ConfiguredChromeDriver().getDriver());
@@ -27,7 +27,6 @@ public class WebDriverUtils {
             default -> throw new RuntimeException("No valid target browser is set WebDriverConfig");
         }
         webDriver.get().manage().window().setSize(TestConfigManager.get().getDefaultWindowSize());
-        return webDriver;
     }
 
 }

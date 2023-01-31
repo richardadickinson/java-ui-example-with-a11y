@@ -25,7 +25,6 @@ public class BaseSteps {
 
     private String threadId;
     private String testId;
-    protected ThreadLocal<WebDriver> webDriver;
 
     @Before
     public void debugThreads() {
@@ -36,22 +35,22 @@ public class BaseSteps {
 
     @Before("not @api")
     public void launchWebDriver() throws IOException {
-        this.webDriver = initialiseWebDriver();
-        this.webDriver.get().get(TestConfigManager.get().getBaseUrl());
+        initialiseWebDriver();
+        getWebDriver().get(TestConfigManager.get().getBaseUrl());
     }
 
     @After("not @api")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             SimpleDateFormat timestamp = new SimpleDateFormat(("yyyy.MM.dd.HH.mm.ss"));
-            byte[] screenshot = ((TakesScreenshot) this.webDriver.get()).getScreenshotAs(OutputType.BYTES);
+            byte[] screenshot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName() + "_" + timestamp.format(new Date()));
         }
         this.threadId = "Thread ID: " + Thread.currentThread().getId();
         System.out.println(threadId + " testId: " + testId);
 
-        this.webDriver.get().manage().deleteAllCookies();
-        this.webDriver.get().close();
+        getWebDriver().manage().deleteAllCookies();
+        getWebDriver().close();
     }
 
     @AfterAll
