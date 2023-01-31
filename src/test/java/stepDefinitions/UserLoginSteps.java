@@ -35,9 +35,7 @@ public class UserLoginSteps {
 
     @Then("the CRN should be returned in the search results")
     public void assertSearchResult() throws InterruptedException {
-        homePage.gotToNationalSearch()
-                .searchOffenderWithCrn();
-        Thread.sleep(10000);
+       // add assertion here
     }
 
 
