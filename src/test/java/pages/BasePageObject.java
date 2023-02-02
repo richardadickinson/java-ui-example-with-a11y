@@ -1,6 +1,5 @@
 package pages;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ByIdOrName;
@@ -18,10 +17,6 @@ public abstract class BasePageObject {
 
     public void assertPageTitle(String pageTitle) {
         Assert.assertEquals(webDriver.getTitle(), pageTitle, "Page title matches");
-    }
-
-    public WebElement findByIdOrName(String idOrName) {
-        return webDriver.findElement(new ByIdOrName(idOrName));
     }
 
 }

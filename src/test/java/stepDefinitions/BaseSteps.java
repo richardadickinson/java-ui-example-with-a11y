@@ -8,7 +8,6 @@ import io.cucumber.java.Scenario;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import utils.TestConfigManager;
 
 import java.io.IOException;
@@ -55,7 +54,10 @@ public class BaseSteps {
 
     @AfterAll
     public static void shutdown() {
-        if (null != getWebDriver()) { getWebDriver().quit(); }
+        if (null != getWebDriver() && !getWebDriver().toString().contains("Safari")) {
+            System.out.println("What is WebDriver? : " + getWebDriver().toString());
+            getWebDriver().quit();
+        }
     }
 
     private String generateTestId() {
@@ -63,8 +65,7 @@ public class BaseSteps {
         ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
         bb.putLong(uuid.getMostSignificantBits());
         bb.putLong(uuid.getLeastSignificantBits());
-        String testId = StringUtils.replace(BaseEncoding.base64Url().encode(bb.array()), "=", "" ).toUpperCase();
-        return testId;
+        return StringUtils.replace(BaseEncoding.base64Url().encode(bb.array()), "=", "" ).toUpperCase();
     }
 
 }
