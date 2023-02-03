@@ -1,4 +1,4 @@
-package utils.Tests;
+package frameworkTests;
 
 import config.BrowserType;
 import config.WebDriverConfig;

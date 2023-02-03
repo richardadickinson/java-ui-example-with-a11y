@@ -1,4 +1,4 @@
-package utils.Tests;
+package frameworkTests;
 
 import config.WebDriverConfig;
 import org.testng.annotations.BeforeTest;
