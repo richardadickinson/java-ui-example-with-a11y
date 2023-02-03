@@ -1,0 +1,19 @@
+{
+  "browser": "chrome",
+  "headless": true,
+  "defaultWindowSize": "1400x800",
+  "baseUrl": "https://google.com",
+  "databaseUrl": "jdbc:oracle:thin:@//localhost:1801/TEST",
+  "databaseUsername": "test_username",
+  "testConfig": {
+    "sample": "sample text"
+  },
+  "browserPreferences": {
+    "chrome": {
+      "profile.default_content_settings.popups": 0,
+      "download.default_directory": "target/run-generated-files",
+      "download.prompt_for_download": false,
+      "safebrowsing.enabled": true
+    }
+  }
+}
