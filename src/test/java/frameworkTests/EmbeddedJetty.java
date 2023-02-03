@@ -1,4 +1,4 @@
-package utils.Tests;
+package frameworkTests;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ResourceHandler;
