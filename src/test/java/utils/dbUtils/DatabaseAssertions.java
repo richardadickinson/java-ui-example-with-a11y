@@ -1,4 +1,4 @@
-package db;
+package utils.dbUtils;
 
 import java.sql.PreparedStatement;
 

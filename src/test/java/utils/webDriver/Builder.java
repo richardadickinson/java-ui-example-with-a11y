@@ -1,15 +1,16 @@
-package utils;
+package utils.webDriver;
 
 import config.BrowserType;
 import org.openqa.selenium.WebDriver;
-import utils.configuredDrivers.ConfiguredChromeDriver;
-import utils.configuredDrivers.ConfiguredEdgeDriver;
-import utils.configuredDrivers.ConfiguredFirefoxDriver;
-import utils.configuredDrivers.ConfiguredSafariDriver;
+import utils.TestConfigManager;
+import utils.webDriver.configuredDrivers.ConfiguredChromeDriver;
+import utils.webDriver.configuredDrivers.ConfiguredEdgeDriver;
+import utils.webDriver.configuredDrivers.ConfiguredFirefoxDriver;
+import utils.webDriver.configuredDrivers.ConfiguredSafariDriver;
 
 import java.io.IOException;
 
-public class WebDriverUtils {
+public class Builder {
 
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 

@@ -7,12 +7,13 @@ import io.cucumber.java.en.When;
 import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
 import utils.AxeA11y;
+import utils.webDriver.Builder;
 
 import java.io.IOException;
 
 public class A11yTestSteps {
 
-    LoginPage loginPage = new LoginPage(utils.WebDriverUtils.getWebDriver());
+    LoginPage loginPage = new LoginPage(Builder.getWebDriver());
 
     SoftAssert sa = new SoftAssert();
 

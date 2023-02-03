@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static config.TestDataApiConfig.apiRequestPath;
-import static db.DatabaseAssertions.assertOffenderDetail;
+import static utils.dbUtils.DatabaseAssertions.assertOffenderDetail;
 import static org.testng.Assert.assertEquals;
 
 public class TestDataApiSteps {
