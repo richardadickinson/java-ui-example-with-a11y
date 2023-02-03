@@ -9,7 +9,6 @@ import java.util.Map;
 
 import static config.TestDataApiConfig.Endpoints;
 import static config.TestDataApiConfig.Endpoints.OFFENDER;
-import static pages.BasePageObject.data;
 import static testDataApi.TestDataApiUtils.*;
 
 public class Offender {
@@ -32,7 +31,6 @@ public class Offender {
         });
         //System.out.println((String) respBody.get("crn"));  //DEBUG
         String crn = (String) respBody.get("crn");
-        data.setCrn(crn);
         return crn;
     }
 

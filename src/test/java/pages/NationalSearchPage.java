@@ -1,17 +1,18 @@
+package pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePageObject;
 
 public class NationalSearchPage extends BasePageObject {
 
+    private String expectedPageTitle = "National Search";
     @FindBy(id = "SearchForm:CRN")
     private WebElement crnInputField;
 
     @FindBy(id = "SearchForm:searchButton")
     private WebElement searchButton;
 
-    protected NationalSearchPage() {
+    public NationalSearchPage(WebDriver webDriver) {
         super(webDriver);
     }
 
@@ -19,5 +20,6 @@ public class NationalSearchPage extends BasePageObject {
         crnInputField.sendKeys(crn);
         searchButton.click();
     }
+
 
 }

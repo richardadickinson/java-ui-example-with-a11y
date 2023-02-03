@@ -14,7 +14,7 @@ import static utils.WebDriverUtils.getWebDriver;
 
 public class A11yTestSteps {
 
-    static LoginPage loginPage = new LoginPage(getWebDriver());
+    static LoginPage loginPage = new LoginPage();
     static SoftAssert sa = new SoftAssert();
 
     @Given("the Login page is loaded")

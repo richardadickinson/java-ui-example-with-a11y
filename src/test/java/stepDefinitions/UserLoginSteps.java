@@ -16,7 +16,7 @@ import static utils.WebDriverUtils.getWebDriver;
 public class UserLoginSteps {
 
     LoginPage loginPage = new LoginPage(getWebDriver());
-    HomePage homePage = new HomePage(getWebDriver());
+    HomePage homePage;
 
     @Given("I have a valid user credentials")
     public void given_i_have_a_valid_user() {

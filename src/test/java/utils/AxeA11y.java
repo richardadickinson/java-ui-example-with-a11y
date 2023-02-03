@@ -4,7 +4,6 @@ import com.deque.html.axecore.results.Results;
 import com.deque.html.axecore.results.Rule;
 import com.deque.html.axecore.selenium.AxeBuilder;
 import com.deque.html.axecore.selenium.AxeReporter;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -12,10 +11,9 @@ import com.google.gson.JsonParser;
 import org.apache.commons.io.FileUtils;
 import org.testng.Assert;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-//import java.util.Arrays;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
