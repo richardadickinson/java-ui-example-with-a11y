@@ -1,10 +1,10 @@
 package utils.webDriver.interactions;
 
+import com.codahale.metrics.Timer;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import utils.AsyncUtil;
 import utils.MetricRegistryHelper;
-
-import com.codahale.metrics.Timer;
 import utils.webDriver.config.SelectBoxInteractionType;
 import utils.webDriver.config.TolerantActionExceptions;
 
@@ -26,6 +26,15 @@ public class SelectBoxUtils extends TolerantInteraction {
             select.selectByIndex(normalisedIndex);
         }
     }
+
+    public static void itemByIndexWithAwaitility(WebElement selectBox, int index, int timeout) {
+        Runnable selectByIndex = () -> {
+            int normalisedIndex = index - 1;
+            Select select = new Select(selectBox);
+            select.selectByIndex(normalisedIndex);
+        };
+        AsyncUtil.retryOnExceptionUntil(selectByIndex, timeout);
+    }
     public static void tolerantItemByIndex(WebElement webElement, int index, int timeout) throws Throwable {
         try (final Timer.Context ignored = tolerantItemByIndexAction.time()) {
             new SelectBoxUtils().tolerantInteraction(
@@ -34,5 +43,9 @@ public class SelectBoxUtils extends TolerantInteraction {
     }
     public static void tolerantItemByIndex(WebElement webElement, int index) throws Throwable {
         tolerantItemByIndex(webElement, index, defaultTolerantWaitTimeout);
+    }
+
+    public static void itemByIndexWithAwaitility(WebElement webElement, int index) {
+        itemByIndexWithAwaitility(webElement, index, defaultTolerantWaitTimeout);
     }
 }
