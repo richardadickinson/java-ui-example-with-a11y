@@ -6,11 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePageObject {
-
-    public static final String pageTitle = "National Delius - Login";
-    public LoginPage(WebDriver webDriver) {
-        super(webDriver);
-    }
     @FindBy(id = "j_username")
     private WebElement usernameField;
 
@@ -20,11 +15,15 @@ public class LoginPage extends BasePageObject {
     @FindBy(css = ".btn-success")
     private WebElement loginButton;
 
-    public void login() {
-        assertPageTitle(pageTitle);
+    public LoginPage(WebDriver webDriver) {
+        super(webDriver);
+    }
+
+    public HomePage login() {
         usernameField.sendKeys(Users.UMT_ADMIN.getUsername());
         passwordField.sendKeys(Users.UMT_ADMIN.getPassword());
         loginButton.click();
+        return new HomePage(webDriver);
     }
 
 }
