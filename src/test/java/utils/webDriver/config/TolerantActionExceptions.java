@@ -5,13 +5,13 @@ import java.util.List;
 
 public class TolerantActionExceptions {
 
-    private final String waitTimeoutInSeconds = "5";
-    private final List<String> exceptionsToHandle = Arrays.asList("StaleElementReferenceException",
+    private static final String waitTimeoutInSeconds = "5";
+    private static final List<String> exceptionsToHandle = Arrays.asList("StaleElementReferenceException",
                                                             "ElementClickInterceptedException",
                                                             "ElementNotInteractableException");
 
-    public String getWaitTimeoutInSeconds() { return waitTimeoutInSeconds; }
+    public static String getWaitTimeoutInSeconds() { return waitTimeoutInSeconds; }
 
-    public List<String> getExceptionsToHandle() { return exceptionsToHandle; }
+    public static List<String> getExceptionsToHandle() { return exceptionsToHandle; }
 
 }
