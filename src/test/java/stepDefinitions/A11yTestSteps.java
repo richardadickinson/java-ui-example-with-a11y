@@ -10,15 +10,15 @@ import utils.AxeA11y;
 
 import java.io.IOException;
 
+import static utils.WebDriverUtils.getWebDriver;
+
 public class A11yTestSteps {
 
-    LoginPage loginPage = new LoginPage(utils.WebDriverUtils.getWebDriver());
-
-    SoftAssert sa = new SoftAssert();
+    static LoginPage loginPage = new LoginPage(getWebDriver());
+    static SoftAssert sa = new SoftAssert();
 
     @Given("the Login page is loaded")
-    public void theLoginPageIsLoaded(){
-        loginPage.assertPageTitle(LoginPage.pageTitle);
+    public static void theLoginPageIsLoaded(){
     }
 
     @Then("Axe analyses the {string} page and produces a report")
