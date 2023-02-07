@@ -1,4 +1,4 @@
-package utils.configuredDrivers;
+package utils.webDriver.configuredDrivers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import config.BrowserType;

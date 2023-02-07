@@ -3,10 +3,10 @@ package frameworkTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-import utils.configuredDrivers.ConfiguredChromeDriver;
-import utils.configuredDrivers.ConfiguredDriver;
-import utils.configuredDrivers.ConfiguredEdgeDriver;
-import utils.configuredDrivers.ConfiguredFirefoxDriver;
+import utils.webDriver.configuredDrivers.ConfiguredChromeDriver;
+import utils.webDriver.configuredDrivers.ConfiguredDriver;
+import utils.webDriver.configuredDrivers.ConfiguredEdgeDriver;
+import utils.webDriver.configuredDrivers.ConfiguredFirefoxDriver;
 
 import java.io.File;
 import java.io.IOException;

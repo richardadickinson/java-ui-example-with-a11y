@@ -1,9 +1,10 @@
-package config;
+package utils.webDriver.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import config.BrowserType;
 import org.openqa.selenium.Dimension;
 
 import java.net.MalformedURLException;
@@ -74,7 +75,7 @@ public class WebDriverConfig {
 
     @JsonProperty("defaultWindowSize")
     public void setDefaultDimension(String defaultWindowSize) {
-        String parts[] = defaultWindowSize.split("x");
+        String[] parts = defaultWindowSize.split("x");
         try {
             int x = Integer.parseInt(parts[0]);
             int y = Integer.parseInt(parts[1]);
