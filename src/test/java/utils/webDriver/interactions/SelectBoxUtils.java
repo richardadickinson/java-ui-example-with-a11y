@@ -14,20 +14,17 @@ import static com.codahale.metrics.MetricRegistry.name;
 
 public class SelectBoxUtils extends TolerantInteraction {
 
-    private final static Timer itemByIndexAction = MetricRegistryHelper.get().timer(name("SelectBoxUtils.itemByIndex"));
     private final static Timer tolerantItemByIndexAction = MetricRegistryHelper.get().timer(name("SelectBoxUtils.tolerantItemByIndex"));
 
     private final static int defaultTolerantWaitTimeout = Integer.parseInt(TolerantActionExceptions.getWaitTimeoutInSeconds());
 
-    public static void itemByIndex(WebElement selectBox, int index) {
-        try (final Timer.Context ignored = itemByIndexAction.time()) {
+    public static void selectItemByIndex(WebElement selectBox, int index) {
             int normalisedIndex = index - 1;
             Select select = new Select(selectBox);
             select.selectByIndex(normalisedIndex);
-        }
     }
 
-    public static void itemByIndexWithAwaitility(WebElement selectBox, int index, int timeout) {
+    public static void selectItemByIndexWithRetry(WebElement selectBox, int index, int timeout) {
         Runnable selectByIndex = () -> {
             int normalisedIndex = index - 1;
             Select select = new Select(selectBox);
@@ -35,6 +32,14 @@ public class SelectBoxUtils extends TolerantInteraction {
         };
         AsyncUtil.retryOnExceptionUntil(selectByIndex, timeout);
     }
+    public static void selectItemByIndexWithRetry(WebElement webElement, int index) {
+        selectItemByIndexWithRetry(webElement, index, defaultTolerantWaitTimeout);
+    }
+
+    /**
+     * Tolerant exception handling as per Evoco framework.
+     * It stays here until we are sure we don't want it - depends on how well awaitility works
+     */
     public static void tolerantItemByIndex(WebElement webElement, int index, int timeout) throws Throwable {
         try (final Timer.Context ignored = tolerantItemByIndexAction.time()) {
             new SelectBoxUtils().tolerantInteraction(
@@ -45,7 +50,4 @@ public class SelectBoxUtils extends TolerantInteraction {
         tolerantItemByIndex(webElement, index, defaultTolerantWaitTimeout);
     }
 
-    public static void itemByIndexWithAwaitility(WebElement webElement, int index) {
-        itemByIndexWithAwaitility(webElement, index, defaultTolerantWaitTimeout);
-    }
 }

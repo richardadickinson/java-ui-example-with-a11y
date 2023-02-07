@@ -42,7 +42,7 @@ public class WebDriverInteractionTests {
     @Test
     public void testSelectBoxUtilsItemByIndex()
     {
-        SelectBoxUtils.itemByIndex(getWebDriver().findElement(By.id("select-box")), 3);
+        SelectBoxUtils.selectItemByIndex(getWebDriver().findElement(By.id("select-box")), 3);
         assertThat(getWebDriver().findElement(By.id("select-box-option3")).isSelected(), is(true));
         assertThat(getWebDriver().findElement(By.id("select-box-option2")).isSelected(), is(false));
         assertThat(getWebDriver().findElement(By.id("select-box-option1")).isSelected(), is(false));
@@ -57,7 +57,7 @@ public class WebDriverInteractionTests {
 
     @Test
     public void testSelectBoxUtilsItemByIndexWithAwaitility() {
-        SelectBoxUtils.itemByIndexWithAwaitility(getWebDriver().findElement(By.id("select-box")), 3);
+        SelectBoxUtils.selectItemByIndexWithRetry(getWebDriver().findElement(By.id("select-box")), 3);
         assertThat(getWebDriver().findElement(By.id("select-box-option3")).isSelected(), is(true));
         assertThat(getWebDriver().findElement(By.id("select-box-option2")).isSelected(), is(false));
         assertThat(getWebDriver().findElement(By.id("select-box-option1")).isSelected(), is(false));
