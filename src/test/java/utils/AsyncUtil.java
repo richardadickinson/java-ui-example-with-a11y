@@ -7,19 +7,22 @@ import org.awaitility.core.ConditionTimeoutException;
 import org.openqa.selenium.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.webDriver.config.TolerantActionExceptions;
 import utils.webDriver.interactions.TolerantInteraction;
 
 import java.util.concurrent.Callable;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AsyncUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(TolerantInteraction.class);
+    private static final String waitTimeoutInSeconds = "5";
 
     public static void await(int atMost, Callable<Boolean> condition) {
-        Awaitility.await().atMost(atMost, SECONDS).and().pollInterval(1, SECONDS)
+        Awaitility.await().atMost(atMost, SECONDS).and().pollInterval(500, MILLISECONDS)
                 .pollInSameThread()
                 .until(condition);
     }
@@ -48,4 +51,6 @@ public class AsyncUtil {
 
         await(timeoutInSeconds, actionIsSuccessful);
     }
+
+    public static String getWaitTimeoutInSeconds() { return AsyncUtil.waitTimeoutInSeconds; }
 }
