@@ -5,7 +5,8 @@ import java.util.List;
 
 public class TolerantActionExceptions {
 
-    private static final List<String> exceptionsToHandle = Arrays.asList("StaleElementReferenceException",
+    private static final List<String> exceptionsToHandle = Arrays.asList("NoSuchElementException",
+                                                            "StaleElementReferenceException",
                                                             "ElementClickInterceptedException",
                                                             "ElementNotInteractableException");
 
