@@ -1,7 +1,7 @@
 package frameworkTests;
 
 import config.BrowserType;
-import config.WebDriverConfig;
+import utils.webDriver.config.WebDriverConfig;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import utils.TestConfigManager;

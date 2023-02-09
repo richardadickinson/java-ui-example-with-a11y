@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import config.BrowserType;
-import config.WebDriverConfig;
+import utils.webDriver.config.WebDriverConfig;
 import org.testng.annotations.Test;
 import utils.JsonUtils;
 
