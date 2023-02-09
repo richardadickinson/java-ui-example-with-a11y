@@ -16,6 +16,7 @@ import java.util.Map;
 import static config.TestDataApiConfig.apiRequestPath;
 import static db.DatabaseAssertions.assertOffenderDetail;
 import static org.testng.Assert.assertEquals;
+import static stepDefinitions.BaseSteps.sessionData;
 
 public class TestDataApiSteps {
 
@@ -64,6 +65,7 @@ public class TestDataApiSteps {
     @Given("an offender with event is created")
     public void an_offender_with_event_is_created() throws IOException {
         crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        sessionData.setCrn(crn);
         insertResponse = Event.createEvent(apiRequestPath + "create-event.json", crn);
         Assert.assertEquals(insertResponse.statusCode(), 201);
     }
@@ -103,6 +105,7 @@ public class TestDataApiSteps {
     @Given("an offender with contact is created")
     public void offender_with_contact_created() throws IOException {
         crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        sessionData.setCrn(crn); //ToDo: need to rethink where exactly this should live
         insertResponse = Contact.createContact(apiRequestPath + "create-contact.json", crn);
         Assert.assertEquals(insertResponse.statusCode(), 201);
     }
@@ -132,15 +135,5 @@ public class TestDataApiSteps {
         //System.out.println(respBody.values());  //DEBUG
         Assert.assertTrue(respBody.get("notes").toString().contains("testing notes for updating contact by Id"));
     }
-
-    @Given("an offender with an event and contact is created")
-    public void create_offender_with_event_and_contact() throws IOException {
-        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
-        insertResponse = Event.createEvent(apiRequestPath + "create-event.json", crn);
-        Assert.assertEquals(insertResponse.statusCode(), 201);
-        insertResponse = Contact.createContact(apiRequestPath + "create-contact.json", crn);
-        Assert.assertEquals(insertResponse.statusCode(), 201);
-    }
-
 
 }
