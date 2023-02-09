@@ -1,4 +1,4 @@
-package utils.webdriver.interactions;
+package utils.webDriver.interactions;
 
 import com.codahale.metrics.Timer;
 import org.openqa.selenium.ElementNotInteractableException;
@@ -27,7 +27,7 @@ public class Click extends TolerantInteraction {
         AsyncUtil.retryOnExceptionUntil(click, timeout);
     }
     public static void clickUntil(WebElement webElement) {
-        clickUntil(webElement, defaultWaitTimeout);
+            clickUntil(webElement, defaultWaitTimeout);
     }
 
     public static void clickWithRetry(WebElement element) {

@@ -1,6 +1,6 @@
 package utils;
 
-import utils.webdriver.config.WebDriverConfig;
+import utils.webDriver.config.WebDriverConfig;
 
 import java.io.IOException;
 

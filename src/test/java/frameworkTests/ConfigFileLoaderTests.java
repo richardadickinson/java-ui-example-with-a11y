@@ -3,7 +3,7 @@ package frameworkTests;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import utils.ConfigLoader;
-import utils.webdriver.config.WebDriverConfig;
+import utils.webDriver.config.WebDriverConfig;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,7 +18,7 @@ public class ConfigFileLoaderTests {
     @Test
     public void testCanLoadConfigFileWithConfigPropertySetToDefaultAndNoPropertyArgsSet() {
         System.setProperty("config", "DEFAULT");
-        utils.webdriver.config.WebDriverConfig webDriverConfig = configLoader
+        utils.webDriver.config.WebDriverConfig webDriverConfig = configLoader
                 .chooseTargetConfiguration()
                 .build();
         assertThat(webDriverConfig.getBaseUrl(), is("https://ndelius.test.probation.service.justice.gov.uk"));

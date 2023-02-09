@@ -1,6 +1,6 @@
 package pages;
 
-import navigationpanel.MainNavigationPanelLinks;
+import navigationPanel.MainNavigationPanelLinks;
 import org.openqa.selenium.WebDriver;
 
 public class UpwProjectsListPage extends BasePageObject implements MainNavigationPanelLinks {

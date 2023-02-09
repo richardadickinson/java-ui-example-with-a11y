@@ -1,4 +1,4 @@
-package utils.webdriver.config;
+package utils.webDriver.config;
 
 public enum SelectBoxInteractionType {
     BY_VISIBLE_TEXT,

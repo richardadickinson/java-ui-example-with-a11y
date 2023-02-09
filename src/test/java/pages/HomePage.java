@@ -1,10 +1,10 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
-import pages.approvedpremisesDiary.ApprovedPremisesDiaryCurrentResidentsPage;
-import pages.courtdiary.CourtDiaryAppearancesPage;
-import pages.messageadministration.MessageAdministrationPage;
-import pages.officerdiary.CaseloadDiaryPage;
+import pages.approvedPremisesDiary.ApprovedPremisesDiaryCurrentResidentsPage;
+import pages.courtDiary.CourtDiaryAppearancesPage;
+import pages.messageAdministration.MessageAdministrationPage;
+import pages.officerDiary.CaseloadDiaryPage;
 
 public class HomePage extends BasePageObject {
 

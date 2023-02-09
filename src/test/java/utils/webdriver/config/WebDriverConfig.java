@@ -1,4 +1,4 @@
-package utils.webdriver.config;
+package utils.webDriver.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;

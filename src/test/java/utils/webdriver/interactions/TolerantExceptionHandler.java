@@ -1,4 +1,4 @@
-package utils.webdriver.interactions;
+package utils.webDriver.interactions;
 
 import java.util.List;
 

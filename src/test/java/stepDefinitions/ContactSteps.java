@@ -3,7 +3,7 @@ package stepDefinitions;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
-import pages.casemanagement.contactlist.ContactDetailsPage;
+import pages.caseManagement.contactList.ContactDetailsPage;
 
 import static stepDefinitions.BaseSteps.sessionData;
 import static utils.webDriver.Builder.getWebDriver;
