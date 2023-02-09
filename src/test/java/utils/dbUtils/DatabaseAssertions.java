@@ -13,5 +13,4 @@ public class DatabaseAssertions {
         String dbValue = executeSqlAndReturnValue(statement);
         assertEquals(dbValue, value);
     }
-
 }

@@ -7,10 +7,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePageObject {
 
-    public static final String pageTitle = "National Delius - Login";
-    public LoginPage(WebDriver webDriver) {
-        super(webDriver);
-    }
+    private static final String expectedPageTitle = "National Delius - Login";
+
     @FindBy(id = "j_username")
     private WebElement usernameField;
 
@@ -20,11 +18,16 @@ public class LoginPage extends BasePageObject {
     @FindBy(css = ".btn-success")
     private WebElement loginButton;
 
-    public void login() {
-        assertPageTitle(pageTitle);
-        usernameField.sendKeys(Users.UMT_ADMIN.getUsername());
-        passwordField.sendKeys(Users.UMT_ADMIN.getPassword());
+    public LoginPage(WebDriver webDriver) {
+        super(webDriver);
+        assertPageTitle(expectedPageTitle);
+    }
+
+    public HomePage login() {
+        usernameField.sendKeys(Users.PERF_USER.getUsername());
+        passwordField.sendKeys(Users.PERF_USER.getPassword());
         loginButton.click();
+        return new HomePage(webDriver);
     }
 
 }

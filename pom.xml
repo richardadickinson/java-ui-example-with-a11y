@@ -108,6 +108,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
+                    <excludes>
+                        <exclude>frameworkTests/*</exclude>
+                    </excludes>
                     <properties>
                         <property>
                             <name>dataproviderthreadcount</name>

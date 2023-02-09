@@ -16,7 +16,7 @@ import static utils.webDriver.Builder.getWebDriver;
 public class UserLoginSteps {
 
     LoginPage loginPage = new LoginPage(getWebDriver());
-    HomePage homePage = new HomePage(getWebDriver());
+    HomePage homePage;
 
     @Given("I have a valid user credentials")
     public void given_i_have_a_valid_user() {
@@ -24,7 +24,7 @@ public class UserLoginSteps {
 
     @When("I login")
     public void logIntoDelius() {
-        loginPage.login();
+        homePage = loginPage.login();
     }
 
     @Then("the Homepage should appear")
@@ -33,7 +33,6 @@ public class UserLoginSteps {
          *  - we'll need to replace this with tolerantInteractions as per the Evoco framework */
         new WebDriverWait(getWebDriver(), Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.linkText("National Search")));
-        homePage.assertPageTitle(HomePage.pageTitle);
     }
 
 }
