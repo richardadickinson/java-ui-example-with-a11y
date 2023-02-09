@@ -6,7 +6,7 @@ import pages.LoginPage;
 import pages.casemanagement.contactlist.ContactDetailsPage;
 
 import static stepDefinitions.BaseSteps.sessionData;
-import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
 
 public class ContactSteps {
     LoginPage loginPage = new LoginPage(getWebDriver());

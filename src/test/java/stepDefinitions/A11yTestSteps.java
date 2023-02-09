@@ -10,7 +10,7 @@ import utils.AxeA11y;
 
 import java.io.IOException;
 
-import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
 
 public class A11yTestSteps {
 

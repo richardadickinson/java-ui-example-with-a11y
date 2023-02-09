@@ -18,6 +18,7 @@ public abstract class BasePageObject {
     }
 
     public static void clickOnLinkViaText(String linkText) {
+
         webDriver.findElement(By.linkText(linkText)).click();
     }
 

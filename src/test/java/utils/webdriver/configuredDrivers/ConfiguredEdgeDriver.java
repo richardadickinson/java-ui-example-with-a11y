@@ -1,4 +1,4 @@
-package utils.configuredDrivers;
+package utils.webDriver.configuredDrivers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import config.BrowserType;
@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import utils.TestConfigManager;
+import utils.webdriver.configuredDrivers.ConfiguredDriver;
 
 import java.io.IOException;
 import java.util.HashMap;

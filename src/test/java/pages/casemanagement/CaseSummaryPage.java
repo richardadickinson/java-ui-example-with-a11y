@@ -1,9 +1,9 @@
 package pages.casemanagement;
 
+import navigationpanel.MainNavigationPanelLinks;
 import navigationpanel.casemanagementlinks.CaseManagementNavigationLinks;
 import org.openqa.selenium.WebDriver;
 import pages.BasePageObject;
-import navigationpanel.MainNavigationPanelLinks;
 
 
 public class CaseSummaryPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks {

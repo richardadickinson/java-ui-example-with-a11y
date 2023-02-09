@@ -1,4 +1,4 @@
-package utils.configuredDrivers;
+package utils.webdriver.configuredDrivers;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;

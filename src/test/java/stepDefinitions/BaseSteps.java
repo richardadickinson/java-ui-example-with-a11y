@@ -17,8 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import static utils.webdriver.WebDriverUtils.getWebDriver;
-import static utils.webdriver.WebDriverUtils.initialiseWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
+import static utils.webDriver.Builder.initialiseWebDriver;
 
 
 public class BaseSteps {

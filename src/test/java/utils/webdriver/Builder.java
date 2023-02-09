@@ -1,16 +1,15 @@
-package utils.webdriver;
+package utils.webDriver;
 
 import config.BrowserType;
 import org.openqa.selenium.WebDriver;
 import utils.TestConfigManager;
-import utils.configuredDrivers.ConfiguredChromeDriver;
-import utils.configuredDrivers.ConfiguredEdgeDriver;
-import utils.configuredDrivers.ConfiguredFirefoxDriver;
-import utils.configuredDrivers.ConfiguredSafariDriver;
+import utils.webdriver.configuredDrivers.ConfiguredChromeDriver;
+import utils.webdriver.configuredDrivers.ConfiguredFirefoxDriver;
+import utils.webdriver.configuredDrivers.ConfiguredSafariDriver;
 
 import java.io.IOException;
 
-public class WebDriverUtils {
+public class Builder {
 
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
@@ -23,7 +22,7 @@ public class WebDriverUtils {
         switch (browser) {
             case CHROME -> webDriver.set(new ConfiguredChromeDriver().getDriver());
             case SAFARI -> webDriver.set(new ConfiguredSafariDriver().getDriver());
-            case EDGE -> webDriver.set(new ConfiguredEdgeDriver().getDriver());
+            case EDGE -> webDriver.set(new utils.webDriver.configuredDrivers.ConfiguredEdgeDriver().getDriver());
             case FIREFOX -> webDriver.set(new ConfiguredFirefoxDriver().getDriver());
             default -> throw new RuntimeException("No valid target browser is set WebDriverConfig");
         }

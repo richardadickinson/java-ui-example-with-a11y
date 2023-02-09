@@ -8,7 +8,7 @@ import pages.messageadministration.MessageAdministrationPage;
 import pages.officerdiary.CaseloadDiaryPage;
 
 import static pages.BasePageObject.clickOnLinkViaText;
-import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
 
 /**
  * This interface defines the Main navigation panel visible throughout most of the application

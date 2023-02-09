@@ -5,7 +5,7 @@ import pages.casemanagement.drugs.DrugTestSummaryPage;
 import pages.casemanagement.drugs.DrugsHistoryPage;
 
 import static pages.BasePageObject.clickOnLinkViaText;
-import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
 
 /**
  * This interface contains a list of method returning the appropriate pageObject by clicking on navigation links that become visible

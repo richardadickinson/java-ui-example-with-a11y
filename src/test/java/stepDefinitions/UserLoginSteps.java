@@ -11,7 +11,7 @@ import pages.LoginPage;
 
 import java.time.Duration;
 
-import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
 
 public class UserLoginSteps {
 

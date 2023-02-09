@@ -1,4 +1,4 @@
-package utils.configuredDrivers;
+package utils.webdriver.configuredDrivers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;

@@ -1,6 +1,6 @@
 package utils;
 
-import config.WebDriverConfig;
+import utils.webdriver.config.WebDriverConfig;
 
 public class TestConfigManager {
     private static TestConfigManager testConfigManager;

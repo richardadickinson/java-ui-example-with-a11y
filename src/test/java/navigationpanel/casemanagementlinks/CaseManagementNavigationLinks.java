@@ -9,7 +9,7 @@ import pages.casemanagement.eventlist.EventsPage;
 import pages.casemanagement.personaldetails.PersonalDetailsPage;
 
 import static pages.BasePageObject.clickOnLinkViaText;
-import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webDriver.Builder.getWebDriver;
 
 /**
  * This interface contains a list of method returning the appropriate pageObject by clicking on navigation links that become visible

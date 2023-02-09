@@ -3,10 +3,9 @@ package frameworkTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-import utils.configuredDrivers.ConfiguredChromeDriver;
-import utils.configuredDrivers.ConfiguredDriver;
-import utils.configuredDrivers.ConfiguredEdgeDriver;
-import utils.configuredDrivers.ConfiguredFirefoxDriver;
+import utils.webdriver.configuredDrivers.ConfiguredChromeDriver;
+import utils.webdriver.configuredDrivers.ConfiguredDriver;
+import utils.webdriver.configuredDrivers.ConfiguredFirefoxDriver;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class ConfiguredDriverPreferenceTests {
 
     @DataProvider (name = "configured-drivers")
     public Object[][] dpMethod(){
-        return new Object[][] {{new ConfiguredChromeDriver()}, {new ConfiguredFirefoxDriver()}, {new ConfiguredEdgeDriver()}};
+        return new Object[][] {{new ConfiguredChromeDriver()}, {new ConfiguredFirefoxDriver()}, {new utils.webDriver.configuredDrivers.ConfiguredEdgeDriver()}};
     }
 
     @BeforeTest
