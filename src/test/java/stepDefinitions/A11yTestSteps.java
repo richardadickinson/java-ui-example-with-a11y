@@ -10,11 +10,11 @@ import utils.AxeA11y;
 
 import java.io.IOException;
 
-import static utils.WebDriverUtils.getWebDriver;
+import static utils.webdriver.WebDriverUtils.getWebDriver;
 
 public class A11yTestSteps {
 
-    static LoginPage loginPage = new LoginPage();
+    static LoginPage loginPage = new LoginPage(getWebDriver());
     static SoftAssert sa = new SoftAssert();
 
     @Given("the Login page is loaded")

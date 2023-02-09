@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import com.google.common.io.BaseEncoding;
+import data.SessionData;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
@@ -16,20 +17,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import static utils.WebDriverUtils.getWebDriver;
-import static utils.WebDriverUtils.initialiseWebDriver;
+import static utils.webdriver.WebDriverUtils.getWebDriver;
+import static utils.webdriver.WebDriverUtils.initialiseWebDriver;
 
 
 public class BaseSteps {
 
     private String threadId;
     private String testId;
+    public static SessionData sessionData;
+    private ThreadLocal<SessionData> threadLocal;
+
+    private void setSessionData(){
+        threadLocal.set(sessionData);
+    }
 
     @Before
     public void debugThreads() {
         this.threadId = "Thread ID: " + Thread.currentThread().getId();
         this.testId = generateTestId();
         System.out.println(threadId + " testId: " + testId);
+        this.sessionData = new SessionData();
+        this.threadLocal = new ThreadLocal<>();
+        setSessionData();
     }
 
     @Before("not @api")

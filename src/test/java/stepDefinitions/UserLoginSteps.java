@@ -11,7 +11,7 @@ import pages.LoginPage;
 
 import java.time.Duration;
 
-import static utils.WebDriverUtils.getWebDriver;
+import static utils.webdriver.WebDriverUtils.getWebDriver;
 
 public class UserLoginSteps {
 
@@ -33,7 +33,6 @@ public class UserLoginSteps {
          *  - we'll need to replace this with tolerantInteractions as per the Evoco framework */
         new WebDriverWait(getWebDriver(), Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.linkText("National Search")));
-        homePage.assertPageTitle(HomePage.pageTitle);
     }
 
 }

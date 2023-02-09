@@ -1,7 +1,8 @@
-package utils;
+package utils.webdriver;
 
 import config.BrowserType;
 import org.openqa.selenium.WebDriver;
+import utils.TestConfigManager;
 import utils.configuredDrivers.ConfiguredChromeDriver;
 import utils.configuredDrivers.ConfiguredEdgeDriver;
 import utils.configuredDrivers.ConfiguredFirefoxDriver;

@@ -17,7 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import static utils.WebDriverUtils.getWebDriver;
+import static utils.webdriver.WebDriverUtils.getWebDriver;
 
 public class AxeA11y {
 
