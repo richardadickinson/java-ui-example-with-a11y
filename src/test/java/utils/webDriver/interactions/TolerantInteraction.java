@@ -26,6 +26,24 @@ public class TolerantInteraction {
     private final TolerantExceptionHandler tolerantExceptionHandler = new TolerantExceptionHandler(
             TolerantActionExceptions.getExceptionsToHandle());
 
+    public WebElement tolerantInteraction(WebElement webElement, Optional<String> textToType, int timeoutSeconds) throws Throwable {
+        end = clock.instant().plusSeconds(timeoutSeconds);
+        while (true) {
+            try {
+                if (Boolean.TRUE.equals(webElement.isEnabled())) {
+                    textToType.ifPresentOrElse(
+                            text -> interact(webElement, text),
+                            () -> interact(webElement)
+                    );
+                    return webElement;
+                }
+            } catch (Throwable e) {
+                lastException = tolerantExceptionHandler.propagateExceptionIfNotIgnored(e);
+            }
+            checkTimeout(timeoutSeconds);
+        }
+    }
+
     public WebElement tolerantInteraction(
             WebElement webElement,
             SelectBoxInteractionType selectBoxInteractionType,
@@ -45,6 +63,10 @@ public class TolerantInteraction {
             checkTimeout(timeoutInSeconds);
         }
     }
+
+    private void interact(WebElement webElement) { webElement.click(); }
+
+    private void interact(WebElement webElement, String text) { webElement.sendKeys(text); }
 
     private boolean interactWithSelectBox(
             Optional<String> visibleTextOrHtmlValueString,

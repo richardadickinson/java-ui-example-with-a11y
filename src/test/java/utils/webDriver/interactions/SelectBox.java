@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
-public class SelectBoxUtils extends TolerantInteraction {
+public class SelectBox extends TolerantInteraction {
 
     private final static Timer tolerantItemByIndexAction = MetricRegistryHelper.get().timer(name("SelectBoxUtils.tolerantItemByIndex"));
 
@@ -41,7 +41,7 @@ public class SelectBoxUtils extends TolerantInteraction {
      */
     public static void tolerantItemByIndex(WebElement webElement, int index, int timeout) throws Throwable {
         try (final Timer.Context ignored = tolerantItemByIndexAction.time()) {
-            new SelectBoxUtils().tolerantInteraction(
+            new SelectBox().tolerantInteraction(
                     webElement, SelectBoxInteractionType.BY_INDEX, Optional.empty(), Optional.of(index), timeout);
         }
     }

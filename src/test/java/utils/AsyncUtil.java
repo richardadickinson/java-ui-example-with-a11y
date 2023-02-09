@@ -7,7 +7,6 @@ import org.awaitility.core.ConditionTimeoutException;
 import org.openqa.selenium.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.webDriver.config.TolerantActionExceptions;
 import utils.webDriver.interactions.TolerantInteraction;
 
 import java.util.concurrent.Callable;
@@ -27,7 +26,7 @@ public class AsyncUtil {
                 .until(condition);
     }
 
-    public static void retryOnException(Runnable action) {
+    public static void singleRetryOnException(Runnable action) {
         try {
             action.run();
         } catch (ConditionTimeoutException | StaleElementReferenceException | NoSuchElementException |
@@ -48,7 +47,6 @@ public class AsyncUtil {
                 return false;
             }
         };
-
         await(timeoutInSeconds, actionIsSuccessful);
     }
 
