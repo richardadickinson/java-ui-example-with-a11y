@@ -33,6 +33,12 @@ public class TestDataApiSteps {
         insertResponse = Offender.createOffender(apiRequestPath + "create-offender.json");
     }
 
+    @Given("an offender is created")
+    public void create_offender() throws IOException {
+        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        sessionData.setCrn(crn);
+    } // ToDo: We need to clean up the steps in this class and remove assertions.
+
     @Then("offender is created with new CRN")
     public void offender_is_created_with_new_CRN() {
         Assert.assertEquals(insertResponse.statusCode(), 201);

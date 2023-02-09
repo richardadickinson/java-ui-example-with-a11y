@@ -13,7 +13,7 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
     @FindBy(css = "[value = 'Close']")
     WebElement closeButton;
 
-    private static final String expectedPageTitle = "All Contacts";
+    private static final String expectedPageTitle = "Personal Details";
     public PersonalDetailsPage(WebDriver webDriver) {
         super(webDriver);
         assertPageTitle(expectedPageTitle);

@@ -28,7 +28,7 @@ public class NationalSearchPage extends BasePageObject implements MainNavigation
         return this;
     }
 
-    public CaseSummaryPage clickViewLink() {
+    public CaseSummaryPage clickOnViewLink() {
         try {
             clickOnLinkViaText("View");
         } catch (NoSuchElementException e) {

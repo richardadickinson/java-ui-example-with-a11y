@@ -14,7 +14,7 @@ public class EventsPage extends BasePageObject implements MainNavigationPanelLin
         assertPageTitle(expectedPageTitle);
     }
 
-    public EventDetailsPage clickOnView(){
+    public EventDetailsPage clickOnViewLink(){
         clickOnLinkViaText("view");
         return new EventDetailsPage(webDriver);
     }

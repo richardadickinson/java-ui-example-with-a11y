@@ -15,4 +15,10 @@ public class ContactListPage extends BasePageObject implements MainNavigationPan
         assertPageTitle(expectedPageTitle);
     }
 
+    public ContactDetailsPage clickOnViewLink() {
+        clickOnLinkViaText("view");
+        return new ContactDetailsPage(webDriver);
+    }
+
+
 }
