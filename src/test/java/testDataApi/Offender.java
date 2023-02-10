@@ -30,7 +30,8 @@ public class Offender {
         Map<String, Object> respBody = resp.body().as(new TypeRef<>() {
         });
         //System.out.println((String) respBody.get("crn"));  //DEBUG
-        return (String) respBody.get("crn");
+        String crn = (String) respBody.get("crn");
+        return crn;
     }
 
     public static Response updateOffender(String path, String crn) throws IOException {

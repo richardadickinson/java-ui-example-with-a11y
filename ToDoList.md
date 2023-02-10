@@ -39,4 +39,5 @@ ToDo list:
     2. reporting - where will it be saved - S3 bucket probably
     
 14. explore how the "screenplay" format can be included here
+15. Map user home area in accordance with offender creation data to allow viewing access
 

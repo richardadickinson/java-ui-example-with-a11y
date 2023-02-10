@@ -16,6 +16,7 @@ import java.util.Map;
 import static config.TestDataApiConfig.apiRequestPath;
 import static utils.dbUtils.DatabaseAssertions.assertOffenderDetail;
 import static org.testng.Assert.assertEquals;
+import static stepDefinitions.BaseSteps.sessionData;
 
 public class TestDataApiSteps {
 
@@ -31,6 +32,12 @@ public class TestDataApiSteps {
     public void create_offender_endpoint_is_called() throws IOException {
         insertResponse = Offender.createOffender(apiRequestPath + "create-offender.json");
     }
+
+    @Given("an offender is created")
+    public void create_offender() throws IOException {
+        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        sessionData.setCrn(crn);
+    } // ToDo: We need to clean up the steps in this class and remove assertions.
 
     @Then("offender is created with new CRN")
     public void offender_is_created_with_new_CRN() {
@@ -64,6 +71,7 @@ public class TestDataApiSteps {
     @Given("an offender with event is created")
     public void an_offender_with_event_is_created() throws IOException {
         crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        sessionData.setCrn(crn);
         insertResponse = Event.createEvent(apiRequestPath + "create-event.json", crn);
         Assert.assertEquals(insertResponse.statusCode(), 201);
     }
@@ -103,6 +111,7 @@ public class TestDataApiSteps {
     @Given("an offender with contact is created")
     public void offender_with_contact_created() throws IOException {
         crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
+        sessionData.setCrn(crn); //ToDo: need to rethink where exactly this should live
         insertResponse = Contact.createContact(apiRequestPath + "create-contact.json", crn);
         Assert.assertEquals(insertResponse.statusCode(), 201);
     }
