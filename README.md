@@ -17,7 +17,6 @@ To run the tests against the Delius environment from your local machine:
 1. set the environment and database password as an environment variable by running:
 ```shell
 export DB_PASSWORD="value"
-export ENV="test" ["test, stage, pre-prod"]
 ```
 3. Open a tunnel to the database:
 

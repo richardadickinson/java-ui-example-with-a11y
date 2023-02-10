@@ -13,9 +13,10 @@ public class TestConfigManager {
                 .build();
     }
 
-    /** Returns the WebDriverConfig instance for the current test run to access member methods
+    /** 
+     * Returns the WebDriverConfig instance for the current test run to access member methods
      * Triggers loading of the config if it isn't populated yet - ensures it's only loaded once
-     * */
+     */
     public static WebDriverConfig get(){
         if (null == testConfigManager) {
             testConfigManager = new TestConfigManager();
