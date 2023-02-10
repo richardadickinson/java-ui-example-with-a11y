@@ -17,6 +17,8 @@ public class ConfiguredEdgeDriver implements ConfiguredDriver {
 
     @Override
     public WebDriver getDriver() throws IOException {
+        createLogDirectory();
+        System.setProperty("webdriver.edge.logfile", "target/run-generated-files/logs/edge-driver.log");
         WebDriverManager.edgedriver().setup();
         return new EdgeDriver(this.getOptions());
     }

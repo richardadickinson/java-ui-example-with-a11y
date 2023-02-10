@@ -15,6 +15,8 @@ import java.util.Map;
 public class ConfiguredFirefoxDriver implements ConfiguredDriver {
 
     public WebDriver getDriver() throws IOException {
+        createLogDirectory();
+        System.setProperty("webdriver.firefox.logfile", "target/run-generated-files/logs/firefox-driver.log");
         WebDriverManager.firefoxdriver().setup();
         return new FirefoxDriver(this.getOptions());
     }

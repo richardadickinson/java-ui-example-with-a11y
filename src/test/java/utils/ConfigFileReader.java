@@ -18,7 +18,6 @@ public class ConfigFileReader {
     public static File loadFromClasspathOrFileSystem(String path) throws IOException {
         File file = new File(path);
         if (file.isFile()) {
-            System.out.println("Using configuration file: " + file.getAbsolutePath());
             logger.info("Using configuration file {}", file.getAbsolutePath());
             return file;
         } else {

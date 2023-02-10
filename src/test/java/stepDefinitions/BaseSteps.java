@@ -9,6 +9,8 @@ import io.cucumber.java.Scenario;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.TestConfigManager;
 
 import java.io.IOException;
@@ -22,9 +24,11 @@ import static utils.webDriver.Builder.initialiseWebDriver;
 
 
 public class BaseSteps {
-
     private String threadId;
     private String testId;
+
+    private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
+
     public static SessionData sessionData;
     private ThreadLocal<SessionData> threadLocal;
 
@@ -36,6 +40,8 @@ public class BaseSteps {
     public void debugThreads() {
         this.threadId = "Thread ID: " + Thread.currentThread().getId();
         this.testId = generateTestId();
+        logger.debug(threadId + " testId: " + testId);
+
         System.out.println(threadId + " testId: " + testId);
         this.sessionData = new SessionData();
         this.threadLocal = new ThreadLocal<>();
@@ -56,7 +62,7 @@ public class BaseSteps {
             scenario.attach(screenshot, "image/png", scenario.getName() + "_" + timestamp.format(new Date()));
         }
         this.threadId = "Thread ID: " + Thread.currentThread().getId();
-        System.out.println(threadId + " testId: " + testId);
+        logger.debug(threadId + " testId: " + testId);
 
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
@@ -65,7 +71,7 @@ public class BaseSteps {
     @AfterAll
     public static void shutdown() {
         if (null != getWebDriver() && !getWebDriver().toString().contains("Safari")) {
-            System.out.println("What is WebDriver? : " + getWebDriver().toString());
+            logger.debug("What is WebDriver? : " + getWebDriver().toString());
             getWebDriver().quit();
         }
     }

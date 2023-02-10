@@ -5,12 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ConfiguredSafariDriver implements ConfiguredDriver {
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver() throws IOException {
+        createLogDirectory();
+        System.setProperty("webdriver.safari.logfile", "target/run-generated-files/logs/safari-driver.log");
         WebDriverManager.safaridriver().setup();
         return new SafariDriver(getOptions());
 

@@ -16,6 +16,8 @@ import java.util.Map;
 public class ConfiguredChromeDriver implements ConfiguredDriver {
 
     public WebDriver getDriver() throws IOException {
+        createLogDirectory();
+        System.setProperty("webdriver.chrome.logfile", "target/run-generated-files/logs/chrome-driver.log");
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver(this.getOptions());
     }
