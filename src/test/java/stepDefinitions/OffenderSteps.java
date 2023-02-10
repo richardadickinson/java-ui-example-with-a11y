@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
-import static stepDefinitions.BaseSteps.sessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class OffenderSteps {
@@ -18,7 +18,7 @@ public class OffenderSteps {
         personalDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(sessionData.getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnPersonalDetailsLink();
     }

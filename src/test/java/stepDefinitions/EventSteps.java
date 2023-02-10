@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.eventList.EventDetailsPage;
 
-import static stepDefinitions.BaseSteps.sessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class EventSteps {
@@ -18,7 +18,7 @@ public class EventSteps {
         eventDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(sessionData.getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnEventListLink()
                 .clickOnViewLink();

@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static utils.webDriver.Builder.getWebDriver;
+
 public class LoginPage extends BasePageObject {
 
     private static final String expectedPageTitle = "National Delius - Login";
@@ -27,7 +29,7 @@ public class LoginPage extends BasePageObject {
         usernameField.sendKeys(Users.PERF_USER.getUsername());
         passwordField.sendKeys(Users.PERF_USER.getPassword());
         loginButton.click();
-        return new HomePage(webDriver);
+        return new HomePage(getWebDriver());
     }
 
 }
