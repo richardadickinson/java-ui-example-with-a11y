@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.contactList.ContactDetailsPage;
 
-import static stepDefinitions.BaseSteps.sessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class ContactSteps {
@@ -17,7 +17,7 @@ public class ContactSteps {
         contactDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(sessionData.getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnContactListLink()
                 .clickOnViewLink();

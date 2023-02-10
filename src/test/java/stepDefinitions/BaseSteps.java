@@ -26,14 +26,11 @@ import static utils.webDriver.Builder.initialiseWebDriver;
 public class BaseSteps {
     private String threadId;
     private String testId;
-
     private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
+    private static ThreadLocal<SessionData> sessionData = new ThreadLocal<>();
 
-    public static SessionData sessionData;
-    private ThreadLocal<SessionData> threadLocal;
-
-    private void setSessionData(){
-        threadLocal.set(sessionData);
+    public static SessionData getSessionData() {
+        return sessionData.get();
     }
 
     @Before
@@ -41,11 +38,7 @@ public class BaseSteps {
         this.threadId = "Thread ID: " + Thread.currentThread().getId();
         this.testId = generateTestId();
         logger.debug(threadId + " testId: " + testId);
-
-        System.out.println(threadId + " testId: " + testId);
-        this.sessionData = new SessionData();
-        this.threadLocal = new ThreadLocal<>();
-        setSessionData();
+        sessionData.set(new SessionData());
     }
 
     @Before("not @api")
