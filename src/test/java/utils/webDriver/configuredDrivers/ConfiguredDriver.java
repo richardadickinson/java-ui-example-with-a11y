@@ -16,4 +16,8 @@ public interface ConfiguredDriver {
         FileUtils.forceMkdir(new File(canonicalPath));
         return canonicalPath;
     }
+
+    default void createLogDirectory() throws IOException {
+        FileUtils.forceMkdir(new File("target/run-generated-files/logs"));
+    }
 }

@@ -13,7 +13,7 @@ import static com.codahale.metrics.MetricRegistry.name;
 
 public class SelectBox extends TolerantInteraction {
 
-    private final static Timer tolerantItemByIndexAction = MetricRegistryHelper.get().timer(name("SelectBoxUtils.tolerantItemByIndex"));
+    private final static Timer tolerantItemByIndexAction = MetricRegistryHelper.get().timer(name("SelectBox.tolerantItemByIndex"));
 
     private final static int defaultTolerantWaitTimeout = Integer.parseInt(AsyncUtil.getWaitTimeoutInSeconds());
 

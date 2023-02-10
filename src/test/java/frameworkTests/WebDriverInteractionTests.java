@@ -26,13 +26,13 @@ public class WebDriverInteractionTests {
     private static EmbeddedJetty embeddedJetty;
 
     @BeforeClass
-    public static void setup() throws Exception {
+    public void setup() throws Exception {
         embeddedJetty = new EmbeddedJetty();
         embeddedJetty.start();
     }
 
     @AfterClass
-    public static void teardown() throws Exception {
+    public void teardown() throws Exception {
         embeddedJetty.stop();
     }
 

@@ -24,7 +24,7 @@ public class TolerantInteraction {
     private final Duration intervalDuration = Duration.ofMillis(500);
     private Throwable lastException = null;
     private final TolerantExceptionHandler tolerantExceptionHandler = new TolerantExceptionHandler(
-            TolerantActionExceptions.getExceptionsToHandle());
+            TolerantActionExceptions.getExceptionsToHandle(), logger);
 
     public WebElement tolerantInteraction(WebElement webElement, Optional<String> textToType, int timeoutSeconds) throws Throwable {
         end = clock.instant().plusSeconds(timeoutSeconds);
@@ -36,6 +36,8 @@ public class TolerantInteraction {
                             () -> interact(webElement)
                     );
                     return webElement;
+                } else {
+                    logger.debug("'" + webElement.getAccessibleName() + "' is not enabled for interaction");
                 }
             } catch (Throwable e) {
                 lastException = tolerantExceptionHandler.propagateExceptionIfNotIgnored(e);
@@ -96,11 +98,11 @@ public class TolerantInteraction {
         if (end.isBefore(clock.instant())) {
             if (null == lastException) {
                 logger.error(
-                        "Exception condition failed: Timeout (tried for {} seconds with 500ms interval",
+                        "Exception condition failed: Timeout (tried for {} seconds with 500ms interval)",
                         timeoutInSeconds);
                 lastException = new TimeoutException();
             } else {
-                logger.error("Exception condition failed: {} (tried for {} seconds with 500ms interval",
+                logger.error("Exception condition failed: {} (tried for {} seconds with 500ms interval)",
                         lastException.getCause(), timeoutInSeconds);
             }
             throw lastException;

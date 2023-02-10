@@ -21,7 +21,7 @@ public class Click extends TolerantInteraction {
             if (Boolean.TRUE.equals(element.isEnabled())) {
                 element.click();
             } else {
-                throw new ElementNotInteractableException("Element is disabled");
+                throw new ElementNotInteractableException("'" + element.getAccessibleName() + "' element is disabled");
             }
         };
         AsyncUtil.retryOnExceptionUntil(click, timeout);
@@ -35,7 +35,7 @@ public class Click extends TolerantInteraction {
             if (Boolean.TRUE.equals(element.isEnabled())) {
                 element.click();
             } else {
-                throw new ElementNotInteractableException("Element is disabled");
+                throw new ElementNotInteractableException("'" + element.getAccessibleName() + "' element is disabled");
             }
         };
         AsyncUtil.singleRetryOnException(click);
