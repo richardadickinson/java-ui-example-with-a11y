@@ -25,7 +25,7 @@ public class WebDriverConfig {
     private JsonNode testConfig;
     private Map<String, ObjectNode> browserPreferences;
     private static Dimension defaultWindowSize;
-    private final Logger logger = LoggerFactory.getLogger(WebDriverConfig.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(WebDriverConfig.class);
 
     @JsonProperty("browser")
     public void setBrowserType(String browserType) {
