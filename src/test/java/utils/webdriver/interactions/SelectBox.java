@@ -5,8 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import utils.AsyncUtil;
 import utils.MetricRegistryHelper;
-import utils.webdriver.config.SelectBoxInteractionType;
-import utils.webdriver.interactions.TolerantInteraction;
+import utils.webDriver.config.SelectBoxInteractionType;
 
 import java.util.Optional;
 
@@ -19,9 +18,9 @@ public class SelectBox extends TolerantInteraction {
     private final static int defaultTolerantWaitTimeout = Integer.parseInt(AsyncUtil.getWaitTimeoutInSeconds());
 
     public static void selectItemByIndex(WebElement selectBox, int index) {
-        int normalisedIndex = index - 1;
-        Select select = new Select(selectBox);
-        select.selectByIndex(normalisedIndex);
+            int normalisedIndex = index - 1;
+            Select select = new Select(selectBox);
+            select.selectByIndex(normalisedIndex);
     }
 
     public static void selectItemByIndexWithRetry(WebElement selectBox, int index, int timeout) {

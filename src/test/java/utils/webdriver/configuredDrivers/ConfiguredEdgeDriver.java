@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import utils.TestConfigManager;
-import utils.webdriver.configuredDrivers.ConfiguredDriver;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package utils.webdriver.interactions;
+package utils.webDriver.interactions;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
@@ -7,8 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Sleeper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.webdriver.config.SelectBoxInteractionType;
-import utils.webdriver.config.TolerantActionExceptions;
+import utils.webDriver.config.SelectBoxInteractionType;
+import utils.webDriver.config.TolerantActionExceptions;
 
 import java.time.Clock;
 import java.time.Duration;

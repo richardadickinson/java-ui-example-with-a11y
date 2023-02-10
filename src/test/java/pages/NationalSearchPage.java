@@ -1,11 +1,11 @@
 package pages;
 
-import navigationpanel.MainNavigationPanelLinks;
+import navigationPanel.MainNavigationPanelLinks;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.casemanagement.CaseSummaryPage;
+import pages.caseManagement.CaseSummaryPage;
 
 public class NationalSearchPage extends BasePageObject implements MainNavigationPanelLinks {
 

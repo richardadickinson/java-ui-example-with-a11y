@@ -3,7 +3,7 @@ package stepDefinitions;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
-import pages.casemanagement.eventlist.EventDetailsPage;
+import pages.caseManagement.eventList.EventDetailsPage;
 
 import static stepDefinitions.BaseSteps.sessionData;
 import static utils.webDriver.Builder.getWebDriver;

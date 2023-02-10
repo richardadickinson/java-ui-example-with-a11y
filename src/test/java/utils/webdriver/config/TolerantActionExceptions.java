@@ -1,4 +1,4 @@
-package utils.webdriver.config;
+package utils.webDriver.config;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 public class TolerantActionExceptions {
 
     private static final List<String> exceptionsToHandle = Arrays.asList("NoSuchElementException",
-            "StaleElementReferenceException",
-            "ElementClickInterceptedException",
-            "ElementNotInteractableException");
+                                                            "StaleElementReferenceException",
+                                                            "ElementClickInterceptedException",
+                                                            "ElementNotInteractableException");
 
     public static List<String> getExceptionsToHandle() { return exceptionsToHandle; }
 
