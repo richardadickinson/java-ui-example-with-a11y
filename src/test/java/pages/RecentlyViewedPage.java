@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static utils.webDriver.Builder.getWebDriver;
+
 public class RecentlyViewedPage extends BasePageObject implements MainNavigationPanelLinks {
 
     private static final String expectedPageTitle = "Recently Viewed Records";
@@ -19,7 +21,7 @@ public class RecentlyViewedPage extends BasePageObject implements MainNavigation
 
     public HomePage clickOnCloseButton() {
         closeButton.click();
-        return new HomePage(webDriver);
+        return new HomePage(getWebDriver());
     }
 
 

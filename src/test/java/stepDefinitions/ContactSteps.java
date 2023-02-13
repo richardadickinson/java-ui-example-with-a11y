@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.contactList.ContactDetailsPage;
 
-import static stepDefinitions.BaseSteps.getSessionData;
+import static stepDefinitions.BaseSteps.getOffenderSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class ContactSteps {
@@ -17,15 +17,15 @@ public class ContactSteps {
         contactDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnContactListLink()
                 .clickOnViewLink();
     }
 
     @Then("the contact details should be present")
-    public void validate_something_on_contact_details_page() {
-        System.out.println("do some kind of validation here comparing json to ui here");
+    public void validate_contact_details() {
+        contactDetailsPage.assertContactDetails();
     }
 
 }

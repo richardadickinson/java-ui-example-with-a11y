@@ -14,9 +14,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import static config.TestDataApiConfig.apiRequestPath;
-import static stepDefinitions.BaseSteps.getSessionData;
-import static utils.dbUtils.DatabaseAssertions.assertOffenderDetail;
 import static org.testng.Assert.assertEquals;
+import static utils.dbUtils.DatabaseAssertions.assertOffenderDetail;
 
 public class TestDataApiSteps {
 
@@ -35,9 +34,8 @@ public class TestDataApiSteps {
 
     @Given("an offender is created")
     public void create_offender() throws IOException {
-        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
-        getSessionData().setCrn(crn);
-    } // ToDo: We need to clean up the steps in this class and remove assertions.
+        Offender.createOffenderAndGetCrn(apiRequestPath + "create-offender.json");
+    }
 
     @Then("offender is created with new CRN")
     public void offender_is_created_with_new_CRN() {
@@ -67,11 +65,16 @@ public class TestDataApiSteps {
         assertOffenderDetail(crn, respBody.get("preferredName").toString());//Todo: add DB check here
     }
 
+    @Given("offender with event is created")
+    public void create_offender_with_event() throws IOException {
+        crn = Offender.createOffenderAndGetCrn(apiRequestPath + "create-offender.json");
+        Event.createEventAndGetEventId(apiRequestPath + "create-event.json", crn);
+    }
+
     //Scenario: Create, update and Get an Event
     @Given("an offender with event is created")
     public void an_offender_with_event_is_created() throws IOException {
-        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
-        getSessionData().setCrn(crn);
+        crn = Offender.createOffenderAndGetCrn(apiRequestPath + "create-offender.json");
         insertResponse = Event.createEvent(apiRequestPath + "create-event.json", crn);
         Assert.assertEquals(insertResponse.statusCode(), 201);
     }
@@ -110,11 +113,17 @@ public class TestDataApiSteps {
     //Scenario: Create, update and GET a Contact
     @Given("an offender with contact is created")
     public void offender_with_contact_created() throws IOException {
-        crn = Offender.createOffenderGetCRN(apiRequestPath + "create-offender.json");
-        getSessionData().setCrn(crn); //ToDo: need to rethink where exactly this should live
+        crn = Offender.createOffenderAndGetCrn(apiRequestPath + "create-offender.json");
         insertResponse = Contact.createContact(apiRequestPath + "create-contact.json", crn);
         Assert.assertEquals(insertResponse.statusCode(), 201);
     }
+
+    @Given("offender with contact is created")
+    public void create_offender_with_contact() throws IOException {
+        crn = Offender.createOffenderAndGetCrn(apiRequestPath + "create-offender.json");
+        Contact.createContactAndGetContactId(apiRequestPath + "create-contact.json", crn);
+    }
+
 
     @Then("contact is created with a contact Id")
     public void contact_created_with_contactId() {

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import static config.TestDataApiConfig.Endpoints;
 import static config.TestDataApiConfig.Endpoints.OFFENDER;
+import static stepDefinitions.BaseSteps.getOffenderSessionData;
 import static testDataApi.TestDataApiUtils.*;
 
 public class Offender {
@@ -24,13 +25,13 @@ public class Offender {
         return post(jsonBody, offender.getEndpointName());
     }
 
-    public static String createOffenderGetCRN(String path) throws IOException {
-        Response resp = createOffender(path);
-        Assert.assertEquals(resp.statusCode(), 201);
-        Map<String, Object> respBody = resp.body().as(new TypeRef<>() {
+    public static String createOffenderAndGetCrn(String path) throws IOException {
+        Response response = createOffender(path);
+        Map<String, Object> responseBody = response.body().as(new TypeRef<>() {
         });
-        //System.out.println((String) respBody.get("crn"));  //DEBUG
-        String crn = (String) respBody.get("crn");
+        String crn = (String) responseBody.get("crn");
+        getOffenderSessionData().setCrn(crn);
+        getOffenderSessionData().setApiResponseBody(responseBody);
         return crn;
     }
 
