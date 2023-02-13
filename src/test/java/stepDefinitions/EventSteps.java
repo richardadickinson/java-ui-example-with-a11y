@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.eventList.EventDetailsPage;
 
-import static stepDefinitions.BaseSteps.getSessionData;
+import static stepDefinitions.BaseSteps.getOffenderSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class EventSteps {
@@ -18,15 +18,15 @@ public class EventSteps {
         eventDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnEventListLink()
                 .clickOnViewLink();
     }
 
     @Then("the event details should be present")
-    public void validate_something_on_event_details_page() {
-        System.out.println("do some kind of validation here comparing json to ui here");
+    public void validate_event_details() {
+        eventDetailsPage.assertEventDetails();
     }
 
 }

@@ -6,7 +6,11 @@ import navigationPanel.caseManagementLinks.ContactListNavigationLinks;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 import pages.BasePageObject;
+
+import static utils.DateUtil.today;
+import static utils.webDriver.Builder.getWebDriver;
 
 public class ContactDetailsPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks, ContactListNavigationLinks {
 
@@ -15,6 +19,9 @@ public class ContactDetailsPage extends BasePageObject implements MainNavigation
     @FindBy(css = "[value = 'Close']")
     WebElement closeButton;
 
+    @FindBy(id="searchContactForm:Date")
+    WebElement dateField;
+
     public ContactDetailsPage(WebDriver webDriver) {
         super(webDriver);
         assertPageTitle(expectedPageTitle);
@@ -22,8 +29,11 @@ public class ContactDetailsPage extends BasePageObject implements MainNavigation
 
     public ContactListPage clickOnCloseButton() {
         closeButton.click();
-        return new ContactListPage(webDriver);
+        return new ContactListPage(getWebDriver());
     }
 
+    public void assertContactDetails(){
+        Assert.assertEquals(dateField.getText(),today(), "contact date does not match");
+    }
 
 }

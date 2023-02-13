@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
-import static stepDefinitions.BaseSteps.getSessionData;
+import static stepDefinitions.BaseSteps.getOffenderSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class OffenderSteps {
@@ -18,14 +18,14 @@ public class OffenderSteps {
         personalDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnPersonalDetailsLink();
     }
 
     @Then("the offender details should be present")
-    public void validate_something_on_personal_details_page() {
-        System.out.println("do some kind of validation here comparing json to ui here");
+    public void validate_person_details() {
+        personalDetailsPage.assertOffenderDetails();
     }
 
 }
