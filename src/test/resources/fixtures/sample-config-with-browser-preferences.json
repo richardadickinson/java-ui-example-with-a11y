@@ -24,10 +24,11 @@
       "fission.bfcacheInParent": false
     },
     "edge": {
+      "profile.default_content_settings.popups": 0,
       "download.default_directory": "target/run-generated-files/browser/testDownloads",
       "download.prompt_for_download": false,
-      "download.directory_upgrade": true,
-      "safebrowsing.enabled": true
+      "safebrowsing.enabled": true,
+      "download.directory_upgrade": true
     }
   }
 }
