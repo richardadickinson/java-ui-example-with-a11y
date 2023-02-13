@@ -2,6 +2,8 @@ package frameworkTests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 
 import utils.webDriver.configuredDrivers.ConfiguredChromeDriver;
@@ -11,12 +13,14 @@ import utils.webDriver.configuredDrivers.ConfiguredFirefoxDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ConfiguredDriverPreferenceTests {
 
+    Logger logger = LoggerFactory.getLogger(ConfiguredDriverPreferenceTests.class);
     private static String baseUrl;
     private static EmbeddedJetty embeddedJetty;
     private WebDriver webDriver;
@@ -45,13 +49,15 @@ public class ConfiguredDriverPreferenceTests {
     }
 
     @AfterMethod
-    public void tearDown() throws IOException {
+    public void tearDown(Method method) throws IOException {
         File targetFile = new File(new File("target/run-generated-files/browser/testDownloads").getCanonicalPath() + "/sampleFile.pdf");
         if (targetFile.exists()) {
             boolean deleted = targetFile.delete();
             if (!deleted) {
-                System.out.println("sampleFile.pdf was not deleted");
+                logger.error("Target file was not deleted by " + method.getName());
             }
+        } else {
+            logger.error("Target file was not found for deletion in " + method.getName());
         }
         this.webDriver.quit();
     }
