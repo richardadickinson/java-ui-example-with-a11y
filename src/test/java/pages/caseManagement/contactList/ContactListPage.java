@@ -6,6 +6,8 @@ import navigationPanel.caseManagementLinks.ContactListNavigationLinks;
 import org.openqa.selenium.WebDriver;
 import pages.BasePageObject;
 
+import static utils.webDriver.Builder.getWebDriver;
+
 public class ContactListPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks, ContactListNavigationLinks {
 
     private static final String expectedPageTitle = "Contact List";
@@ -17,7 +19,7 @@ public class ContactListPage extends BasePageObject implements MainNavigationPan
 
     public ContactDetailsPage clickOnViewLink() {
         clickOnLinkViaText("view");
-        return new ContactDetailsPage(webDriver);
+        return new ContactDetailsPage(getWebDriver());
     }
 
 

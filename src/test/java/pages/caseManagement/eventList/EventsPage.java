@@ -5,6 +5,8 @@ import navigationPanel.caseManagementLinks.CaseManagementNavigationLinks;
 import org.openqa.selenium.WebDriver;
 import pages.BasePageObject;
 
+import static utils.webDriver.Builder.getWebDriver;
+
 public class EventsPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks {
 
     private static final String expectedPageTitle = "Events";
@@ -16,6 +18,6 @@ public class EventsPage extends BasePageObject implements MainNavigationPanelLin
 
     public EventDetailsPage clickOnViewLink(){
         clickOnLinkViaText("view");
-        return new EventDetailsPage(webDriver);
+        return new EventDetailsPage(getWebDriver());
     }
 }
