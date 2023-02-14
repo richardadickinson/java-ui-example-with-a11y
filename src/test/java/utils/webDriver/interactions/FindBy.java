@@ -10,8 +10,8 @@ import utils.MetricRegistryHelper;
 
 public class FindBy {
     private final static int defaultWaitTimeout = Integer.parseInt(AsyncUtil.getWaitTimeoutInSeconds());
-
     private static final Timer byIdOrNameAction = MetricRegistryHelper.get().timer("FindBy.findByIdOrName");
+    private static final Timer byLinkTextAction = MetricRegistryHelper.get().timer("FindBy.byLinkText");
 
     public static void findByUntil(WebDriver webDriver, By by, int timeout) {
         Runnable findBy = () -> webDriver.findElement(by);
@@ -26,6 +26,11 @@ public class FindBy {
     public static WebElement findByIdOrName(WebDriver webDriver, String idOrName) {
         try (final Timer.Context ignored = byIdOrNameAction.time()) {
             return webDriver.findElement(new ByIdOrName(idOrName));
+        }
+    }
+    public static WebElement findByLinkText(WebDriver webDriver, String linkText) {
+        try (final Timer.Context ignored = byLinkTextAction.time()) {
+            return webDriver.findElement(new By.ByLinkText(linkText));
         }
     }
 }

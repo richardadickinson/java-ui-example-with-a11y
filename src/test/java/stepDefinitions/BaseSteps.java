@@ -27,7 +27,7 @@ public class BaseSteps {
     private String threadId;
     private String testId;
     private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
-    private static ThreadLocal<SessionData> sessionData = new ThreadLocal<>();
+    private static final ThreadLocal<SessionData> sessionData = new ThreadLocal<>();
 
     public static SessionData getSessionData() {
         return sessionData.get();

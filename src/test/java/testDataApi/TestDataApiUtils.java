@@ -71,15 +71,18 @@ public class TestDataApiUtils {
         try {
             ObjectMapper mapper = new ObjectMapper();
             File fileObj = new File(path);
-            Map<String, Object> fileData = mapper.readValue(
-                    fileObj, new TypeReference<>() {
-                    });
-            fileData.put(parameter, value);
+            Map<String, Object> fileData = mapper.readValue(fileObj, new TypeReference<>() {});
+
+            if (fileData.containsKey(parameter)) {
+                fileData.put(parameter, value);
+            } else {
+                throw new Exception(parameter + " not found in Json file: " + path);
+            }
 
             return mapper.writeValueAsString(fileData);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "error in json update";
+        return "Error in json update";
     }
 }

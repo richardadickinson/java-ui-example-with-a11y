@@ -1,8 +1,13 @@
 package data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 public class SessionData {
+
+    static Logger logger = LoggerFactory.getLogger(SessionData.class);
     private OffenderData offenderData;
     private EventData eventData;
     private ContactData contactData;
@@ -48,6 +53,7 @@ public class SessionData {
 
         public void setCrn(String crn) {
             this.crn = crn;
+            logger.debug("Test offender created with CRN: " + crn);
         }
 
         public String getOffenderSurname() {
@@ -85,6 +91,7 @@ public class SessionData {
 
         public void setEventId(String eventId) {
             this.eventId = eventId;
+            logger.debug("Test event created with ID: " + eventId);
         }
 
         public Map<String, Object> getApiResponseBody() {
@@ -105,6 +112,7 @@ public class SessionData {
         }
         public void setContactId(String contactId) {
             this.contactId = contactId;
+            logger.debug("Test contact created with ID: " + contactId);
         }
         public Map<String, Object> getApiResponseBody() {
             return apiResponseBody;
