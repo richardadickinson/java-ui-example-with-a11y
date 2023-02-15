@@ -19,32 +19,26 @@ public class Event {
 
     public static Map<String, Object> insertEvent(String path, String crn) {
         String jsonBody = generateStringFromResource(path);
-        if (null != jsonBody) {
-            Response response = post(jsonBody, event.getEndpointName() + crn);
-            return response.body().as(new TypeRef<>() {});
-        } else {
-            return null;
-        }
+        if (null == jsonBody) return null;
+
+        Response response = post(jsonBody, event.getEndpointName() + crn);
+        return response.body().as(new TypeRef<>() {});
     }
 
     public static Map<String, Object> updateEventByEventID(String path, String eventId) {
         String jsonBody = generateStringFromResource(path);
-        if (null != jsonBody) {
-            Response response = post(jsonBody, event.getUpdateEndpointName() + eventId);
-            return response.body().as(new TypeRef<>() {});
-        } else {
-            return null;
-        }
+        if (null == jsonBody) return null;
+
+        Response response = post(jsonBody, event.getUpdateEndpointName() + eventId);
+        return response.body().as(new TypeRef<>() {});
     }
 
     public static Map<String, Object> updateEventByCRN(String path, String crn, String eventNumber) {
         String jsonBody = generateStringFromResource(path);
-        if (null != jsonBody) {
-            Response response = post(jsonBody, event.getUpdateEndpointName() + crn + "/" + eventNumber);
-            return response.body().as(new TypeRef<>() {});
-        } else {
-            return null;
-        }
+        if (null == jsonBody) return null;
+
+        Response response = post(jsonBody, event.getUpdateEndpointName() + crn + "/" + eventNumber);
+        return response.body().as(new TypeRef<>() {});
     }
 
 }

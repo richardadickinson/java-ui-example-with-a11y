@@ -20,24 +20,18 @@ public class Offender {
 
     public static Map<String, Object> insertOffender(String path) {
         String jsonBody = generateStringFromResource(path);
-        if (null != jsonBody) {
-            Response response = post(jsonBody, offender.getEndpointName());
-            return response.body().as(new TypeRef<>() {
-            });
-        } else {
-            return null;
-        }
+        if (null == jsonBody) return null;
+
+        Response response = post(jsonBody, offender.getEndpointName());
+        return response.body().as(new TypeRef<>() {});
     }
 
     public static Map<String, Object> updateOffender(String path, String crn) {
         String jsonBody = generateStringFromResource(path);
-        if (null != jsonBody) {
-            Response response = post(jsonBody, offender.getUpdateEndpointName() + crn);
-            return response.body().as(new TypeRef<>() {
-            });
-        } else {
-            return null;
-        }
+        if (null == jsonBody) return null;
+
+        Response response = post(jsonBody, offender.getUpdateEndpointName() + crn);
+        return response.body().as(new TypeRef<>() {});
     }
 
 }
