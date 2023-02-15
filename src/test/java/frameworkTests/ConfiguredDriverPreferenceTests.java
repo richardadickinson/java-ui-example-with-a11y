@@ -31,7 +31,7 @@ public class ConfiguredDriverPreferenceTests {
     }
 
     @BeforeTest
-    public static void webDriverSetup() throws Exception {
+    public void webDriverSetup() throws Exception {
         embeddedJetty = new EmbeddedJetty();
         embeddedJetty.start();
         baseUrl = "http://localhost:" + embeddedJetty.getPort() + "/index.html";

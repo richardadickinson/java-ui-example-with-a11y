@@ -1,7 +1,6 @@
 package pages;
 
 import navigationPanel.MainNavigationPanelLinks;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,12 +28,7 @@ public class NationalSearchPage extends BasePageObject implements MainNavigation
     }
 
     public CaseSummaryPage clickOnViewLink() {
-        try {
-            clickOnLinkViaText("View");
-        } catch (NoSuchElementException e) {
-            System.out.println(e + " thrown, retrying");
-            clickOnLinkViaText("View");
-        }
+        clickOnLinkViaText("View");
         return new CaseSummaryPage(webDriver);
     }
 

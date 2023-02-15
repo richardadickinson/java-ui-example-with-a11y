@@ -19,7 +19,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class AsyncUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(TolerantInteraction.class);
-    private static final String waitTimeoutInSeconds = "5";
+    private static final String waitTimeoutInSeconds = "10";
 
     public static void await(int atMost, Callable<Boolean> condition) {
         Awaitility.await().atMost(atMost, SECONDS).and().pollInterval(500, MILLISECONDS)

@@ -1,10 +1,7 @@
 package frameworkTests;
 
 import org.awaitility.core.ConditionTimeoutException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import utils.webDriver.interactions.Click;
@@ -66,10 +63,21 @@ public class WebDriverInteractionTests {
                 () -> FindBy.findByUntil(getWebDriver(), By.id("cant-find-me"), 1));
     }
     @Test
-    public void testTolerantFindByIdOrName() {
+    public void testTolerantFindByIdOrNameWithValidId() {
         FindBy.findByIdOrName(getWebDriver(), "ClickUtils-href").click();
         assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
     }
+    @Test
+    public void testFindByLinkWithValidLinkText() {
+        FindBy.findByLinkText(getWebDriver(), "Button 2 (displayed)").click();
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+    }
+    @Test
+    public void testFindByLinkThrowsWhenElementNotFound() {
+        assertThrows(NoSuchElementException.class,
+                () -> FindBy.findByLinkText(getWebDriver(), "cant-find-me"));
+    }
+
     /**
      * Select box tests
      */

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.webDriver.interactions.Click;
+import utils.webDriver.interactions.FindBy;
 
 import static utils.webDriver.Builder.getWebDriver;
 
@@ -21,7 +22,8 @@ public abstract class BasePageObject {
     }
 
     public static void clickOnLinkViaText(String linkText) {
-        Click.clickUntil(getWebDriver().findElement(By.linkText(linkText)), 30);
+        FindBy.findByUntil(getWebDriver(), By.linkText(linkText), 30);
+        Click.clickUntil(FindBy.findByLinkText(getWebDriver(), linkText));
     }
 
 }

@@ -1,0 +1,6 @@
+{
+  "value": "some value",
+  "testValue": {
+    "sample": "sample text"
+  }
+}
