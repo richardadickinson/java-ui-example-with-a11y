@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import static utils.dbUtils.DeleteScript.runDeleteOffenderScript;
 import static utils.webDriver.Builder.getWebDriver;
 import static utils.webDriver.Builder.initialiseWebDriver;
 
@@ -74,6 +75,9 @@ public class BaseSteps {
 
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
+        if (getOffenderSessionData().getCrn()!=null){
+            runDeleteOffenderScript(getOffenderSessionData().getCrn());
+        }
     }
 
     @AfterAll
