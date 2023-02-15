@@ -100,7 +100,6 @@ public class SessionData {
 
         public void setTestContactDetails(Map<String, Object> apiResponseBody) {
             this.contactResponseBody = apiResponseBody;
-            System.out.println(apiResponseBody);
             this.contactId = apiResponseBody.get("contactID").toString();
             logger.debug("Test contact created with ID: " + contactId);
         }

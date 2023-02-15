@@ -9,7 +9,7 @@ import java.util.Map;
 import static testDataApi.TestDataApiUtils.*;
 
 public class Contact {
-    static Endpoints contact = Endpoints.CONTACT;
+    private static Endpoints contact = Endpoints.CONTACT;
 
     public static Map<String, Object> getContact(String contactId) {
         Response response = get(contact.getEndpointName() + contactId);

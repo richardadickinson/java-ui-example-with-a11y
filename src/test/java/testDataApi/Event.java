@@ -10,7 +10,7 @@ import static config.TestDataApiConfig.Endpoints.EVENT;
 import static testDataApi.TestDataApiUtils.*;
 
 public class Event {
-    static Endpoints event = EVENT;
+    private static Endpoints event = EVENT;
 
     public static Map<String, Object> getEvent(String eventId) {
         Response response = get(event.getEndpointName() + eventId);

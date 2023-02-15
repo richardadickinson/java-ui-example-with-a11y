@@ -11,7 +11,7 @@ import static testDataApi.TestDataApiUtils.*;
 
 public class Offender {
 
-    static Endpoints offender = OFFENDER;
+    private static Endpoints offender = OFFENDER;
 
     public static Map<String, Object> getOffender(String crn) {
         Response response = get(offender.getEndpointName() + crn);
