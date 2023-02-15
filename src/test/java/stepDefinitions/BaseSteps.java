@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import static utils.dbUtils.DeleteScript.runDeleteOffenderScript;
 import static utils.webDriver.Builder.getWebDriver;
 import static utils.webDriver.Builder.initialiseWebDriver;
 
@@ -63,7 +64,7 @@ public class BaseSteps {
     }
 
     @After("not @api")
-    public void tearDown(Scenario scenario) {
+    public void tearDown(Scenario scenario) throws Throwable {
         if (scenario.isFailed()) {
             SimpleDateFormat timestamp = new SimpleDateFormat(("yyyy.MM.dd.HH.mm.ss"));
             byte[] screenshot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
@@ -74,6 +75,7 @@ public class BaseSteps {
 
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
+        runDeleteOffenderScript(getOffenderSessionData().getCrn());
     }
 
     @AfterAll

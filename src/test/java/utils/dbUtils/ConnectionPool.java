@@ -47,5 +47,13 @@ public class ConnectionPool {
         }
     }
 
+    public static void executeSql(PreparedStatement statement) {
+        try {
+            statement.executeQuery();
+        } catch (SQLException e) {
+            logger.info(e+", thrown");
+            throw new RuntimeException(e);
+        }
+    }
 
 }
