@@ -22,7 +22,7 @@ public class EventDetailsPage extends BasePageObject implements MainNavigationPa
     }
 
     public void assertEventDetails() {
-        String offenceCode = getEventSessionData().getApiResponseBody().get("mainOffenceCode").toString();
+        String offenceCode = getEventSessionData().getTestEventDetails().get("mainOffenceCode").toString();
         Assert.assertTrue(getFieldLabelValue("Offence Sub-Cat").contains(offenceCode));
     }
 

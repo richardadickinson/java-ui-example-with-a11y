@@ -5,12 +5,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.personalDetails.PersonalDetailsPage;
-import testDataApi.Offender;
-
-import java.io.IOException;
-import java.util.Map;
 
 import static config.TestDataApiConfig.apiRequestPath;
+import static data.SessionDataMapper.createOffender;
 import static stepDefinitions.BaseSteps.getOffenderSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
@@ -20,10 +17,8 @@ public class OffenderSteps {
     PersonalDetailsPage personalDetailsPage;
 
     @Given("an offender is created")
-    public void create_offender() throws IOException {
-        Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
-        getOffenderSessionData().setCrn((String) body.get("crn"));
-        getOffenderSessionData().setApiResponseBody(body);
+    public void create_offender() {
+        createOffender(apiRequestPath + "create-offender.json");
     }
 
     @When("I navigate to Personal Details page")
