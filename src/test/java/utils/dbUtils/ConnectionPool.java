@@ -11,7 +11,7 @@ import static utils.dbUtils.SqlFileReader.readContentsOfSqlFile;
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
-    private static Connection establishDatabaseConnection() throws Throwable {
+    private static Connection establishDatabaseConnection() throws SQLException {
         String url = TestConfigManager.get().getDatabaseUrl();
         String dbUsername = TestConfigManager.get().getDatabaseUsername();
         String dbPassword = System.getenv("DB_PASSWORD");
@@ -21,11 +21,15 @@ public class ConnectionPool {
         return DriverManager.getConnection(url, dbUsername, dbPassword);
     }
 
-    public static PreparedStatement assignStringValueToSqlParam(String fileName, int index, String value) throws Throwable {
-        String sql = readContentsOfSqlFile(fileName);
-        PreparedStatement preparedStatement = establishDatabaseConnection().prepareStatement(sql);
-        preparedStatement.setString(index, value);
-        return preparedStatement;
+    public static PreparedStatement assignStringValueToSqlParam(String fileName, int index, String value) {
+        try {
+            String sql = readContentsOfSqlFile(fileName);
+            PreparedStatement preparedStatement = establishDatabaseConnection().prepareStatement(sql);
+            preparedStatement.setString(index, value);
+            return preparedStatement;
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String executeSqlAndReturnValue(PreparedStatement statement) {
@@ -51,7 +55,6 @@ public class ConnectionPool {
         try {
             statement.executeQuery();
         } catch (SQLException e) {
-            logger.info(e+", thrown");
             throw new RuntimeException(e);
         }
     }

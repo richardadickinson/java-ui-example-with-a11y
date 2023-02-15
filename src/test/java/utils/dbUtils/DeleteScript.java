@@ -11,23 +11,21 @@ public class DeleteScript {
 
     private static final Logger logger = LoggerFactory.getLogger(DeleteScript.class);
 
-    public static void runDeleteOffenderScript(String crn) throws Throwable {
+    public static void runDeleteOffenderScript(String crn) {
         String filename = "delete_offender";
-        if (!(crn == null)) {
-            PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, crn);
-            logger.info("running " + filename + " script to delete " + crn + "...");
-            executeSql(statement);
-            checkIfCrnDeleted(crn);
-        } else logger.info(filename + " script not run as no crn was created for this test");
-
+        PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, crn);
+        logger.info("running " + filename + " script to delete " + crn + "...");
+        executeSql(statement);
+        checkIfCrnDeleted(crn);
     }
 
-    private static void checkIfCrnDeleted(String crn) throws Throwable {
+    private static void checkIfCrnDeleted(String crn)  {
         PreparedStatement statement = assignStringValueToSqlParam("count_crn.sql", 1, crn);
         int dbValue = Integer.parseInt(executeSqlAndReturnValue(statement));
         if (dbValue == 0) {
             logger.info(crn + " successfully deleted");
-        } else
-            logger.info(crn + " not deleted");
+        } else {
+            logger.error(crn + " not deleted");
+        }
     }
 }

@@ -64,7 +64,7 @@ public class BaseSteps {
     }
 
     @After("not @api")
-    public void tearDown(Scenario scenario) throws Throwable {
+    public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             SimpleDateFormat timestamp = new SimpleDateFormat(("yyyy.MM.dd.HH.mm.ss"));
             byte[] screenshot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
@@ -75,7 +75,9 @@ public class BaseSteps {
 
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
-        runDeleteOffenderScript(getOffenderSessionData().getCrn());
+        if (getOffenderSessionData().getCrn()!=null){
+            runDeleteOffenderScript(getOffenderSessionData().getCrn());
+        }
     }
 
     @AfterAll
