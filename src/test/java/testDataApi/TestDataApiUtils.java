@@ -63,8 +63,13 @@ public class TestDataApiUtils {
                         .extract().response();
     }
 
-    public static String generateStringFromResource(String path) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(path)));
+    public static String generateStringFromResource(String path) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(path)));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return null;
+        }
     }
 
     public static String updateValueInJson(String path, String parameter, String value) {
@@ -83,6 +88,6 @@ public class TestDataApiUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "Error in json update";
+        return null;
     }
 }

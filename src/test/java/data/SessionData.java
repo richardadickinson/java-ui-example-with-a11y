@@ -21,7 +21,6 @@ public class SessionData {
         return offenderData;
     }
 
-
     public EventData getEventData() {
         return eventData;
     }
@@ -40,87 +39,70 @@ public class SessionData {
         return contactData;
     }
 
-
     public static class OffenderData {
         private String crn;
-        private String offenderFirstName;
-        private String offenderSurname;
-        private Map<String, Object> apiResponseBody;
+        private String firstName;
+        private String surname;
+        private Map<String, Object> offenderResponseBody;
 
         public String getCrn() {
             return crn;
         }
+        public String getFirstName() {
+            return firstName;
+        }
+        public String getSurname() {
+            return surname;
+        }
 
-        public void setCrn(String crn) {
-            this.crn = crn;
+        public Map<String, Object> getTestOffenderDetails() {
+            return offenderResponseBody;
+        }
+
+        public void setTestOffenderDetails(Map<String, Object>  apiResponseBody) {
+            this.offenderResponseBody = apiResponseBody;
+            this.crn = (String) apiResponseBody.get("crn");
+            this.firstName = (String) apiResponseBody.get("firstName");
+            this.surname = (String) apiResponseBody.get("surname");
             logger.debug("Test offender created with CRN: " + crn);
-        }
-
-        public String getOffenderSurname() {
-            return offenderSurname;
-        }
-
-        public void setOffenderSurname(String offenderSurname) {
-            this.offenderSurname = offenderSurname;
-        }
-
-        public Map<String, Object>  getApiResponseBody() {
-            return apiResponseBody;
-        }
-
-        public void setApiResponseBody(Map<String, Object>  apiResponseBody) {
-            this.apiResponseBody = apiResponseBody;
-        }
-
-        public String getOffenderFirstName() {
-            return offenderFirstName;
-        }
-
-        public void setOffenderFirstName(String offenderFirstName) {
-            this.offenderFirstName = offenderFirstName;
         }
     }
 
     public static class EventData{
         private String eventId;
-        private Map<String, Object> apiResponseBody;
+        private Map<String, Object> eventResponseBody;
 
         public String getEventId() {
             return eventId;
         }
 
-        public void setEventId(String eventId) {
-            this.eventId = eventId;
+        public Map<String, Object> getTestEventDetails() {
+            return eventResponseBody;
+        }
+
+        public void setTestEventDetails(Map<String, Object> apiResponseBody) {
+            this.eventResponseBody = apiResponseBody;
+            this.eventId = apiResponseBody.get("eventId").toString();
             logger.debug("Test event created with ID: " + eventId);
-        }
-
-        public Map<String, Object> getApiResponseBody() {
-            return apiResponseBody;
-        }
-
-        public void setApiResponseBody(Map<String, Object> apiResponseBody) {
-            this.apiResponseBody = apiResponseBody;
         }
     }
 
     public static class ContactData{
         private String contactId;
-        private Map<String, Object> apiResponseBody;
+        private Map<String, Object> contactResponseBody;
 
         public String getContactId() {
             return contactId;
         }
-        public void setContactId(String contactId) {
-            this.contactId = contactId;
+        public Map<String, Object> getTestContactDetails() {
+            return contactResponseBody;
+        }
+
+        public void setTestContactDetails(Map<String, Object> apiResponseBody) {
+            this.contactResponseBody = apiResponseBody;
+            this.contactId = apiResponseBody.get("contactID").toString();
             logger.debug("Test contact created with ID: " + contactId);
         }
-        public Map<String, Object> getApiResponseBody() {
-            return apiResponseBody;
-        }
-        public void setApiResponseBody(Map<String, Object> apiResponseBody) {
-            this.apiResponseBody = apiResponseBody;
-        }
     }
-
 
 }

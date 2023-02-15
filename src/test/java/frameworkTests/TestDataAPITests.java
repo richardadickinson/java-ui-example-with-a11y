@@ -8,8 +8,6 @@ import testDataApi.Contact;
 import testDataApi.Event;
 import testDataApi.Offender;
 
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.util.Map;
 
 import static config.TestDataApiConfig.Endpoints.OFFENDER;
@@ -34,16 +32,24 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testCanInsertNewOffender() throws IOException {
+    public void testCanInsertNewOffender() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         Assert.assertEquals(body.get("firstName"), "TestDataAPIOffendertest");
         Assert.assertNotNull(body.get("crn"));
         assertThat((String) body.get("crn"), matchesPattern("^X\\w{6}"));
     }
 
     @Test
-    public void testCanGetOffenderByCRN() throws IOException {
+    public void testInsertOffenderReturnsNullWhenPathCannotBeParsed(){
+        Map<String, Object> body = Offender.insertOffender("rubbish");
+        Assert.assertNull(body);
+    }
+
+    @Test
+    public void testCanGetOffenderByCRN() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Offender.getOffender(testCrn);
@@ -53,64 +59,100 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testCanUpdateOffender() throws IOException {
+    public void testCanUpdateOffender() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Offender.updateOffender(apiRequestPath + "update-offender.json", testCrn);
+        assert respBody != null;
         Assert.assertEquals(respBody.get("preferredName"), "Criminal");
         Assert.assertEquals(respBody.get("thirdName"), "Cheese");
     }
 
     @Test
-    public void testCanInsertNewEvent() throws IOException {
+    public void testUpdateOffenderReturnsNullWhenPathCannotBeParsed(){
+        Map<String, Object> body = Offender.updateOffender("rubbish", "XXXX");
+        Assert.assertNull(body);
+    }
+
+    @Test
+    public void testCanInsertNewEvent() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
+        assert respBody != null;
         Assert.assertNotNull(respBody.get("eventId"));
         assertThat(respBody.get("eventId").toString(), matchesPattern("\\d{10}"));
         Assert.assertEquals(respBody.get("mainOffenceCode"), "00856");
     }
+    @Test
+    public void testInsertEventReturnsNullWhenPathCannotBeParsed(){
+        Map<String, Object> body = Event.insertEvent("rubbish", "XXXX");
+        Assert.assertNull(body);
+    }
 
     @Test
-    public void testCanGetEventById() throws IOException {
+    public void testCanGetEventById() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
+        assert respBody != null;
         String eventId = respBody.get("eventId").toString();
         Map<String, Object> getBody = Event.getEvent(eventId);
         Assert.assertEquals(getBody.get("eventId").toString(), eventId);
     }
 
     @Test
-    public void testCanUpdateEventById() throws IOException {
+    public void testCanUpdateEventById() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
+        assert respBody != null;
         String eventId = respBody.get("eventId").toString();
 
         Map<String, Object> updateBody = Event.updateEventByEventID(apiRequestPath + "update-event.json", eventId);
+        assert updateBody != null;
         Assert.assertEquals(updateBody.get("eventId").toString(), eventId);
         Assert.assertEquals(updateBody.get("convictionDate"), "2017-12-02T00:00:00Z[UTC]");
     }
 
     @Test
-    public void testCanUpdateEventByCRN() throws IOException {
+    public void testUpdateEventByIdReturnsNullWhenPathCannotBeParsed(){
+        Map<String, Object> body = Event.updateEventByEventID("rubbish", "1111");
+        Assert.assertNull(body);
+    }
+
+    @Test
+    public void testCanUpdateEventByCRN() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
+        assert respBody != null;
         String eventId = respBody.get("eventId").toString();
 
         Map<String, Object> updateBody = Event.updateEventByCRN(apiRequestPath + "update-event.json", testCrn, "1");
+        assert updateBody != null;
         Assert.assertEquals(updateBody.get("eventId").toString(), eventId);
         Assert.assertEquals(updateBody.get("convictionDate"), "2017-12-02T00:00:00Z[UTC]");
     }
 
     @Test
-    public void testCanCreateContact() throws IOException {
+    public void testUpdateEventByCRNReturnsNullWhenPathCannotBeParsed(){
+        Map<String, Object> body = Event.updateEventByCRN("rubbish", "XXXX", "1111");
+        Assert.assertNull(body);
+    }
+
+    @Test
+    public void testCanCreateContact() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
 
         Map<String, Object> contactBody = Contact.insertContact(apiRequestPath + "create-contact.json", testCrn);
@@ -121,8 +163,9 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testCanUpdateContact() throws IOException {
+    public void testCanUpdateContact() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
         Map<String, Object> contactBody = Contact.insertContact(apiRequestPath + "create-contact.json", testCrn);
         String contactId = contactBody.get("contactID").toString();
@@ -136,8 +179,9 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testCanGetContactById() throws IOException {
+    public void testCanGetContactById() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        assert body != null;
         String testCrn = (String) body.get("crn");
         Map<String, Object> contactBody = Contact.insertContact(apiRequestPath + "create-contact.json", testCrn);
         String contactId = contactBody.get("contactID").toString();
@@ -153,18 +197,18 @@ public class TestDataAPITests {
         assertThat(jsonBody, containsString("\"offenderCRN\":\"testValue\""));
     }
     @Test
-    public void testUpdateValueInJsonReturnsErrorTextWhenJsonFileNotFound(){
+    public void testUpdateValueInJsonReturnsNullWhenJsonFileNotFound(){
         String output = updateValueInJson(apiRequestPath + "rubbish", "offenderCRN", "testValue");
-        Assert.assertEquals(output, "Error in json update");
+        Assert.assertNull(output);
     }
     @Test
-    public void testUpdateValueInJsonReturnsErrorTextWhenJsonParameterNotFound(){
+    public void testUpdateValueInJsonReturnsNullWhenJsonParameterNotFound(){
         String output = updateValueInJson(apiRequestPath + "create-contact.json", "rubbish", "testValue");
-        Assert.assertEquals(output, "Error in json update");
+        Assert.assertNull(output);
     }
 
     @Test
-    public void testJsonFileIsConvertedToString() throws IOException {
+    public void testJsonFileIsConvertedToString() {
         String output = generateStringFromResource("src/test/resources/fixtures/json-to-string-test.json");
         Assert.assertEquals(output, """
                 {
@@ -175,8 +219,9 @@ public class TestDataAPITests {
                 }""");
     }
     @Test
-    public void testGenerateStringFromResourceThrowsErrorWhenFileDoesNotExist(){
-        assertThrows(NoSuchFileException.class, ()-> generateStringFromResource("rubbish"));
+    public void testGenerateStringFromResourceReturnsNullWhenFileDoesNotExist(){
+        String output = generateStringFromResource("rubbish");
+        Assert.assertNull(output);
     }
 
     @AfterClass

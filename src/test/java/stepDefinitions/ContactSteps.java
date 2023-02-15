@@ -5,12 +5,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.caseManagement.contactList.ContactDetailsPage;
-import testDataApi.Contact;
-import testDataApi.Offender;
-
-import java.io.IOException;
 
 import static config.TestDataApiConfig.apiRequestPath;
+import static data.SessionDataMapper.createContact;
+import static data.SessionDataMapper.createOffender;
 import static stepDefinitions.BaseSteps.getOffenderSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
@@ -19,9 +17,9 @@ public class ContactSteps {
     ContactDetailsPage contactDetailsPage;
 
     @Given("offender with contact is created")
-    public void create_offender_with_contact() throws IOException {
-        Offender.createOffender(apiRequestPath + "create-offender.json");
-        Contact.createContact(apiRequestPath + "create-contact.json", getOffenderSessionData().getCrn());
+    public void create_offender_with_contact() {
+        createOffender(apiRequestPath + "create-offender.json");
+        createContact(apiRequestPath + "create-contact.json");
     }
 
     @When("I navigate to Contact Details page")

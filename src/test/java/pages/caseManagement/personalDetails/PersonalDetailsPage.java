@@ -36,8 +36,8 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
     }
 
     public void assertOffenderDetails(){
-        Assert.assertEquals(getOffenderSessionData().getApiResponseBody().get("firstName"), firstNameField.getText());
-        Assert.assertEquals(getOffenderSessionData().getApiResponseBody().get("surname"), surnameNameField.getText());
+        Assert.assertEquals(getOffenderSessionData().getTestOffenderDetails().get("firstName"), firstNameField.getText());
+        Assert.assertEquals(getOffenderSessionData().getTestOffenderDetails().get("surname"), surnameNameField.getText());
     }
 
 }
