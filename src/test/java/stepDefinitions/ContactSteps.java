@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import data.Person;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,8 +8,7 @@ import pages.LoginPage;
 import pages.caseManagement.contactList.ContactDetailsPage;
 
 import static config.TestDataApiConfig.apiRequestPath;
-import static data.SessionDataMapper.createContact;
-import static data.SessionDataMapper.createOffender;
+import static data.SessionDataMapper.*;
 import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
@@ -18,7 +18,7 @@ public class ContactSteps {
 
     @Given("offender with contact is created")
     public void create_offender_with_contact() {
-        createOffender(apiRequestPath + "create-offender.json");
+        createPerson(apiRequestPath + "create-offender.json");
         createContact(apiRequestPath + "create-contact.json");
     }
 
@@ -27,7 +27,7 @@ public class ContactSteps {
         contactDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
                 .clickOnViewLink()
                 .clickOnContactListLink()
                 .clickOnViewLink();

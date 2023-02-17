@@ -1,5 +1,6 @@
 package pages.caseManagement.personalDetails;
 
+import data.Person;
 import navigationPanel.caseManagementLinks.CaseManagementNavigationLinks;
 import navigationPanel.caseManagementLinks.PersonalDetailsNavigationLinks;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,7 @@ import org.testng.Assert;
 import pages.BasePageObject;
 import pages.caseManagement.CaseSummaryPage;
 
-import static stepDefinitions.BaseSteps.*;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class PersonalDetailsPage extends BasePageObject implements CaseManagementNavigationLinks, PersonalDetailsNavigationLinks {
@@ -54,14 +55,15 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
     }
 
     public void assertPersonDetails(){
-        Assert.assertEquals(getSessionData().getCrn(), crnField.getText());
-        Assert.assertEquals(getSessionData().getTitle(), titleField.getText());
-        Assert.assertEquals(getSessionData().getFirstName(), firstNameField.getText());
-        Assert.assertEquals(getSessionData().getSecondName(), secondNameField.getText());
-        Assert.assertEquals(getSessionData().getThirdName(), thirdNameField.getText());
-        Assert.assertEquals(getSessionData().getPreferredName(), preferredNameField.getText());
-        Assert.assertEquals(getSessionData().getSurname(), surnameNameField.getText());
-        Assert.assertEquals(getSessionData().getTelephoneNumber(), telephoneField.getText());
+        Person person = getSessionData().getPerson();
+        Assert.assertEquals(person.getCrn(), crnField.getText());
+        Assert.assertEquals(person.getTitle(), titleField.getText().toUpperCase());
+        Assert.assertEquals(person.getFirstName(), firstNameField.getText());
+        Assert.assertEquals(person.getSecondName(), secondNameField.getText());
+        Assert.assertEquals(person.getThirdName(), thirdNameField.getText());
+        Assert.assertEquals(person.getPreferredName(), preferredNameField.getText());
+        Assert.assertEquals(person.getSurname(), surnameNameField.getText());
+        Assert.assertEquals(person.getTelephoneNumber(), telephoneField.getText());
     }
 
 }

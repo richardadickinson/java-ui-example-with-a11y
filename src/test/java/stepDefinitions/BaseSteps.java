@@ -60,8 +60,8 @@ public class BaseSteps {
 
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
-        if (getSessionData().getCrn()!=null){
-            runDeleteOffenderScript(getSessionData().getCrn());
+        if (getSessionData().getPerson()!=null){
+            runDeleteOffenderScript(getSessionData().getPerson().getCrn());
         }
     }
 

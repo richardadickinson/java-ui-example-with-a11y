@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import data.Person;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,7 +8,7 @@ import pages.LoginPage;
 import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
 import static config.TestDataApiConfig.apiRequestPath;
-import static data.SessionDataMapper.createOffender;
+import static data.SessionDataMapper.createPerson;
 import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
@@ -18,7 +19,7 @@ public class OffenderSteps {
 
     @Given("an offender is created")
     public void create_offender() {
-        createOffender(apiRequestPath + "create-offender.json");
+        createPerson(apiRequestPath + "create-offender.json");
     }
 
     @When("I navigate to Personal Details page")
@@ -26,7 +27,7 @@ public class OffenderSteps {
         personalDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
                 .clickOnViewLink()
                 .clickOnPersonalDetailsLink();
     }
