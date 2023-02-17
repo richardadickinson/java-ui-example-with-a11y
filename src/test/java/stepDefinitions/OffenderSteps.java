@@ -8,7 +8,7 @@ import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
 import static config.TestDataApiConfig.apiRequestPath;
 import static data.SessionDataMapper.createOffender;
-import static stepDefinitions.BaseSteps.getOffenderSessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class OffenderSteps {
@@ -26,14 +26,14 @@ public class OffenderSteps {
         personalDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnPersonalDetailsLink();
     }
 
     @Then("the offender details should be present")
     public void validate_person_details() {
-        personalDetailsPage.assertOffenderDetails();
+        personalDetailsPage.assertPersonDetails();
     }
 
 }

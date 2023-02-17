@@ -9,7 +9,7 @@ import pages.caseManagement.eventList.EventDetailsPage;
 import static config.TestDataApiConfig.apiRequestPath;
 import static data.SessionDataMapper.createEvent;
 import static data.SessionDataMapper.createOffender;
-import static stepDefinitions.BaseSteps.getOffenderSessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class EventSteps {
@@ -28,7 +28,7 @@ public class EventSteps {
         eventDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnEventListLink()
                 .clickOnViewLink();

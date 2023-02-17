@@ -34,27 +34,12 @@ public class BaseSteps {
         return sessionData.get();
     }
 
-    public static SessionData.OffenderData getOffenderSessionData() {
-        return getSessionData().getOffenderData();
-    }
-
-    public static SessionData.EventData getEventSessionData() {
-        return getSessionData().getEventData();
-    }
-
-    public static SessionData.ContactData getContactSessionData() {
-        return getSessionData().getContactData();
-    }
-
     @Before
     public void debugThreads() {
         this.threadId = "Thread ID: " + Thread.currentThread().getId();
         this.testId = generateTestId();
         logger.debug(threadId + " testId: " + testId);
         sessionData.set(new SessionData());
-        getSessionData().setOffenderData(new SessionData.OffenderData());
-        getSessionData().setEventData(new SessionData.EventData());
-        getSessionData().setContactData(new SessionData.ContactData());
     }
 
     @Before("not @api")
@@ -75,8 +60,8 @@ public class BaseSteps {
 
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
-        if (getOffenderSessionData().getCrn()!=null){
-            runDeleteOffenderScript(getOffenderSessionData().getCrn());
+        if (getSessionData().getCrn()!=null){
+            runDeleteOffenderScript(getSessionData().getCrn());
         }
     }
 

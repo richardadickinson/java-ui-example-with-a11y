@@ -9,7 +9,7 @@ import pages.caseManagement.contactList.ContactDetailsPage;
 import static config.TestDataApiConfig.apiRequestPath;
 import static data.SessionDataMapper.createContact;
 import static data.SessionDataMapper.createOffender;
-import static stepDefinitions.BaseSteps.getOffenderSessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class ContactSteps {
@@ -27,7 +27,7 @@ public class ContactSteps {
         contactDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getCrn())
                 .clickOnViewLink()
                 .clickOnContactListLink()
                 .clickOnViewLink();

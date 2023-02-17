@@ -16,17 +16,17 @@ public class SessionDataMapper {
 
     public static void createOffender(String path) {
         Map<String, Object> body = Offender.insertOffender(path);
-        getOffenderSessionData().setTestOffenderDetails(Objects.requireNonNull(body));
+        getSessionData().setPersonDetails(Objects.requireNonNull(body));
     }
 
     public static void createEvent(String path) {
-        Map<String, Object> testEventBody  = insertEvent(path, getOffenderSessionData().getCrn());
-        getEventSessionData().setTestEventDetails(Objects.requireNonNull(testEventBody));
+        Map<String, Object> testEventBody  = insertEvent(path, getSessionData().getCrn());
+        getSessionData().setTestEventDetails(Objects.requireNonNull(testEventBody));
     }
 
     public static void createContact(String path){
-        Map<String, Object> testContactBody = insertContact(path, getOffenderSessionData().getCrn());
-        getContactSessionData().setTestContactDetails(testContactBody);
+        Map<String, Object> testContactBody = insertContact(path, getSessionData().getCrn());
+        getSessionData().setTestContactDetails(testContactBody);
     }
 
 }
