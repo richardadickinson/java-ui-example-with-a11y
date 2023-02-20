@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pages.BasePageObject;
 
-import static stepDefinitions.BaseSteps.getEventSessionData;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class EventDetailsPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks, EventListNavigationLinks {
@@ -22,7 +22,7 @@ public class EventDetailsPage extends BasePageObject implements MainNavigationPa
     }
 
     public void assertEventDetails() {
-        String offenceCode = getEventSessionData().getTestEventDetails().get("mainOffenceCode").toString();
+        String offenceCode = getSessionData().getEvent().getMainOffence();
         Assert.assertTrue(getFieldLabelValue("Offence Sub-Cat").contains(offenceCode));
     }
 

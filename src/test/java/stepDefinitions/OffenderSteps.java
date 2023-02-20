@@ -7,8 +7,8 @@ import pages.LoginPage;
 import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
 import static config.TestDataApiConfig.apiRequestPath;
-import static data.SessionDataMapper.createOffender;
-import static stepDefinitions.BaseSteps.getOffenderSessionData;
+import static data.SessionDataMapper.createPerson;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class OffenderSteps {
@@ -18,7 +18,7 @@ public class OffenderSteps {
 
     @Given("an offender is created")
     public void create_offender() {
-        createOffender(apiRequestPath + "create-offender.json");
+        createPerson(apiRequestPath + "create-offender.json");
     }
 
     @When("I navigate to Personal Details page")
@@ -26,14 +26,14 @@ public class OffenderSteps {
         personalDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
                 .clickOnViewLink()
                 .clickOnPersonalDetailsLink();
     }
 
     @Then("the offender details should be present")
     public void validate_person_details() {
-        personalDetailsPage.assertOffenderDetails();
+        personalDetailsPage.assertPersonDetails();
     }
 
 }

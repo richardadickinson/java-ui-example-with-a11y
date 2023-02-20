@@ -8,8 +8,8 @@ import pages.caseManagement.eventList.EventDetailsPage;
 
 import static config.TestDataApiConfig.apiRequestPath;
 import static data.SessionDataMapper.createEvent;
-import static data.SessionDataMapper.createOffender;
-import static stepDefinitions.BaseSteps.getOffenderSessionData;
+import static data.SessionDataMapper.createPerson;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class EventSteps {
@@ -19,7 +19,7 @@ public class EventSteps {
 
     @Given("offender with event is created")
     public void create_offender_with_event() {
-        createOffender(apiRequestPath + "create-offender.json");
+        createPerson(apiRequestPath + "create-offender.json");
         createEvent(apiRequestPath + "create-event.json");
     }
 
@@ -28,7 +28,7 @@ public class EventSteps {
         eventDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getOffenderSessionData().getCrn())
+                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
                 .clickOnViewLink()
                 .clickOnEventListLink()
                 .clickOnViewLink();

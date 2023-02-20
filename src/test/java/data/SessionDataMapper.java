@@ -14,19 +14,22 @@ public class SessionDataMapper {
      * Map Session Data for test data created for test scenarios
      */
 
-    public static void createOffender(String path) {
+    public static void createPerson(String path) {
         Map<String, Object> body = Offender.insertOffender(path);
-        getOffenderSessionData().setTestOffenderDetails(Objects.requireNonNull(body));
+        Person person = new Person().build(Objects.requireNonNull(body));
+        getSessionData().setPerson(person);
     }
 
     public static void createEvent(String path) {
-        Map<String, Object> testEventBody  = insertEvent(path, getOffenderSessionData().getCrn());
-        getEventSessionData().setTestEventDetails(Objects.requireNonNull(testEventBody));
+        Map<String, Object> body  = insertEvent(path, getSessionData().getPerson().getCrn());
+        Event event = new Event().build(Objects.requireNonNull(body));
+        getSessionData().setEvent(event);
     }
 
     public static void createContact(String path){
-        Map<String, Object> testContactBody = insertContact(path, getOffenderSessionData().getCrn());
-        getContactSessionData().setTestContactDetails(testContactBody);
+        Map<String, Object> body = insertContact(path, getSessionData().getPerson().getCrn());
+        Contact contact = new Contact().build(Objects.requireNonNull(body));
+        getSessionData().setContact(contact);
     }
 
 }
