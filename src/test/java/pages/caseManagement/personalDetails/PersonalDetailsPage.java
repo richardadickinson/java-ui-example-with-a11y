@@ -81,7 +81,7 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         Assert.assertEquals(person.getPreferredName(), preferredNameField.getText());
         Assert.assertEquals(person.getSurname(), surnameNameField.getText());
         Assert.assertEquals(convertGender(person.getGender()), genderField.getText());
-        Assert.assertEquals(convertApiDate(person.getDateOfBirth()), dateOfBirthField.getText());
+        Assert.assertEquals(person.getDateOfBirth(), dateOfBirthField.getText());
         Assert.assertEquals(person.getTelephoneNumber(), telephoneField.getText());
     }
 

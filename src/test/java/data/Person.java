@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.util.Map;
 
+import static utils.DateUtil.convertApiDate;
+
 @Getter
 public class Person {
 
@@ -19,6 +21,15 @@ public class Person {
     private String telephoneNumber;
     private Map<String, Object> personResponseBody;
 
+    private static String convertGender(String apiGender) {
+        if (apiGender.equals("M")) {
+            return "Male";
+        } else if (apiGender.equals("F")) {
+            return "Female";
+        }
+        return apiGender;
+    }
+
     public Person build(Map<String, Object> personResponseBody) {
         this.personResponseBody = personResponseBody;
         this.crn = personResponseBody.get("crn").toString();
@@ -28,8 +39,8 @@ public class Person {
         this.thirdName = personResponseBody.get("thirdName").toString();
         this.preferredName = personResponseBody.get("preferredName").toString();
         this.surname = personResponseBody.get("surname").toString();
-        this.gender = personResponseBody.get("genderCode").toString();
-        this.dateOfBirth = personResponseBody.get("dateOfBirth").toString();
+        this.gender = convertGender(personResponseBody.get("genderCode").toString());
+        this.dateOfBirth = convertApiDate(personResponseBody.get("dateOfBirth").toString());
         this.telephoneNumber = personResponseBody.get("telephoneNumber").toString();
         return this;
     }
