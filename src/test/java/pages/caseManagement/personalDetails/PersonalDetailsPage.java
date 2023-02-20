@@ -62,15 +62,6 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         return new CaseSummaryPage(getWebDriver());
     }
 
-    private static String convertGender(String apiGender) {
-        if (apiGender.equals("M")) {
-            return "Male";
-        } else if (apiGender.equals("F")) {
-            return "Female";
-        }
-        return apiGender;
-    }
-
     public void assertPersonDetails() {
         Person person = getSessionData().getPerson();
         Assert.assertEquals(person.getCrn(), crnField.getText());
@@ -80,7 +71,7 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         Assert.assertEquals(person.getThirdName(), thirdNameField.getText());
         Assert.assertEquals(person.getPreferredName(), preferredNameField.getText());
         Assert.assertEquals(person.getSurname(), surnameNameField.getText());
-        Assert.assertEquals(convertGender(person.getGender()), genderField.getText());
+        Assert.assertEquals(person.getGender(), genderField.getText());
         Assert.assertEquals(person.getDateOfBirth(), dateOfBirthField.getText());
         Assert.assertEquals(person.getTelephoneNumber(), telephoneField.getText());
     }
