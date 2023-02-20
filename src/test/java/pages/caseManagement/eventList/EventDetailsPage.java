@@ -6,8 +6,10 @@ import navigationPanel.caseManagementLinks.EventListNavigationLinks;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import pages.BasePageObject;
 
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class EventDetailsPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks, EventListNavigationLinks {
@@ -20,8 +22,8 @@ public class EventDetailsPage extends BasePageObject implements MainNavigationPa
     }
 
     public void assertEventDetails() {
-//        String offenceCode = getSessionData().getTestEventDetails().get("mainOffenceCode").toString();
-//        Assert.assertTrue(getFieldLabelValue("Offence Sub-Cat").contains(offenceCode));
+        String offenceCode = getSessionData().getEvent().getMainOffence();
+        Assert.assertTrue(getFieldLabelValue("Offence Sub-Cat").contains(offenceCode));
     }
 
     private String getFieldLabelValue(String labelName) {

@@ -11,6 +11,7 @@ import pages.BasePageObject;
 import pages.caseManagement.CaseSummaryPage;
 
 import static stepDefinitions.BaseSteps.getSessionData;
+import static utils.DateUtil.convertApiDate;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class PersonalDetailsPage extends BasePageObject implements CaseManagementNavigationLinks, PersonalDetailsNavigationLinks {
@@ -42,8 +43,15 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
     @FindBy(id = "SearchForm:Telephone")
     private WebElement telephoneField;
 
+    @FindBy(id = "SearchForm:Sex")
+    private WebElement genderField;
+
+    @FindBy(id = "SearchForm:DateOfBirth")
+    private WebElement dateOfBirthField;
+
 
     private static final String expectedPageTitle = "Personal Details";
+
     public PersonalDetailsPage(WebDriver webDriver) {
         super(webDriver);
         assertPageTitle(expectedPageTitle);
@@ -54,7 +62,16 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         return new CaseSummaryPage(getWebDriver());
     }
 
-    public void assertPersonDetails(){
+    private static String convertGender(String apiGender) {
+        if (apiGender.equals("M")) {
+            return "Male";
+        } else if (apiGender.equals("F")) {
+            return "Female";
+        }
+        return apiGender;
+    }
+
+    public void assertPersonDetails() {
         Person person = getSessionData().getPerson();
         Assert.assertEquals(person.getCrn(), crnField.getText());
         Assert.assertEquals(person.getTitle(), titleField.getText().toUpperCase());
@@ -63,6 +80,8 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         Assert.assertEquals(person.getThirdName(), thirdNameField.getText());
         Assert.assertEquals(person.getPreferredName(), preferredNameField.getText());
         Assert.assertEquals(person.getSurname(), surnameNameField.getText());
+        Assert.assertEquals(convertGender(person.getGender()), genderField.getText());
+        Assert.assertEquals(convertApiDate(person.getDateOfBirth()), dateOfBirthField.getText());
         Assert.assertEquals(person.getTelephoneNumber(), telephoneField.getText());
     }
 
