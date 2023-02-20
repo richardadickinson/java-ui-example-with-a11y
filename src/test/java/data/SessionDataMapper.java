@@ -16,20 +16,20 @@ public class SessionDataMapper {
 
     public static void createPerson(String path) {
         Map<String, Object> body = Offender.insertOffender(path);
-        Person person = new Person().build(body);
-        getSessionData().setPerson(Objects.requireNonNull(person));
+        Person person = new Person().build(Objects.requireNonNull(body));
+        getSessionData().setPerson(person);
     }
 
     public static void createEvent(String path) {
         Map<String, Object> body  = insertEvent(path, getSessionData().getPerson().getCrn());
-        Event event = new Event().build(body);
-        getSessionData().setEvent(Objects.requireNonNull(event));
+        Event event = new Event().build(Objects.requireNonNull(body));
+        getSessionData().setEvent(event);
     }
 
     public static void createContact(String path){
         Map<String, Object> body = insertContact(path, getSessionData().getPerson().getCrn());
-        Contact contact = new Contact().build(body);
-        getSessionData().setContact(Objects.requireNonNull(contact));
+        Contact contact = new Contact().build(Objects.requireNonNull(body));
+        getSessionData().setContact(contact);
     }
 
 }
