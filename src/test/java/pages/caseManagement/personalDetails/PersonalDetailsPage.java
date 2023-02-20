@@ -11,7 +11,6 @@ import pages.BasePageObject;
 import pages.caseManagement.CaseSummaryPage;
 
 import static stepDefinitions.BaseSteps.getSessionData;
-import static utils.DateUtil.convertApiDate;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class PersonalDetailsPage extends BasePageObject implements CaseManagementNavigationLinks, PersonalDetailsNavigationLinks {
