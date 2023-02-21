@@ -7,8 +7,9 @@ import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.TestConfigManager;
@@ -16,16 +17,19 @@ import utils.TestConfigManager;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static utils.dbUtils.DeleteScript.runDeleteOffenderScript;
 import static utils.webDriver.Builder.getWebDriver;
 import static utils.webDriver.Builder.initialiseWebDriver;
 
 
 public class BaseSteps {
-    private String threadId;
+    private long threadId;
     private String testId;
     private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
     private static final ThreadLocal<SessionData> sessionData = new ThreadLocal<>();
@@ -36,9 +40,9 @@ public class BaseSteps {
 
     @Before
     public void debugThreads() {
-        this.threadId = "Thread ID: " + Thread.currentThread().getId();
+        this.threadId = Thread.currentThread().getId();
         this.testId = generateTestId();
-        logger.debug(threadId + " testId: " + testId);
+        logger.debug("Thread ID: " + threadId + " testId: " + testId);
         sessionData.set(new SessionData());
     }
 
@@ -55,9 +59,10 @@ public class BaseSteps {
             byte[] screenshot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName() + "_" + timestamp.format(new Date()));
         }
-        this.threadId = "Thread ID: " + Thread.currentThread().getId();
-        logger.debug(threadId + " testId: " + testId);
+        assertEquals(Thread.currentThread().getId(), this.threadId);
+        logger.debug("Thread ID: " + Thread.currentThread().getId() + " testId: " + testId);
 
+        signOutNDelius();
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
         if (getSessionData().getPerson()!=null){
@@ -68,7 +73,6 @@ public class BaseSteps {
     @AfterAll
     public static void shutdown() {
         if (null != getWebDriver() && !getWebDriver().toString().contains("Safari")) {
-            logger.debug("What is WebDriver? : " + getWebDriver().toString());
             getWebDriver().quit();
         }
     }
@@ -79,6 +83,22 @@ public class BaseSteps {
         bb.putLong(uuid.getMostSignificantBits());
         bb.putLong(uuid.getLeastSignificantBits());
         return StringUtils.replace(BaseEncoding.base64Url().encode(bb.array()), "=", "" ).toUpperCase();
+    }
+
+    private void signOutNDelius(){
+        getWebDriver().findElement(By.linkText("Sign Out")).click();
+        Alert alert = new WebDriverWait(getWebDriver(), Duration.ofMillis(2000)).until(ExpectedConditions.alertIsPresent());
+        while (null != alert) {
+            getWebDriver().switchTo().alert().accept();
+            logger.debug("Sign Out alert accepted");
+            try {
+                alert = new WebDriverWait(getWebDriver(), Duration.ofMillis(1000)).until(ExpectedConditions.alertIsPresent());
+            } catch (TimeoutException tex) {
+                alert = null;
+            }
+        }
+
+        assertTrue(getWebDriver().getCurrentUrl().contains("close.jsp"));
     }
 
 }
