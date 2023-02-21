@@ -22,12 +22,12 @@ public class OffenderSteps {
     }
 
     @When("I navigate to Personal Details page")
-    public void navigate_to_event_details_page() {
+    public void navigate_to_personal_details_page() {
         personalDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
-                .clickOnViewLink()
+                .enterCrnAndSearch(getSessionData().getPerson().getCrn())
+                .clickOnViewLink_singleResult()
                 .clickOnPersonalDetailsLink();
     }
 

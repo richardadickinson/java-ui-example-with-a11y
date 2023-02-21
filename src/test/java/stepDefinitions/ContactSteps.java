@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import data.Person;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -27,8 +26,8 @@ public class ContactSteps {
         contactDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
-                .clickOnViewLink()
+                .enterCrnAndSearch(getSessionData().getPerson().getCrn())
+                .clickOnViewLink_singleResult()
                 .clickOnContactListLink()
                 .clickOnViewLink();
     }
