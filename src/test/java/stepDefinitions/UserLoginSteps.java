@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.caseManagement.personalDetails.PersonalDetailsPage;
@@ -33,7 +32,7 @@ public class UserLoginSteps {
     @Then("the Homepage should appear")
     public void homepageShouldAppear() {
         /**
-         * Safari requires the following wait or it gets the login page title
+         * Safari requires the following wait, or it gets the login page title
          *  - we'll need to replace this with tolerantInteractions
          *  */
         new WebDriverWait(getWebDriver(), Duration.ofSeconds(10))
@@ -51,8 +50,6 @@ public class UserLoginSteps {
 
     @Then("The Personal Details page matches the offender selected")
     public void thePersonalDetailsPageMatches() {
-        Assert.assertEquals(personalDetailsPage.crnField.getText(), "X289671");
-        Assert.assertEquals(personalDetailsPage.firstNameField.getText(), "TomMehWW");
-        Assert.assertEquals(personalDetailsPage.surnameField.getText(), "JonKoiYY");
+        personalDetailsPage.simpleAssertOffender();
     }
 }

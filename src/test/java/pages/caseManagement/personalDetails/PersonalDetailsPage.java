@@ -19,13 +19,13 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
     private WebElement closeButton;
 
     @FindBy(id = "SearchForm:crn")
-    public WebElement crnField;
+    private WebElement crnField;
 
     @FindBy(id = "SearchForm:Title")
     private WebElement titleField;
 
     @FindBy(id = "SearchForm:FirstName")
-    public WebElement firstNameField;
+    private WebElement firstNameField;
 
     @FindBy(id = "SearchForm:SecondName")
     private WebElement secondNameField;
@@ -37,7 +37,7 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
     private WebElement preferredNameField;
 
     @FindBy(id = "SearchForm:Surname")
-    public WebElement surnameField;
+    private WebElement surnameField;
 
     @FindBy(id = "SearchForm:Telephone")
     private WebElement telephoneField;
@@ -73,6 +73,12 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         Assert.assertEquals(person.getGender(), genderField.getText());
         Assert.assertEquals(person.getDateOfBirth(), dateOfBirthField.getText());
         Assert.assertEquals(person.getTelephoneNumber(), telephoneField.getText());
+    }
+
+    public void simpleAssertOffender() {
+        Assert.assertEquals(crnField.getText(), "X289671");
+        Assert.assertEquals(firstNameField.getText(), "TomMehWW");
+        Assert.assertEquals(surnameField.getText(), "JonKoiYY");
     }
 
 }
