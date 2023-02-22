@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import pages.BasePageObject;
 
-import static utils.DateUtil.today;
+import static utils.DateUtil.getTodayDateFormatted;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class ContactDetailsPage extends BasePageObject implements MainNavigationPanelLinks, CaseManagementNavigationLinks, ContactListNavigationLinks {
@@ -33,7 +33,7 @@ public class ContactDetailsPage extends BasePageObject implements MainNavigation
     }
 
     public void assertContactDetails(){
-        Assert.assertEquals(dateField.getText(),today(), "contact date does not match");
+        Assert.assertEquals(dateField.getText(), getTodayDateFormatted(), "contact date does not match");
     }
 
 }
