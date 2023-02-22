@@ -1,10 +1,10 @@
 package frameworkTests;
 
 import config.BrowserType;
-import utils.webDriver.config.WebDriverConfig;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import utils.TestConfigManager;
+import utils.webDriver.config.WebDriverConfig;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -15,6 +15,7 @@ public class TestConfigManagerTests {
     public void setUp() {
         System.setProperty("config", "fixtures/test-config.json");
     }
+
     @Test
     public void testReturnedTestConfigIsCorrectType() {
         assertThat(TestConfigManager.get(), instanceOf(WebDriverConfig.class));

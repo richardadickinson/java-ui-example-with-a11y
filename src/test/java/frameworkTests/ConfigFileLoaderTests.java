@@ -13,7 +13,9 @@ public class ConfigFileLoaderTests {
     private ConfigLoader configLoader;
 
     @BeforeTest
-    public void setUp() { this.configLoader = new ConfigLoader(); }
+    public void setUp() {
+        this.configLoader = new ConfigLoader();
+    }
 
     @Test
     public void testCanLoadConfigFileWithConfigPropertySetToDefaultAndNoPropertyArgsSet() {

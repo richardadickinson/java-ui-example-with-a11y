@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
-
 import utils.webDriver.configuredDrivers.ConfiguredChromeDriver;
 import utils.webDriver.configuredDrivers.ConfiguredDriver;
 import utils.webDriver.configuredDrivers.ConfiguredEdgeDriver;
@@ -25,9 +24,9 @@ public class ConfiguredDriverPreferenceTests {
     private static EmbeddedJetty embeddedJetty;
     private WebDriver webDriver;
 
-    @DataProvider (name = "configured-drivers")
-    public Object[][] dpMethod(){
-        return new Object[][] {{new ConfiguredChromeDriver()}, {new ConfiguredFirefoxDriver()}, {new ConfiguredEdgeDriver()}};
+    @DataProvider(name = "configured-drivers")
+    public Object[][] dpMethod() {
+        return new Object[][]{{new ConfiguredChromeDriver()}, {new ConfiguredFirefoxDriver()}, {new ConfiguredEdgeDriver()}};
     }
 
     @BeforeTest
@@ -37,7 +36,7 @@ public class ConfiguredDriverPreferenceTests {
         baseUrl = "http://localhost:" + embeddedJetty.getPort() + "/index.html";
     }
 
-    @Test (dataProvider = "configured-drivers")
+    @Test(dataProvider = "configured-drivers")
     public void testBrowserPrefsAreAppliedAndFileDownloadWorks(ConfiguredDriver testDriver) throws IOException, InterruptedException {
         System.setProperty("config", "fixtures/sample-config-with-browser-preferences.json");
         webDriver = testDriver.getDriver();
@@ -61,6 +60,7 @@ public class ConfiguredDriverPreferenceTests {
         }
         this.webDriver.quit();
     }
+
     @AfterClass
     public void jettyTearDown() throws Exception {
         System.setProperty("config", "DEFAULT");

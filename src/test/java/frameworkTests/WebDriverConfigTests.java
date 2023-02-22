@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import config.BrowserType;
-import utils.webDriver.config.WebDriverConfig;
 import org.testng.annotations.Test;
 import utils.JsonUtils;
+import utils.webDriver.config.WebDriverConfig;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -66,7 +66,8 @@ public class WebDriverConfigTests {
         WebDriverConfig webDriverConfig = JsonUtils.fromString(inputConfigJson, WebDriverConfig.class);
         ObjectNode actualPreferences = webDriverConfig.getBrowserPreferences(BrowserType.CHROME);
         ObjectNode expectedPreferences = JsonNodeFactory.instance.objectNode()
-                .put(preferenceKey, preferenceValue);    assertThat(actualPreferences, is(expectedPreferences));
+                .put(preferenceKey, preferenceValue);
+        assertThat(actualPreferences, is(expectedPreferences));
     }
 
     @Test
