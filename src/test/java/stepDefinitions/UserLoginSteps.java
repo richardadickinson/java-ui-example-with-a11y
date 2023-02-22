@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
 import java.time.Duration;
 
@@ -17,6 +18,7 @@ public class UserLoginSteps {
 
     LoginPage loginPage = new LoginPage(getWebDriver());
     HomePage homePage;
+    PersonalDetailsPage personalDetailsPage;
 
     @Given("I have a valid user credentials")
     public void given_i_have_a_valid_user() {
@@ -29,10 +31,25 @@ public class UserLoginSteps {
 
     @Then("the Homepage should appear")
     public void homepageShouldAppear() {
-        /** Safari requires the following wait or it gets the login page title
-         *  - we'll need to replace this with tolerantInteractions as per the Evoco framework */
+        /**
+         * Safari requires the following wait, or it gets the login page title
+         *  - we'll need to replace this with tolerantInteractions
+         *  */
         new WebDriverWait(getWebDriver(), Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.linkText("National Search")));
     }
 
+    @Given("I search for and select an offender")
+    public void iSearchForAndSelectAnOffender() {
+        personalDetailsPage = loginPage.login()
+                .clickOnNationalSearch()
+                .enterPersonNameAndSearch("tom","jones")
+                .selectSearchResultsViewLinkByCRN("X289671")
+                .clickOnPersonalDetailsLink();
+    }
+
+    @Then("The Personal Details page matches the offender selected")
+    public void thePersonalDetailsPageMatches() {
+        personalDetailsPage.simpleAssertOffender();
+    }
 }

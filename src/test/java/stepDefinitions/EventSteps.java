@@ -28,8 +28,8 @@ public class EventSteps {
         eventDetailsPage = loginPage
                 .login()
                 .clickOnNationalSearch()
-                .enterCrnAndClickSearchButton(getSessionData().getPerson().getCrn())
-                .clickOnViewLink()
+                .enterCrnAndSearch(getSessionData().getPerson().getCrn())
+                .clickOnViewLink_singleResult()
                 .clickOnEventListLink()
                 .clickOnViewLink();
     }
