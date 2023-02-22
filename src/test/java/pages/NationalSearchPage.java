@@ -9,7 +9,7 @@ import pages.caseManagement.CaseSummaryPage;
 
 import static utils.webDriver.Builder.getWebDriver;
 import static utils.webDriver.interactions.FindBy.findByUntil;
-import static utils.webDriver.interactions.SearchResultsTable.selectSearchResultsTableViewLink;
+import static utils.webDriver.interactions.SearchResultsTable.selectViewLinkFromSearchResults;
 
 public class NationalSearchPage extends BasePageObject implements MainNavigationPanelLinks {
 
@@ -57,7 +57,7 @@ public class NationalSearchPage extends BasePageObject implements MainNavigation
     }
 
     public CaseSummaryPage selectSearchResultsViewLinkByCRN(String crn) {
-        selectSearchResultsTableViewLink(searchResultsTableId, "CRN", crn);
+        selectViewLinkFromSearchResults(searchResultsTableId, "CRN", crn);
         return new CaseSummaryPage(getWebDriver());
     }
 

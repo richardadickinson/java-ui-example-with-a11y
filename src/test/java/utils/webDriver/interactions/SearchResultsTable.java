@@ -13,27 +13,38 @@ import static utils.webDriver.Builder.getWebDriver;
 public class SearchResultsTable {
     private final static Logger logger = LoggerFactory.getLogger(SearchResultsTable.class);
 
-    public static void selectSearchResultsTableViewLink(String tableId, String matchType, String value) {
-        String matchColumnIndex="0";
-        String viewLinkColumnIndex="0";
-        if (matchType.equalsIgnoreCase("crn")) {
-            matchColumnIndex = "1";
-        }
-        if (tableId.equalsIgnoreCase(NationalSearchPage.getSearchResultsTableId())) {
-            viewLinkColumnIndex = "11";
-        }
+    public static void selectViewLinkFromSearchResults(String tableId, String matchType, String value) {
+        String matchColumnIndex = getMatchColumnIndex(matchType);
+        String viewLinkColumnIndex = getViewColumnIndex(tableId);
 
-        List<WebElement> cells = getWebDriver().findElements(By.xpath("//table[@id='"+ tableId + "']/tbody/tr/td["+matchColumnIndex+"]"));
-        logger.debug("Search results row count: " + cells.size());
-        int rowIndex = 1;
-        for (WebElement cell: cells) {
-            if (cell.getText().contains(value)) {
-                logger.debug(matchType + " found, clicking View link...");
-                getWebDriver().findElement(By.xpath("//*[@id='"+ tableId +"']/tbody/tr["+rowIndex+"]/td["+viewLinkColumnIndex+"]/a")).click();
-                break;
+        if (!matchColumnIndex.equals("-1") && !viewLinkColumnIndex.equals("-1")) {
+            List<WebElement> cells = getWebDriver().findElements(By.xpath("//table[@id='" + tableId + "']/tbody/tr/td[" + matchColumnIndex + "]"));
+            logger.debug("Search results row count: " + cells.size());
+            int rowIndex = 1;
+            for (WebElement cell : cells) {
+                if (cell.getText().contains(value)) {
+                    logger.debug(matchType + " found, clicking View link...");
+                    getWebDriver().findElement(By.xpath("//*[@id='" + tableId + "']/tbody/tr[" + rowIndex + "]/td[" + viewLinkColumnIndex + "]/a")).click();
+                    break;
+                }
+                rowIndex++;
             }
-            rowIndex++;
+            logger.debug("Search result row selected = " + rowIndex);
+        } else {
+            throw new RuntimeException("Search results table identifiers not recognised: tableId: " + tableId + " matchType: " + matchType);
         }
-        logger.debug("Search result row selected = " + rowIndex);
+    }
+
+    private static String getMatchColumnIndex(String matchType) {
+        String matchColumnIndex = "-1";
+        if (matchType.equalsIgnoreCase("crn")) matchColumnIndex = "1";
+        if (matchType.equalsIgnoreCase("test")) matchColumnIndex = "7";
+        return matchColumnIndex;
+    }
+    private static String getViewColumnIndex(String tableId) {
+        String viewLinkColumnIndex = "-1";
+        if (tableId.equalsIgnoreCase(NationalSearchPage.getSearchResultsTableId())) viewLinkColumnIndex = "11";
+        if (tableId.contains("testTable")) viewLinkColumnIndex = "9";
+        return viewLinkColumnIndex;
     }
 }
