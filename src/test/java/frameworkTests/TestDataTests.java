@@ -79,8 +79,6 @@ public class TestDataTests {
     @Test
     public void testConvertGenderMale() {
         Map<String, Object> body = testPersonResponseBody();
-        body.remove("genderCode");
-        body.put("genderCode", "M");
         SessionData sessionData = new SessionData();
         Person person = new Person().build(body);
         sessionData.setPerson(person);
