@@ -20,13 +20,13 @@ public class DateUtilsTests {
     @Test
     public void testTodayDateCorrectFormat() {
         String todayDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        Assert.assertTrue(getTodayDateFormatted().equals(todayDate));
+        Assert.assertEquals(getTodayDateFormatted(), todayDate);
     }
 
     @Test
     public void testTodayDateIncorrectFormat() {
-        String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        Assert.assertFalse(getTodayDateFormatted().equals(today));
+        String todayDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        Assert.assertNotEquals(getTodayDateFormatted(), todayDate);
     }
 
     @Test(dataProvider = "formatted-dates")
