@@ -58,6 +58,9 @@ public class TestDataTests {
         body.put("referralDate", "2022-11-23T00:00:00Z[UTC]");
         return body;
     }
+    private Person person1;
+    private Person person2;
+    private Person person3;
 
     @Test
     public void testBuildPerson() {
@@ -132,16 +135,7 @@ public class TestDataTests {
 
     @Test
     public void testSetAndGetMultiplePersons() {
-        SessionData sessionData = new SessionData();
-        Map<String, Object> body = testPersonResponseBody();
-        Person person1 = new Person().build(body);
-        body.replace("crn", "X234567");
-        Person person2 = new Person().build(body);
-        body.replace("crn", "X345678");
-        Person person3 = new Person().build(body);
-        sessionData.setPerson(person1);
-        sessionData.setPerson(person2);
-        sessionData.setPerson(person3);
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
         Assert.assertEquals(person1, sessionData.getPersons().get(0));
         Assert.assertEquals(person2, sessionData.getPersons().get(1));
         Assert.assertEquals(person3, sessionData.getPersons().get(2));
@@ -149,17 +143,29 @@ public class TestDataTests {
 
     @Test
     public void testGetPersonFromArrayByIterator() {
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
+        Person fetchedPerson = sessionData.getPersonByValueFromPersons("crn", "X234567");
+        Assert.assertEquals(person2, fetchedPerson);
+    }
+
+    @Test
+    public void testGetPersonFromArrayByIteratorReturnsNullWhenPersonNoutFound() {
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
+        Person nullPerson = sessionData.getPersonByValueFromPersons("bunk", "rhubarb");
+        Assert.assertEquals(null, nullPerson);
+    }
+
+    private SessionData buildTestSessionDataForMultiplePersons() {
         SessionData sessionData = new SessionData();
         Map<String, Object> body = testPersonResponseBody();
-        Person person1 = new Person().build(body);
+        person1 = new Person().build(body);
         body.replace("crn", "X234567");
-        Person person2 = new Person().build(body);
+        person2 = new Person().build(body);
         body.replace("crn", "X345678");
-        Person person3 = new Person().build(body);
+        person3 = new Person().build(body);
         sessionData.setPerson(person1);
         sessionData.setPerson(person2);
         sessionData.setPerson(person3);
-        Person fetchedPerson = sessionData.getPersonByValueFromPersons("crn", "X234567");
-        Assert.assertEquals(person2, fetchedPerson);
+        return sessionData;
     }
 }
