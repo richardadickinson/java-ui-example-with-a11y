@@ -16,6 +16,7 @@ public class Contact {
     private String contactDate;
     private String contactId;
     private String contactType;
+    private String offenderCRN;
     private Map<String, Object> contactResponseBody;
 
 
@@ -24,6 +25,7 @@ public class Contact {
         this.contactDate = convertApiDate(contactResponseBody.get("contactDate").toString());
         this.contactId = contactResponseBody.get("contactID").toString();
         this.contactType = contactResponseBody.get("contactType").toString();
+        this.offenderCRN = contactResponseBody.get("offenderCRN").toString();
         return this;
     }
 }
