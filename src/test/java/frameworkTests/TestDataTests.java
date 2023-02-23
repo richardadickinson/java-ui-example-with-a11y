@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class TestDataTests {
 
     private Map<String, Object> testPersonResponseBody() {
@@ -144,5 +145,21 @@ public class TestDataTests {
         Assert.assertEquals(person1, sessionData.getPersons().get(0));
         Assert.assertEquals(person2, sessionData.getPersons().get(1));
         Assert.assertEquals(person3, sessionData.getPersons().get(2));
+    }
+
+    @Test
+    public void testGetPersonFromArrayByIterator() {
+        SessionData sessionData = new SessionData();
+        Map<String, Object> body = testPersonResponseBody();
+        Person person1 = new Person().build(body);
+        body.replace("crn", "X234567");
+        Person person2 = new Person().build(body);
+        body.replace("crn", "X345678");
+        Person person3 = new Person().build(body);
+        sessionData.setPerson(person1);
+        sessionData.setPerson(person2);
+        sessionData.setPerson(person3);
+        Person fetchedPerson = sessionData.getPersonByValueFromPersons("crn", "X234567");
+        Assert.assertEquals(person2, fetchedPerson);
     }
 }

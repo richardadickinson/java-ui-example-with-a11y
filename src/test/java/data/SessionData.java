@@ -37,4 +37,16 @@ public class SessionData {
         logger.debug("Test contact created with ID: " + contact.getContactId());
     }
 
+    public Person getPersonByValueFromPersons(String match, String value) {
+        for (Person p : getPersons()) {
+            switch(match) {
+                case "crn":
+                    logger.debug("Retrieved CRN " + p.getCrn());
+                    if (p.getCrn().equalsIgnoreCase(value))
+                        return p;
+            }
+        }
+        return null;
+    }
+
 }
