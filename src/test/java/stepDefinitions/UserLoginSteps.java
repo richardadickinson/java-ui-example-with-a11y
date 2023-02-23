@@ -14,6 +14,7 @@ import pages.caseManagement.personalDetails.PersonalDetailsPage;
 import java.time.Duration;
 
 import static config.TestDataApiConfig.apiRequestPath;
+import static data.SessionDataMapper.createMultiplePersons;
 import static data.SessionDataMapper.createPerson;
 import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
@@ -73,4 +74,10 @@ public class UserLoginSteps {
         Person person = getSessionData().getPersons().get(1);
         personalDetailsPage.simpleAssertOffender(person.getCrn(), person.getFirstName(), person.getSurname());
     }
+
+    @Given("I create {int} persons")
+    public void iCreateMultiplePersons(int numberOfPersons) {
+        createMultiplePersons(apiRequestPath + "create-offender.json", numberOfPersons);
+    }
+
 }
