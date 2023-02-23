@@ -38,7 +38,7 @@ public class DateUtilsTests {
     }
 
     @Test
-    public void testTodayDateThrowsExceptionWhenDateIsParsedInIncorrectFormat() {
+    public void testTodayDateThrowsExceptionWhenParsedWithIncorrectFormat() {
         Assert.assertThrows(DateTimeParseException.class, () -> {
             LocalDate.parse(getTodayDateFormatted(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         });
@@ -55,11 +55,19 @@ public class DateUtilsTests {
     }
 
     @Test
-    public void testConvertedApiDateThrowsExceptionWhenDateHasIncorrectFormat() {
+    public void testConvertedApiDateThrowsExceptionWhenDateFormatIsIncorrect() {
         Assert.assertThrows(DateTimeParseException.class, () -> {
             convertApiDate("2000/11/17T00:00:00Z[UTC]");
         });
     }
+
+    @Test
+    public void testConvertedApiDateThrowsExceptionWhenDateIsInvalid() {
+        Assert.assertThrows(DateTimeParseException.class, () -> {
+            convertApiDate("2008-11-45T00:00:00");
+        });
+    }
+
 
 
 }
