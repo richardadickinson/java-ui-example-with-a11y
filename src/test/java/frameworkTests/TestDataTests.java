@@ -88,8 +88,7 @@ public class TestDataTests {
     @Test
     public void testConvertGenderFemale() {
         Map<String, Object> body = testPersonResponseBody();
-        body.remove("genderCode");
-        body.put("genderCode", "F");
+        body.replace("genderCode", "F");
         SessionData sessionData = new SessionData();
         Person person = new Person().build(body);
         sessionData.setPerson(person);
@@ -99,8 +98,7 @@ public class TestDataTests {
     @Test
     public void testConvertGenderOther() {
         Map<String, Object> body = testPersonResponseBody();
-        body.remove("genderCode");
-        body.put("genderCode", "N");
+        body.replace("genderCode", "N");
         SessionData sessionData = new SessionData();
         Person person = new Person().build(body);
         sessionData.setPerson(person);
@@ -129,5 +127,22 @@ public class TestDataTests {
         Contact contact = new Contact().build(testContactResponseBody());
         sessionData.setContact(contact);
         Assert.assertEquals(contact, sessionData.getContact());
+    }
+
+    @Test
+    public void testSetAndGetMultiplePersons() {
+        SessionData sessionData = new SessionData();
+        Map<String, Object> body = testPersonResponseBody();
+        Person person1 = new Person().build(body);
+        body.replace("crn", "X234567");
+        Person person2 = new Person().build(body);
+        body.replace("crn", "X345678");
+        Person person3 = new Person().build(body);
+        sessionData.setPerson(person1);
+        sessionData.setPerson(person2);
+        sessionData.setPerson(person3);
+        Assert.assertEquals(person1, sessionData.getPersons().get(0));
+        Assert.assertEquals(person2, sessionData.getPersons().get(1));
+        Assert.assertEquals(person3, sessionData.getPersons().get(2));
     }
 }

@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import data.Person;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +13,9 @@ import pages.caseManagement.personalDetails.PersonalDetailsPage;
 
 import java.time.Duration;
 
+import static config.TestDataApiConfig.apiRequestPath;
+import static data.SessionDataMapper.createPerson;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class UserLoginSteps {
@@ -50,6 +54,23 @@ public class UserLoginSteps {
 
     @Then("The Personal Details page matches the offender selected")
     public void thePersonalDetailsPageMatches() {
-        personalDetailsPage.simpleAssertOffender();
+        personalDetailsPage.simpleAssertOffender("X289671", "TomMehWW", "JonKoiYY");
+    }
+
+    @Given("I search for and select second person")
+    public void iSearchForAndSelectSecondPerson() {
+        createPerson(apiRequestPath + "create-offender.json");
+        createPerson(apiRequestPath + "create-offender.json");
+        personalDetailsPage = loginPage.login()
+                .clickOnNationalSearch()
+                .enterCrnAndSearch(getSessionData().getPersons().get(1).getCrn())
+                .clickOnViewLink_singleResult()
+                .clickOnPersonalDetailsLink();
+    }
+
+    @Then("The Personal Details page matches the person selected")
+    public void thePersonalDetailsPageMatchesThePersonSelected() {
+        Person person = getSessionData().getPersons().get(1);
+        personalDetailsPage.simpleAssertOffender(person.getCrn(), person.getFirstName(), person.getSurname());
     }
 }

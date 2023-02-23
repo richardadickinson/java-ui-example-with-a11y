@@ -9,17 +9,22 @@ import java.util.ArrayList;
 @Getter
 public class SessionData {
 
-    private static Logger logger = LoggerFactory.getLogger(SessionData.class);
+    private static final Logger logger = LoggerFactory.getLogger(SessionData.class);
 
-    private ArrayList<Person> persons; // ToDo: create a method to return an Array of Person based on int param
+    private final ArrayList<Person> persons;
 
     private Person person;
     private Event event;
     private Contact contact;
 
+    public SessionData() {
+        this.persons = new ArrayList<>();
+    }
+
     public void setPerson(Person person) {
         this.person = person;
-        logger.info("Test person created with ID: " + person.getCrn());
+        this.persons.add(this.person);
+        logger.info("Test person created with CRN: " + person.getCrn());
     }
 
     public void setEvent(Event event) {
