@@ -6,6 +6,8 @@ import navigationPanel.caseManagementLinks.PersonalDetailsNavigationLinks;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import pages.BasePageObject;
 import pages.caseManagement.CaseSummaryPage;
@@ -14,6 +16,8 @@ import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
 public class PersonalDetailsPage extends BasePageObject implements CaseManagementNavigationLinks, PersonalDetailsNavigationLinks {
+
+    Logger logger = LoggerFactory.getLogger(PersonalDetailsPage.class);
 
     @FindBy(css = "[value = 'Close']")
     private WebElement closeButton;
@@ -75,10 +79,11 @@ public class PersonalDetailsPage extends BasePageObject implements CaseManagemen
         Assert.assertEquals(person.getTelephoneNumber(), telephoneField.getText());
     }
 
-    public void simpleAssertOffender() {
-        Assert.assertEquals(crnField.getText(), "X289671");
-        Assert.assertEquals(firstNameField.getText(), "TomMehWW");
-        Assert.assertEquals(surnameField.getText(), "JonKoiYY");
+    public void simpleAssertOffender(String crn, String firstName, String surname) {
+        logger.debug("Asserting against person with CRN: " + crn);
+        Assert.assertEquals(crnField.getText(), crn);
+        Assert.assertEquals(firstNameField.getText(), firstName);
+        Assert.assertEquals(surnameField.getText(), surname);
     }
 
 }
