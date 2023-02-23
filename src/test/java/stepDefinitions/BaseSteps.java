@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import com.google.common.io.BaseEncoding;
+import data.Person;
 import data.SessionData;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -65,8 +67,10 @@ public class BaseSteps {
         signOutNDelius();
         getWebDriver().manage().deleteAllCookies();
         getWebDriver().close();
-        if (getSessionData().getPerson()!=null){
-            runDeleteOffenderScript(getSessionData().getPerson().getCrn());
+
+        ArrayList<Person> persons = getSessionData().getPersons();
+        if (persons!=null){
+            runDeleteOffenderScript(persons);
         }
     }
 

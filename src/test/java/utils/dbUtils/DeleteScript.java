@@ -1,9 +1,11 @@
 package utils.dbUtils;
 
+import data.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 import static utils.dbUtils.ConnectionPool.*;
 
@@ -11,12 +13,14 @@ public class DeleteScript {
 
     private static final Logger logger = LoggerFactory.getLogger(DeleteScript.class);
 
-    public static void runDeleteOffenderScript(String crn) {
-        String filename = "delete_offender";
-        PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, crn);
-        logger.info("running " + filename + " script to delete " + crn + "...");
-        executeSql(statement);
-        checkIfCrnDeleted(crn);
+    public static void runDeleteOffenderScript(ArrayList<Person> persons) {
+        for (int i = 0; i <= persons.size()-1; i++) {
+            String filename = "delete_offender";
+            PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, persons.get(i).getCrn());
+            logger.info("running " + filename + " script to delete " + persons.get(i).getCrn() + "...");
+            executeSql(statement);
+            checkIfCrnDeleted(persons.get(i).getCrn());
+        }
     }
 
     private static void checkIfCrnDeleted(String crn)  {
