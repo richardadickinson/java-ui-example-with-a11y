@@ -34,9 +34,9 @@ public class TestDataTests {
 
     private Map<String, Object> testContactResponseBody() {
         Map<String, Object> body = new HashMap<>();
+        body.put("contactID", "2505725097");
         body.put("area", "N07");
         body.put("contactDate", "2022-12-22T10:23:07.712Z[UTC]");
-        body.put("contactID", "2505725097");
         body.put("contactType", "C378");
         body.put("notes", "notes");
         body.put("offenderCRN", "X123456");
@@ -48,8 +48,8 @@ public class TestDataTests {
 
     private Map<String, Object> testEventResponseBody() {
         Map<String, Object> body = new HashMap<>();
-        body.put("convictionDate", "2022-12-05T00:00:00Z[UTC]");
         body.put("eventId", "2500777638");
+        body.put("convictionDate", "2022-12-05T00:00:00Z[UTC]");
         body.put("eventNumber", "1");
         body.put("mainOffenceCode", "00856");
         body.put("mainOffenceDate", "2022-11-22T00:00:00Z[UTC]");
@@ -58,6 +58,9 @@ public class TestDataTests {
         body.put("referralDate", "2022-11-23T00:00:00Z[UTC]");
         return body;
     }
+    private Person person1, person2, person3;
+    private Event event1 ,event2, event3;
+    private Contact contact1, contact2, contact3;
 
     @Test
     public void testBuildPerson() {
@@ -112,6 +115,7 @@ public class TestDataTests {
         Person person = new Person().build(testPersonResponseBody());
         sessionData.setPerson(person);
         Assert.assertEquals(person, sessionData.getPerson());
+        Assert.assertEquals(person, sessionData.getPersons().get(0));
     }
 
     @Test
@@ -120,6 +124,7 @@ public class TestDataTests {
         Event event = new Event().build(testEventResponseBody());
         sessionData.setEvent(event);
         Assert.assertEquals(event, sessionData.getEvent());
+        Assert.assertEquals(event, sessionData.getEvents().get(0));
     }
 
     @Test
@@ -128,38 +133,132 @@ public class TestDataTests {
         Contact contact = new Contact().build(testContactResponseBody());
         sessionData.setContact(contact);
         Assert.assertEquals(contact, sessionData.getContact());
+        Assert.assertEquals(contact, sessionData.getContacts().get(0));
     }
 
     @Test
     public void testSetAndGetMultiplePersons() {
-        SessionData sessionData = new SessionData();
-        Map<String, Object> body = testPersonResponseBody();
-        Person person1 = new Person().build(body);
-        body.replace("crn", "X234567");
-        Person person2 = new Person().build(body);
-        body.replace("crn", "X345678");
-        Person person3 = new Person().build(body);
-        sessionData.setPerson(person1);
-        sessionData.setPerson(person2);
-        sessionData.setPerson(person3);
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
         Assert.assertEquals(person1, sessionData.getPersons().get(0));
         Assert.assertEquals(person2, sessionData.getPersons().get(1));
         Assert.assertEquals(person3, sessionData.getPersons().get(2));
     }
 
     @Test
-    public void testGetPersonFromArrayByIterator() {
+    public void testSetAndGetMultipleEvents() {
+        SessionData sessionData = buildTestSessionDataForMultipleEvents();
+        Assert.assertEquals(event1, sessionData.getEvents().get(0));
+        Assert.assertEquals(event2, sessionData.getEvents().get(1));
+        Assert.assertEquals(event3, sessionData.getEvents().get(2));
+    }
+    @Test
+    public void testSetAndGetMultipleContacts() {
+        SessionData sessionData = buildTestSessionDataForMultipleContacts();
+        Assert.assertEquals(contact1, sessionData.getContacts().get(0));
+        Assert.assertEquals(contact2, sessionData.getContacts().get(1));
+        Assert.assertEquals(contact3, sessionData.getContacts().get(2));
+    }
+
+    @Test
+    public void testGetPersonFromArrayByCRN() {
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
+        Person fetchedPerson = sessionData.getPersonByValueFromPersons("crn", "X234567");
+        Assert.assertEquals(person2, fetchedPerson);
+    }
+    @Test
+    public void testGetPersonFromArrayByName() {
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
+        Person fetchedPerson = sessionData.getPersonByValueFromPersons("name", "firstName findme");
+        Assert.assertEquals(person3, fetchedPerson);
+    }
+
+    @Test
+    public void testGetEventFromArrayByEventId() {
+        SessionData sessionData = buildTestSessionDataForMultipleEvents();
+        Event fetchedEvent = sessionData.getEventByValueFromEvents("eventId", "2505725101");
+        Assert.assertEquals(event3, fetchedEvent);
+    }
+    @Test
+    public void testGetEventFromArrayByOffenderId() {
+        SessionData sessionData = buildTestSessionDataForMultipleEvents();
+        Event fetchedEvent = sessionData.getEventByValueFromEvents("offenderId", "2500909111");
+        Assert.assertEquals(event2, fetchedEvent);
+    }
+    @Test
+    public void testGetContactFromArrayByContactID() {
+        SessionData sessionData = buildTestSessionDataForMultipleContacts();
+        Contact fetchedContact = sessionData.getContactByValueFromContacts("contactID", "2505725100");
+        Assert.assertEquals(contact2, fetchedContact);
+    }
+    @Test
+    public void testGetContactFromArrayByOffenderCRN() {
+        SessionData sessionData = buildTestSessionDataForMultipleContacts();
+        Contact fetchedContact = sessionData.getContactByValueFromContacts("offenderCRN", "X345678");
+        Assert.assertEquals(contact3, fetchedContact);
+    }
+    @Test
+    public void testGetPersonFromArrayByIteratorReturnsNullWhenPersonNotFound() {
+        SessionData sessionData = buildTestSessionDataForMultiplePersons();
+        Person nullPerson = sessionData.getPersonByValueFromPersons("crn", "rhubarb");
+        Assert.assertNull(nullPerson);
+    }
+
+    @Test
+    public void testGetEventFromArrayByIteratorReturnsNullWhenEventNotFound() {
+        SessionData sessionData = buildTestSessionDataForMultipleEvents();
+        Event nullEvent = sessionData.getEventByValueFromEvents("eventId", "rhubarb");
+        Assert.assertNull(nullEvent);
+    }
+
+    @Test
+    public void testGetContactFromArrayByIteratorReturnsNullWhenContactNotFound() {
+        SessionData sessionData = buildTestSessionDataForMultipleContacts();
+        Contact nullContact = sessionData.getContactByValueFromContacts("contactID", "rhubarb");
+        Assert.assertNull(nullContact);
+    }
+
+    private SessionData buildTestSessionDataForMultiplePersons() {
         SessionData sessionData = new SessionData();
         Map<String, Object> body = testPersonResponseBody();
-        Person person1 = new Person().build(body);
+        person1 = new Person().build(body);
         body.replace("crn", "X234567");
-        Person person2 = new Person().build(body);
+        person2 = new Person().build(body);
         body.replace("crn", "X345678");
-        Person person3 = new Person().build(body);
+        body.replace("surname", "findme");
+        person3 = new Person().build(body);
         sessionData.setPerson(person1);
         sessionData.setPerson(person2);
         sessionData.setPerson(person3);
-        Person fetchedPerson = sessionData.getPersonByValueFromPersons("crn", "X234567");
-        Assert.assertEquals(person2, fetchedPerson);
+        return sessionData;
+    }
+    private SessionData buildTestSessionDataForMultipleEvents() {
+        SessionData sessionData = new SessionData();
+        Map<String, Object> body = testEventResponseBody();
+        event1 = new Event().build(body);
+        body.replace("eventId", "2505725100");
+        body.replace("offenderId", "2500909111");
+        event2 = new Event().build(body);
+        body.replace("eventId", "2505725101");
+        body.replace("offenderId", "2500909222");
+        event3 = new Event().build(body);
+        sessionData.setEvent(event1);
+        sessionData.setEvent(event2);
+        sessionData.setEvent(event3);
+        return sessionData;
+    }
+    private SessionData buildTestSessionDataForMultipleContacts() {
+        SessionData sessionData = new SessionData();
+        Map<String, Object> body = testContactResponseBody();
+        contact1 = new Contact().build(body);
+        body.replace("contactID", "2505725100");
+        body.replace("offenderCRN", "X234567");
+        contact2 = new Contact().build(body);
+        body.replace("contactID", "2505725101");
+        body.replace("offenderCRN", "X345678");
+        contact3 = new Contact().build(body);
+        sessionData.setContact(contact1);
+        sessionData.setContact(contact2);
+        sessionData.setContact(contact3);
+        return sessionData;
     }
 }
