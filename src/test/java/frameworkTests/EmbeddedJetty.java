@@ -8,12 +8,15 @@ public class EmbeddedJetty {
 
     private final Server jettyServer;
 
-    public EmbeddedJetty(){
+    public EmbeddedJetty() {
         System.setProperty("org.eclipse.jetty.util.log.class", "org.eclipse.jetty.util.log.StdErrLog");
         System.setProperty("org.eclipse.jetty.LEVEL", "OFF");
         jettyServer = new Server(getPort());
     }
-    public int getPort(){ return 442; }
+
+    public int getPort() {
+        return 442;
+    }
 
     public void start() throws Exception {
         ResourceHandler resourceHandler = new ResourceHandler();

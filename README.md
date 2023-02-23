@@ -63,18 +63,19 @@ ssh ssh -L localhost:1801:delius-db-1.test.delius.probation.hmpps.dsd.io:1521 de
    - all public 'action' methods within the PageObject class should:
 
       1. return the same PageObject when that action does not trigger a new page object
-        - `public LoginPage enterLoginDetails() {
-          usernameField.sendKeys("username");
-          passwordField.sendKeys("password");
-          return this;
-          }`
-          ####
+         - `public LoginPage enterLoginDetails() {
+           usernameField.sendKeys("username");
+           passwordField.sendKeys("password");
+           return this;
+           }`
+           ####
 
       2. return the appropriate page object when an action triggers it
          - `public HomePage clickLoginButton() {
            loginButton.click();
            return new HomePage(getWebDriver());
            }`
+         
            ####
 
 #### 3. writing Scenarios

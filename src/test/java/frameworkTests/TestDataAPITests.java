@@ -23,12 +23,13 @@ public class TestDataAPITests {
     static TestDataApiConfig.Endpoints offender = OFFENDER;
 
     @Test
-    public void testGetThrowsAssertionErrorWithInvalidParam(){
-        assertThrows(AssertionError.class, ()-> get(offender.getEndpointName() + "XXXX"));
+    public void testGetThrowsAssertionErrorWithInvalidParam() {
+        assertThrows(AssertionError.class, () -> get(offender.getEndpointName() + "XXXX"));
     }
+
     @Test
-    public void testThrowsAssertionErrorWithInvalidJson(){
-        assertThrows(AssertionError.class, ()-> post(apiRequestPath + "update-event.json", offender.getEndpointName()));
+    public void testThrowsAssertionErrorWithInvalidJson() {
+        assertThrows(AssertionError.class, () -> post(apiRequestPath + "update-event.json", offender.getEndpointName()));
     }
 
     @Test
@@ -41,7 +42,7 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testInsertOffenderReturnsNullWhenPathCannotBeParsed(){
+    public void testInsertOffenderReturnsNullWhenPathCannotBeParsed() {
         Map<String, Object> body = Offender.insertOffender("rubbish");
         Assert.assertNull(body);
     }
@@ -71,7 +72,7 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testUpdateOffenderReturnsNullWhenPathCannotBeParsed(){
+    public void testUpdateOffenderReturnsNullWhenPathCannotBeParsed() {
         Map<String, Object> body = Offender.updateOffender("rubbish", "XXXX");
         Assert.assertNull(body);
     }
@@ -88,8 +89,9 @@ public class TestDataAPITests {
         assertThat(respBody.get("eventId").toString(), matchesPattern("\\d{10}"));
         Assert.assertEquals(respBody.get("mainOffenceCode"), "00856");
     }
+
     @Test
-    public void testInsertEventReturnsNullWhenPathCannotBeParsed(){
+    public void testInsertEventReturnsNullWhenPathCannotBeParsed() {
         Map<String, Object> body = Event.insertEvent("rubbish", "XXXX");
         Assert.assertNull(body);
     }
@@ -123,7 +125,7 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testUpdateEventByIdReturnsNullWhenPathCannotBeParsed(){
+    public void testUpdateEventByIdReturnsNullWhenPathCannotBeParsed() {
         Map<String, Object> body = Event.updateEventByEventID("rubbish", "1111");
         Assert.assertNull(body);
     }
@@ -144,7 +146,7 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testUpdateEventByCRNReturnsNullWhenPathCannotBeParsed(){
+    public void testUpdateEventByCRNReturnsNullWhenPathCannotBeParsed() {
         Map<String, Object> body = Event.updateEventByCRN("rubbish", "XXXX", "1111");
         Assert.assertNull(body);
     }
@@ -192,17 +194,19 @@ public class TestDataAPITests {
     }
 
     @Test
-    public void testCanUpdateValueInJsonFile(){
+    public void testCanUpdateValueInJsonFile() {
         String jsonBody = updateValueInJson(apiRequestPath + "create-contact.json", "offenderCRN", "testValue");
         assertThat(jsonBody, containsString("\"offenderCRN\":\"testValue\""));
     }
+
     @Test
-    public void testUpdateValueInJsonReturnsNullWhenJsonFileNotFound(){
+    public void testUpdateValueInJsonReturnsNullWhenJsonFileNotFound() {
         String output = updateValueInJson(apiRequestPath + "rubbish", "offenderCRN", "testValue");
         Assert.assertNull(output);
     }
+
     @Test
-    public void testUpdateValueInJsonReturnsNullWhenJsonParameterNotFound(){
+    public void testUpdateValueInJsonReturnsNullWhenJsonParameterNotFound() {
         String output = updateValueInJson(apiRequestPath + "create-contact.json", "rubbish", "testValue");
         Assert.assertNull(output);
     }
@@ -218,14 +222,15 @@ public class TestDataAPITests {
                   }
                 }""");
     }
+
     @Test
-    public void testGenerateStringFromResourceReturnsNullWhenFileDoesNotExist(){
+    public void testGenerateStringFromResourceReturnsNullWhenFileDoesNotExist() {
         String output = generateStringFromResource("rubbish");
         Assert.assertNull(output);
     }
 
     @AfterClass
-    public void cleanUp(){
+    public void cleanUp() {
         // TODO: delete all the test data we've created here
     }
 

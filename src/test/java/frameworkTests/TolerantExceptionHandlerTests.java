@@ -18,15 +18,16 @@ public class TolerantExceptionHandlerTests {
     public void testThrowsInputExceptionWhenNoTolerantExceptionsAreListed() {
         TolerantExceptionHandler handler = new TolerantExceptionHandler(new ArrayList<>());
         NumberFormatException inputException = new NumberFormatException();
-        assertThrows(NumberFormatException.class, ()-> handler.propagateExceptionIfNotIgnored(inputException));
+        assertThrows(NumberFormatException.class, () -> handler.propagateExceptionIfNotIgnored(inputException));
     }
+
     @Test
     public void testThrowsInputExceptionIfNotOnTolerantExceptionList() {
-         List<String> tolerantList = Arrays.asList("StaleElementException", "ElementClickInterceptedException", "ElementNotInteractableException");
-         TolerantExceptionHandler handler = new TolerantExceptionHandler(tolerantList);
-         NumberFormatException inputException = new NumberFormatException();
+        List<String> tolerantList = Arrays.asList("StaleElementException", "ElementClickInterceptedException", "ElementNotInteractableException");
+        TolerantExceptionHandler handler = new TolerantExceptionHandler(tolerantList);
+        NumberFormatException inputException = new NumberFormatException();
 
-         assertThrows(NumberFormatException.class, ()-> handler.propagateExceptionIfNotIgnored(inputException));
+        assertThrows(NumberFormatException.class, () -> handler.propagateExceptionIfNotIgnored(inputException));
     }
 
     @Test

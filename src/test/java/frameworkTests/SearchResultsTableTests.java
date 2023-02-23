@@ -37,8 +37,10 @@ public class SearchResultsTableTests {
         embeddedJetty.stop();
     }
 
-    @DataProvider (name="testData")
-    public Object[][] data() { return new Object[][] { {"testTable", "X612449"}, {"testTable2", "X612420"} }; }
+    @DataProvider(name = "testData")
+    public Object[][] data() {
+        return new Object[][]{{"testTable", "X612449"}, {"testTable2", "X612420"}};
+    }
 
 
     @Test(dataProvider = "testData")
