@@ -14,6 +14,7 @@ import pages.caseManagement.personalDetails.PersonalDetailsPage;
 import java.time.Duration;
 
 import static config.TestDataApiConfig.apiRequestPath;
+import static data.SessionDataMapper.createMultiplePersons;
 import static data.SessionDataMapper.createPerson;
 import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
@@ -47,7 +48,7 @@ public class UserLoginSteps {
     public void iSearchForAndSelectAnOffender() {
         personalDetailsPage = loginPage.login()
                 .clickOnNationalSearch()
-                .enterPersonNameAndSearch("tom","jones")
+                .enterPersonNameAndSearch("tom", "jones")
                 .selectSearchResultsViewLinkByCRN("X289671")
                 .clickOnPersonalDetailsLink();
     }
@@ -57,10 +58,8 @@ public class UserLoginSteps {
         personalDetailsPage.simpleAssertOffender("X289671", "TomMehWW", "JonKoiYY");
     }
 
-    @Given("I search for and select second person")
+    @When("I search for and select second person")
     public void iSearchForAndSelectSecondPerson() {
-        createPerson(apiRequestPath + "create-offender.json");
-        createPerson(apiRequestPath + "create-offender.json");
         personalDetailsPage = loginPage.login()
                 .clickOnNationalSearch()
                 .enterCrnAndSearch(getSessionData().getPersons().get(1).getCrn())
@@ -73,4 +72,17 @@ public class UserLoginSteps {
         Person person = getSessionData().getPersons().get(1);
         personalDetailsPage.simpleAssertOffender(person.getCrn(), person.getFirstName(), person.getSurname());
     }
+
+    @Given("I create {int} persons at once")
+    public void iCreateMultiplePersonsAtOnce(int numberOfPersons) {
+        createMultiplePersons(apiRequestPath + "create-offender.json", numberOfPersons); // this will create persons with the same json
+    }
+
+    @Given("I create multiple persons one at a time")
+    public void iCreateMultiplePersonsOneAtATime() {
+        createPerson(apiRequestPath + "create-offender.json");
+        createPerson(apiRequestPath + "create-offender.json"); // this could be used to create a person with a different json
+    }
+
+
 }

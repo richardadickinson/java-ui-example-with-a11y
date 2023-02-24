@@ -5,7 +5,7 @@ import testDataApi.Offender;
 import java.util.Map;
 import java.util.Objects;
 
-import static stepDefinitions.BaseSteps.*;
+import static stepDefinitions.BaseSteps.getSessionData;
 import static testDataApi.Contact.insertContact;
 import static testDataApi.Event.insertEvent;
 
@@ -18,6 +18,14 @@ public class SessionDataMapper {
         Map<String, Object> body = Offender.insertOffender(path);
         Person person = new Person().build(Objects.requireNonNull(body));
         getSessionData().setPerson(person);
+    }
+
+    public static void createMultiplePersons(String path, int numberOfPersons) {
+        for (int i = 1; i <= numberOfPersons; i++) {
+            Map<String, Object> body = Offender.insertOffender(path);
+            Person person = new Person().build(Objects.requireNonNull(body));
+            getSessionData().setPerson(person);
+        }
     }
 
     public static void createEvent(String path) {
