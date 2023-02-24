@@ -2,7 +2,7 @@ package frameworkTests;
 
 import config.TestDataApiConfig;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import testDataApi.Contact;
 import testDataApi.Event;
@@ -17,10 +17,12 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.testng.Assert.assertThrows;
 import static testDataApi.TestDataApiUtils.*;
+import static utils.dbUtils.DeleteScript.deleteOffenderByCRN;
 
 public class TestDataAPITests {
 
     static TestDataApiConfig.Endpoints offender = OFFENDER;
+    private String testCrn;
 
     @Test
     public void testGetThrowsAssertionErrorWithInvalidParam() {
@@ -37,8 +39,9 @@ public class TestDataAPITests {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
         Assert.assertEquals(body.get("firstName"), "TestDataAPIOffendertest");
-        Assert.assertNotNull(body.get("crn"));
-        assertThat((String) body.get("crn"), matchesPattern("^X\\w{6}"));
+        testCrn = (String) body.get("crn");
+        Assert.assertNotNull(testCrn);
+        assertThat(testCrn, matchesPattern("^X\\w{6}"));
     }
 
     @Test
@@ -51,7 +54,7 @@ public class TestDataAPITests {
     public void testCanGetOffenderByCRN() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Offender.getOffender(testCrn);
         Assert.assertNotNull(respBody.get("crn"));
@@ -63,7 +66,7 @@ public class TestDataAPITests {
     public void testCanUpdateOffender() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Offender.updateOffender(apiRequestPath + "update-offender.json", testCrn);
         assert respBody != null;
@@ -81,7 +84,7 @@ public class TestDataAPITests {
     public void testCanInsertNewEvent() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
         assert respBody != null;
@@ -100,7 +103,7 @@ public class TestDataAPITests {
     public void testCanGetEventById() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
 
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
         assert respBody != null;
@@ -113,7 +116,7 @@ public class TestDataAPITests {
     public void testCanUpdateEventById() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
         assert respBody != null;
         String eventId = respBody.get("eventId").toString();
@@ -134,7 +137,7 @@ public class TestDataAPITests {
     public void testCanUpdateEventByCRN() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
         Map<String, Object> respBody = Event.insertEvent(apiRequestPath + "create-event.json", testCrn);
         assert respBody != null;
         String eventId = respBody.get("eventId").toString();
@@ -155,7 +158,7 @@ public class TestDataAPITests {
     public void testCanCreateContact() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
 
         Map<String, Object> contactBody = Contact.insertContact(apiRequestPath + "create-contact.json", testCrn);
         Assert.assertNotNull(contactBody.get("contactID"));
@@ -168,7 +171,7 @@ public class TestDataAPITests {
     public void testCanUpdateContact() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
         Map<String, Object> contactBody = Contact.insertContact(apiRequestPath + "create-contact.json", testCrn);
         String contactId = contactBody.get("contactID").toString();
 
@@ -184,7 +187,7 @@ public class TestDataAPITests {
     public void testCanGetContactById() {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
-        String testCrn = (String) body.get("crn");
+        testCrn = (String) body.get("crn");
         Map<String, Object> contactBody = Contact.insertContact(apiRequestPath + "create-contact.json", testCrn);
         String contactId = contactBody.get("contactID").toString();
 
@@ -229,9 +232,12 @@ public class TestDataAPITests {
         Assert.assertNull(output);
     }
 
-    @AfterClass
+    @AfterMethod
     public void cleanUp() {
-        // TODO: delete all the test data we've created here
+        if (null != testCrn) {
+            deleteOffenderByCRN(testCrn);
+            testCrn = null;
+        }
     }
 
 }
