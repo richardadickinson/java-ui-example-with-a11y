@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static utils.dbUtils.DeleteScript.runDeleteOffenderScript;
+import static utils.dbUtils.DeleteScript.deleteOffendersByPerson;
 import static utils.webDriver.Builder.getWebDriver;
 import static utils.webDriver.Builder.initialiseWebDriver;
 
@@ -70,7 +70,7 @@ public class BaseSteps {
 
         ArrayList<Person> persons = getSessionData().getPersons();
         if (persons!=null){
-            runDeleteOffenderScript(persons);
+            deleteOffendersByPerson(persons);
         }
     }
 

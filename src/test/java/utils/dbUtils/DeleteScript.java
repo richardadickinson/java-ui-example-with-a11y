@@ -13,14 +13,18 @@ public class DeleteScript {
 
     private static final Logger logger = LoggerFactory.getLogger(DeleteScript.class);
 
-    public static void runDeleteOffenderScript(ArrayList<Person> persons) {
+    public static void deleteOffendersByPerson(ArrayList<Person> persons) {
         for (int i = 0; i <= persons.size()-1; i++) {
-            String filename = "delete_offender";
-            PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, persons.get(i).getCrn());
-            logger.info("running " + filename + " script to delete " + persons.get(i).getCrn() + "...");
-            executeSql(statement);
-            checkIfCrnDeleted(persons.get(i).getCrn());
+            deleteOffenderByCRN(persons.get(i).getCrn());
         }
+    }
+
+    public static void deleteOffenderByCRN(String crn) {
+        String filename = "delete_offender";
+        PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, crn);
+        logger.info("running " + filename + " script to delete " + crn + "...");
+        executeSql(statement);
+        checkIfCrnDeleted(crn);
     }
 
     private static void checkIfCrnDeleted(String crn)  {
