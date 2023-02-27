@@ -22,10 +22,8 @@ public class DeleteScriptTests {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
         String crn = (String) body.get("crn");
-        sessionData.setPerson(new Person().build(body));
-        Person person = sessionData.getPerson();
         deleteOffenderByCRN(crn);
-        Assert.assertEquals(crnExists(person.getCrn()), false);
+        Assert.assertEquals(crnExists(crn), false);
     }
 
     @Test
@@ -38,8 +36,7 @@ public class DeleteScriptTests {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
         sessionData.setPerson(new Person().build(body));
-        Person person = sessionData.getPerson();
-        Assert.assertEquals(crnExists(person.getCrn()), true);
+        Assert.assertEquals(crnExists(sessionData.getPerson().getCrn()), true);
     }
 
     @AfterMethod
