@@ -44,7 +44,7 @@ public class ConfiguredDriverPreferenceTests {
         String expectedFile = new File("target/run-generated-files/browser/testDownloads").getCanonicalPath() + "/sampleFile.pdf";
         webDriver.findElement(By.xpath("//a[text()='clickHereToDownLoadAFile']")).click();
         Thread.sleep(3000); // need to wait for file download
-        assertThat("Expected downloaded file to exist in run-generated-files/browser/downloads", new File(expectedFile).exists(), is(true));
+        assertThat("Expected downloaded file to exist in run-generated-files/browser/testDownloads", new File(expectedFile).exists(), is(true));
     }
 
     @AfterMethod
