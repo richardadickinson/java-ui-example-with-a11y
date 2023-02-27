@@ -27,6 +27,23 @@ public class DeleteScriptTests {
     }
 
     @Test
+    public void testMultiplePersonsCanBeDeleted() {
+        Map<String, Object> body1 = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        sessionData.setPerson(new Person().build(body1));
+        Map<String, Object> body2 = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        sessionData.setPerson(new Person().build(body2));
+        Map<String, Object> body3 = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        sessionData.setPerson(new Person().build(body3));
+        Map<String, Object> body4 = Offender.insertOffender(apiRequestPath + "create-offender.json");
+        sessionData.setPerson(new Person().build(body4));
+        deleteOffendersByPerson(sessionData.getPersons());
+        Assert.assertEquals(crnExists(sessionData.getPersons().get(0).getCrn()), false);
+        Assert.assertEquals(crnExists(sessionData.getPersons().get(1).getCrn()), false);
+        Assert.assertEquals(crnExists(sessionData.getPersons().get(2).getCrn()), false);
+        Assert.assertEquals(crnExists(sessionData.getPersons().get(3).getCrn()), false);
+    }
+
+    @Test
     public void testCrnDoesNotExist() {
         Assert.assertEquals(crnExists("0098765"), false);
     }
