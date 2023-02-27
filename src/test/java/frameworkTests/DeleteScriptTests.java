@@ -36,7 +36,7 @@ public class DeleteScriptTests {
         Map<String, Object> body = Offender.insertOffender(apiRequestPath + "create-offender.json");
         assert body != null;
         sessionData.setPerson(new Person().build(body));
-        Assert.assertEquals(crnExists(sessionData.getPerson().getCrn()), true);
+        Assert.assertEquals(crnExists(body.get("crn").toString()), true);
     }
 
     @AfterMethod
