@@ -46,6 +46,14 @@ public class ConfiguredChromeDriver implements ConfiguredDriver {
         }
         opts.setExperimentalOption("prefs", chromePrefs);
         opts.setHeadless(TestConfigManager.get().isHeadless());
+        /**
+         * From Chrome v112 headless mode will need to be set like this:
+         * if (TestConfigManager.get().isHeadless()) {
+         *      opts.addArguments("--headless=new");
+         * }
+         * Do the same for the edgedriver too
+         * See https://www.selenium.dev/blog/2023/headless-is-going-away
+         */
         return opts;
     }
 }
