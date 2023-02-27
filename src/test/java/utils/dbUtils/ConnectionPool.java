@@ -37,6 +37,7 @@ public class ConnectionPool {
             ResultSet rs = statement.executeQuery();
             rs.next();
             int rowCount = rs.getRow();
+            System.out.println("rowCount: "+rowCount);
             if (rowCount != 1) {
                 throw new RuntimeException("Unexpected number of rows returned: " + rowCount);
             } else if (rs.getMetaData().getColumnCount() != 1) {

@@ -32,8 +32,8 @@ public class DeleteScript {
     }
 
     public static boolean crnExists(String crn) {
-        PreparedStatement statement = assignStringValueToSqlParam("count_crn.sql", 1, crn);
-        int dbValue = Integer.parseInt(executeSqlAndReturnValue(statement));
+        PreparedStatement countStmt = assignStringValueToSqlParam("count_crn.sql", 1, crn);
+        int dbValue = Integer.parseInt(executeSqlAndReturnValue(countStmt));
         if (dbValue == 0) {
             return false;
         } else {
