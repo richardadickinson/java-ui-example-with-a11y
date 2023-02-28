@@ -5,26 +5,45 @@ import utils.webDriver.config.WebDriverConfig;
 import java.io.IOException;
 
 public class ConfigLoader {
-    private final String INTERNAL_CONFIGURATION_FILE = "config.json";
+    private final String TEST_CONFIGURATION_FILE = "test-config.json";
+    private final String STAGE_CONFIGURATION_FILE = "stage-config.json";
+    private final String PRE_PROD_CONFIGURATION_FILE = "pre-prod-config.json";
+
     private String targetConfigurationFile;
-    /** Method for figuring out if we're using the internal, default configuration,
+
+    /**
+     * Method for figuring out if we're using the internal, default configuration,
      * or we're setting a reference to an external configuration file (from the file system).
+     *
      * @return ConfigurationLoader builder pattern so returns self
      */
     public ConfigLoader chooseTargetConfiguration() {
-        String configurationProperty = System.getProperty("config", "DEFAULT");
-        if (configurationProperty.toUpperCase().trim().equals("DEFAULT")) {
-            this.targetConfigurationFile = INTERNAL_CONFIGURATION_FILE;
-            return this;
+
+        String configurationProperty = System.getenv("ENVIRONMENT");
+
+        if (configurationProperty == null) {
+            configurationProperty = "DEFAULT";
         }
-        if (configurationProperty.toLowerCase().trim().contains(".json")) {
-            this.targetConfigurationFile = configurationProperty;
-            return this;
+
+        switch (configurationProperty) {
+            case "delius-stage":
+                this.targetConfigurationFile = STAGE_CONFIGURATION_FILE;
+                return this;
+            case "delius-pre-prod":
+                this.targetConfigurationFile = PRE_PROD_CONFIGURATION_FILE;
+                return this;
+            case "delius-test":
+            case "DEFAULT":
+                this.targetConfigurationFile = TEST_CONFIGURATION_FILE;
+                return this;
+            default:
+                throw new IllegalStateException("Could not set Environment configuration with value: " + configurationProperty);
         }
-        throw new RuntimeException("Issue figuring out what configuration to use");
     }
 
-    /** This method builds the configuration and returns it */
+    /**
+     * This method builds the configuration and returns it
+     */
     public WebDriverConfig build() {
         try {
             return JsonUtils.fromFile(
