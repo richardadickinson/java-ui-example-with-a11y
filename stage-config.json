@@ -1,5 +1,5 @@
 {
-  "browser": "edge",
+  "browser": "chrome",
   "headless": true,
   "defaultWindowSize": "1400x800",
   "baseUrl": "https://ndelius.stage.probation.service.justice.gov.uk",
