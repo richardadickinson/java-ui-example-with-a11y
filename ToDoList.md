@@ -26,24 +26,23 @@ ToDo list:
 
 9. POC - smoke test added to this for higher env to run in Edge - not started
 
-10. Set default timeouts - I saw it wait 5 mins before timing out a failure to load the Home page
+10. Set default timeouts - set to 30 seconds - DONE
 
 11. create a proper README.md to start building on. Include:
     1. java version - DONE
     2. how to run locally - with mvn and directly from intelliJ - DONE
-    3. how to write tests
+    3. how to write tests - STARTED
    
 12. session variables - do we even want them? - DONE (SessionData)
 
-13. buildspec.yml will be need for pipeline config
+13. buildspec.yml for pipeline config
     1. deletion sql script to be included as a post-build step - NOT REQUIRED (called in test @After step)
     2. reporting - where will it be saved - S3 bucket probably
     
 14. explore how the "screenplay" format can be included here - DONE
-15. Map user home area in accordance with offender creation data to allow viewing access
+15. Map user home area in accordance with offender creation data to allow viewing access - STARTED - need to follow up
 16. add sign out on After test - DONE
 
 17. if it's ever necessary to run the frameworkTests from maven (e.g. automated in build process) then a maven plugin will be needed for managing the jetty server.
-    https://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin
-18. 
+    https://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin - investigate mvn verify vs test
 
