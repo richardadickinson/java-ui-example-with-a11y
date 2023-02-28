@@ -15,7 +15,7 @@ public class EmbeddedJetty {
     }
 
     public int getPort() {
-        return 442;
+        return 1024;
     }
 
     public void start() throws Exception {
