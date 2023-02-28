@@ -14,9 +14,12 @@ Use Java 18 or above.
 
 To run the tests against the Delius environment from your local machine:
 
-1. set the environment and database password as an environment variable by running:
+1. set the environment and database password as environment variables:
+ - DB_PASSWORD can be found [here](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/delius-test/delius/delius-database/db/delius_app_schema_password/description?region=eu-west-2&tab=Table#list_parameter_filters=Name:Contains:%2Fdelius-test%2Fdelius%2Fdelius-database%2Fdb%2Fdelius_app_schema_password)
+ - ENVIRONMENT is an optional variable with the default as test environment. To run locally against other environments such as stage or pre-prod, variable must be set as per below.
 ```shell
 export DB_PASSWORD="value"
+export ENVIRONMENT="delius-stage", "delius-pre-prod"
 ```
 3. Open a tunnel to the database:
 
