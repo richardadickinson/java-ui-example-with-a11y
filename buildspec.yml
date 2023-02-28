@@ -30,9 +30,7 @@ reports:
 artifacts:
   files:
     - '**/report-main-${CODEBUILD_BUILD_NUMBER}.zip'
-    - '**/report-rerun-${CODEBUILD_BUILD_NUMBER}.zip'
     - '**/ui-automation-summary-main-${CODEBUILD_BUILD_NUMBER}.html'
-    - '**/ui-automation-summary-rerun-${CODEBUILD_BUILD_NUMBER}.html'
 
 cache:
   paths:
