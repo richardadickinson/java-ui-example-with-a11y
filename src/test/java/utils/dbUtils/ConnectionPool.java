@@ -44,7 +44,7 @@ public class ConnectionPool {
             }
             int firstColumnIndex = 1;
             String value = rs.getString(firstColumnIndex);
-            logger.info("Returned value: {}", value);
+            logger.debug("Returned value from SQL: {}", value);
             return value;
         } catch (SQLException e) {
             throw new RuntimeException(e);
