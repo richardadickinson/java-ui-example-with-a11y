@@ -1,0 +1,39 @@
+---
+version: 0.2
+
+env:
+  variables:
+    CUCUMBER_FILTER_TAGS:
+    THREADS: 2
+
+phases:
+
+  build:
+    commands:
+      - mvn clean verify -DthreadCount=${THREADS}
+  post_build:
+    commands:
+      - OUTPUT_DIR=$(date +%F)/${CODEBUILD_BUILD_NUMBER} && mkdir -p ${OUTPUT_DIR}
+      # main reports
+      - mv target/ui-automation-reports ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
+      - zip -r ${OUTPUT_DIR}/report-main-${CODEBUILD_BUILD_NUMBER}.zip ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
+      - mv ui-automation-reports-${CODEBUILD_BUILD_NUMBER}/ui-automation-summary.html ${OUTPUT_DIR}/ui-automation-summary-main-${CODEBUILD_BUILD_NUMBER}.html
+      - rm ui-automation-reports-${CODEBUILD_BUILD_NUMBER}/browserconfig.xml # this file prevents CodeBuild from parsing the JUnit report
+      -
+reports:
+  test-report:
+    base-directory: ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
+    file-format: JUNITXML
+    files:
+      - '**/*.xml'
+
+artifacts:
+  files:
+    - '**/report-main-${CODEBUILD_BUILD_NUMBER}.zip'
+    - '**/report-rerun-${CODEBUILD_BUILD_NUMBER}.zip'
+    - '**/ui-automation-summary-main-${CODEBUILD_BUILD_NUMBER}.html'
+    - '**/ui-automation-summary-rerun-${CODEBUILD_BUILD_NUMBER}.html'
+
+cache:
+  paths:
+    - /root/.m2/repository/**/*

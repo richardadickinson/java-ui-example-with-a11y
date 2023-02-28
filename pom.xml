@@ -12,9 +12,7 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <environment>test</environment>
         <threadcount>2</threadcount>
-        <argLine>-Denvironment=${environment} -Dthreadcount=${threadcount}</argLine>
     </properties>
 
     <dependencies>
