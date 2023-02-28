@@ -14,9 +14,9 @@ phases:
   post_build:
     commands:
       - OUTPUT_DIR=$(date +%F)/${CODEBUILD_BUILD_NUMBER} && mkdir -p ${OUTPUT_DIR}
-      - mv target/surefire-reports ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
-      - zip -r ${OUTPUT_DIR}/surefire-reports-${CODEBUILD_BUILD_NUMBER}.zip ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
-      - mv ui-automation-reports-${CODEBUILD_BUILD_NUMBER}/-index.html ${OUTPUT_DIR}/test-results-${CODEBUILD_BUILD_NUMBER}.html
+      - mv target/cucumber-reports ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
+      - zip -r ${OUTPUT_DIR}/cucumber-reports-${CODEBUILD_BUILD_NUMBER}.zip ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
+      - mv ui-automation-reports-${CODEBUILD_BUILD_NUMBER}/-report.html ${OUTPUT_DIR}/test-report-${CODEBUILD_BUILD_NUMBER}.html
 reports:
   test-report:
     base-directory: ui-automation-reports-${CODEBUILD_BUILD_NUMBER}
