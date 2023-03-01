@@ -1,4 +1,4 @@
-package frameworkTests;
+package frameworkTests.unitTests;
 
 import config.BrowserType;
 import org.testng.annotations.BeforeTest;
