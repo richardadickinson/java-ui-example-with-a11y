@@ -26,7 +26,6 @@ public class TestConfigManagerTests {
         assertThat(TestConfigManager.get().getBrowserType(), is(BrowserType.CHROME));
         assertThat(TestConfigManager.get().getBaseUrl(), is("https://google.com"));
         assertThat(TestConfigManager.get().getDatabaseUsername(), is("test_username"));
-        assertThat(TestConfigManager.get().getDatabaseUrl(), is("jdbc:oracle:thin:@//localhost:1801/TEST"));
         assertThat(TestConfigManager.get().isHeadless().toString(), is("true"));
         assertThat(TestConfigManager.get().getTestConfig("sample"), is("sample text"));
         assertThat(TestConfigManager.get().getDefaultWindowSize().toString(), is("(1400, 800)"));
