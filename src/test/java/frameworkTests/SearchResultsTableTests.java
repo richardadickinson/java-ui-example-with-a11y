@@ -46,13 +46,13 @@ public class SearchResultsTableTests {
     @Test(dataProvider = "testData")
     public void testSelectViewFromResultsTableByCRN(String tableId, String crn) {
         selectViewLinkFromSearchResults(tableId, "CRN", crn);
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test(dataProvider = "testData")
     public void testSelectViewFromResultsTableByTestIdentifier(String tableId, String crn) {
         selectViewLinkFromSearchResults(tableId, "TEST", "Here I am");
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test(expectedExceptions = {RuntimeException.class}, expectedExceptionsMessageRegExp = "Search results table identifiers not recognised: tableId: .* matchType: .*")
