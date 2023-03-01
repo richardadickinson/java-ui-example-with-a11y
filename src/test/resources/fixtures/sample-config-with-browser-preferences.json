@@ -1,9 +1,8 @@
 {
   "browser": "chrome",
-  "headless": true,
+  "headless": false,
   "defaultWindowSize": "1400x800",
   "baseUrl": "https://google.co.uk",
-  "databaseUrl": "NONE",
   "databaseUsername": "NONE",
   "browserPreferences": {
     "chrome": {
