@@ -5,9 +5,7 @@ import utils.webDriver.config.WebDriverConfig;
 import java.io.IOException;
 
 public class ConfigLoader {
-    private final String TEST_CONFIGURATION_FILE = "test-config.json";
-    private final String STAGE_CONFIGURATION_FILE = "stage-config.json";
-    private final String PRE_PROD_CONFIGURATION_FILE = "pre-prod-config.json";
+    private final String INTERNAL_CONFIGURATION_FILE = "config.json";
 
     private String targetConfigurationFile;
 
@@ -19,26 +17,18 @@ public class ConfigLoader {
      */
     public ConfigLoader chooseTargetConfiguration() {
 
-        String configurationProperty = System.getenv("ENVIRONMENT");
-
-        if (configurationProperty == null) {
-            configurationProperty = "DEFAULT";
+        String configurationProperty = System.getProperty("config", "DEFAULT");
+        if (configurationProperty.toUpperCase().trim().equals("DEFAULT")) {
+            this.targetConfigurationFile = INTERNAL_CONFIGURATION_FILE;
+            return this;
         }
 
-        switch (configurationProperty) {
-            case "delius-stage":
-                this.targetConfigurationFile = STAGE_CONFIGURATION_FILE;
-                return this;
-            case "delius-pre-prod":
-                this.targetConfigurationFile = PRE_PROD_CONFIGURATION_FILE;
-                return this;
-            case "delius-test":
-            case "DEFAULT":
-                this.targetConfigurationFile = TEST_CONFIGURATION_FILE;
-                return this;
-            default:
-                throw new IllegalStateException("Could not set Environment configuration with value: " + configurationProperty);
+        if (configurationProperty.toLowerCase().trim().contains(".json")) {
+            this.targetConfigurationFile = configurationProperty;
+            return this;
         }
+
+        throw new RuntimeException("Issue figuring out what configuration to use");
     }
 
     /**
@@ -52,4 +42,8 @@ public class ConfigLoader {
             throw new RuntimeException("Unable to load configuration from " + targetConfigurationFile);
         }
     }
+
+
+
+
 }

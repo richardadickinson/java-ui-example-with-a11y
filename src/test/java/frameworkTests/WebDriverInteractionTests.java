@@ -66,13 +66,13 @@ public class WebDriverInteractionTests {
     @Test
     public void testTolerantFindByIdOrNameWithValidId() {
         FindBy.findByIdOrName(getWebDriver(), "ClickUtils-href").click();
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test
     public void testFindByLinkWithValidLinkText() {
         FindBy.findByLinkText(getWebDriver(), "Button 2 (displayed)").click();
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test
@@ -115,14 +115,14 @@ public class WebDriverInteractionTests {
     public void testRetryClickWhenElementStartsEnabled() {
         WebElement element = getWebDriver().findElement(By.id("clickutils-href"));
         Click.clickWithRetry(element);
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test
     public void testClickUntilWhenElementStartsDisabled() {
         WebElement element = getWebDriver().findElement(By.id("clickutils-href-disabled"));
         Click.clickUntil(element, 30);
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test
@@ -156,14 +156,14 @@ public class WebDriverInteractionTests {
     public void testTolerantClickWhenElementStartsDisabled() throws Throwable {
         WebElement element = getWebDriver().findElement(By.id("clickutils-href-disabled"));
         Click.tolerantClick(element, 30);
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
     @Test
     public void testTolerantClickWhenElementStartsEnabled() throws Throwable {
         WebElement element = getWebDriver().findElement(By.id("clickutils-href"));
         Click.tolerantClick(element);
-        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:442/hello-passed.html"));
+        assertThat(getWebDriver().getCurrentUrl(), is("http://localhost:"+embeddedJetty.getPort()+"/hello-passed.html"));
     }
 
 

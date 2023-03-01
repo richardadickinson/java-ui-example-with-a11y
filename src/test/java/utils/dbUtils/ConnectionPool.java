@@ -11,14 +11,22 @@ import static utils.dbUtils.SqlFileReader.readContentsOfSqlFile;
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
+    public static String dbUrl() {
+        String dbUrl = System.getenv("DB_URL");
+        if (dbUrl == null) {
+            dbUrl = "jdbc:oracle:thin:@//localhost:1801/TSTNDA";
+        }
+        logger.info("Database URL set to "+dbUrl);
+        return dbUrl;
+    }
+
     private static Connection establishDatabaseConnection() throws SQLException {
-        String url = TestConfigManager.get().getDatabaseUrl();
         String dbUsername = TestConfigManager.get().getDatabaseUsername();
         String dbPassword = System.getenv("DB_PASSWORD");
 
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 
-        return DriverManager.getConnection(url, dbUsername, dbPassword);
+        return DriverManager.getConnection(dbUrl(), dbUsername, dbPassword);
     }
 
     public static PreparedStatement assignStringValueToSqlParam(String fileName, int index, String value) {
