@@ -1,17 +1,18 @@
 package frameworkTests;
 
-import data.Contact;
-import data.Event;
-import data.Person;
-import data.SessionData;
+import data.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static data.ContactDataTypes.*;
+import static data.EventDataTypes.*;
+import static data.PersonDataTypes.*;
 
-public class TestDataTests {
+
+public class SessionDataTests {
 
     private Map<String, Object> testPersonResponseBody() {
         Map<String, Object> body = new HashMap<>();
@@ -162,64 +163,64 @@ public class TestDataTests {
     @Test
     public void testGetPersonFromArrayByCRN() {
         SessionData sessionData = buildTestSessionDataForMultiplePersons();
-        Person fetchedPerson = sessionData.getPersonByValueFromPersons("crn", "X234567");
+        Person fetchedPerson = sessionData.getPersonByValueFromPersons(CRN, "X234567");
         Assert.assertEquals(person2, fetchedPerson);
     }
     @Test
     public void testGetPersonFromArrayByName() {
         SessionData sessionData = buildTestSessionDataForMultiplePersons();
-        Person fetchedPerson = sessionData.getPersonByValueFromPersons("name", "firstName findme");
+        Person fetchedPerson = sessionData.getPersonByValueFromPersons(FULL_NAME, "firstName findme");
         Assert.assertEquals(person3, fetchedPerson);
     }
 
     @Test
     public void testGetEventFromArrayByEventId() {
         SessionData sessionData = buildTestSessionDataForMultipleEvents();
-        Event fetchedEvent = sessionData.getEventByValueFromEvents("eventId", "2505725101");
+        Event fetchedEvent = sessionData.getEventByValueFromEvents(EVENT_ID, "2505725101");
         Assert.assertEquals(event3, fetchedEvent);
     }
     @Test
     public void testGetEventFromArrayByOffenderId() {
         SessionData sessionData = buildTestSessionDataForMultipleEvents();
-        Event fetchedEvent = sessionData.getEventByValueFromEvents("offenderId", "2500909111");
+        Event fetchedEvent = sessionData.getEventByValueFromEvents(OFFENDER_ID, "2500909111");
         Assert.assertEquals(event2, fetchedEvent);
     }
     @Test
     public void testGetEventFromArrayByPersonCrn() {
         SessionData sessionData = buildTestSessionDataForMultipleEvents();
-        Event event = sessionData.getEventByValueFromEvents("personCrn", "xxx3");
+        Event event = sessionData.getEventByValueFromEvents(PERSON_CRN, "xxx3");
         Assert.assertEquals(event3, event);
     }
     @Test
     public void testGetContactFromArrayByContactID() {
         SessionData sessionData = buildTestSessionDataForMultipleContacts();
-        Contact fetchedContact = sessionData.getContactByValueFromContacts("contactID", "2505725100");
+        Contact fetchedContact = sessionData.getContactByValueFromContacts(CONTACT_ID, "2505725100");
         Assert.assertEquals(contact2, fetchedContact);
     }
     @Test
     public void testGetContactFromArrayByOffenderCRN() {
         SessionData sessionData = buildTestSessionDataForMultipleContacts();
-        Contact fetchedContact = sessionData.getContactByValueFromContacts("offenderCRN", "X345678");
+        Contact fetchedContact = sessionData.getContactByValueFromContacts(OFFENDER_CRN, "X345678");
         Assert.assertEquals(contact3, fetchedContact);
     }
     @Test
     public void testGetPersonFromArrayByIteratorReturnsNullWhenPersonNotFound() {
         SessionData sessionData = buildTestSessionDataForMultiplePersons();
-        Person nullPerson = sessionData.getPersonByValueFromPersons("crn", "rhubarb");
+        Person nullPerson = sessionData.getPersonByValueFromPersons(CRN, "rhubarb");
         Assert.assertNull(nullPerson);
     }
 
     @Test
     public void testGetEventFromArrayByIteratorReturnsNullWhenEventNotFound() {
         SessionData sessionData = buildTestSessionDataForMultipleEvents();
-        Event nullEvent = sessionData.getEventByValueFromEvents("eventId", "rhubarb");
+        Event nullEvent = sessionData.getEventByValueFromEvents(EVENT_ID, "rhubarb");
         Assert.assertNull(nullEvent);
     }
 
     @Test
     public void testGetContactFromArrayByIteratorReturnsNullWhenContactNotFound() {
         SessionData sessionData = buildTestSessionDataForMultipleContacts();
-        Contact nullContact = sessionData.getContactByValueFromContacts("contactID", "rhubarb");
+        Contact nullContact = sessionData.getContactByValueFromContacts(CONTACT_ID, "rhubarb");
         Assert.assertNull(nullContact);
     }
 
