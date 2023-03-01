@@ -70,7 +70,7 @@ public class TestDataTests {
 
     @Test
     public void testBuildEvent() {
-        Event event = new Event().build(testEventResponseBody());
+        Event event = new Event().build(testEventResponseBody(), "xxx");
         Assert.assertEquals(event.getEventResponseBody(), testEventResponseBody());
     }
 
@@ -121,7 +121,7 @@ public class TestDataTests {
     @Test
     public void testSetAndGetEvent() {
         SessionData sessionData = new SessionData();
-        Event event = new Event().build(testEventResponseBody());
+        Event event = new Event().build(testEventResponseBody(), "xxx");
         sessionData.setEvent(event);
         Assert.assertEquals(event, sessionData.getEvent());
         Assert.assertEquals(event, sessionData.getEvents().get(0));
@@ -185,6 +185,12 @@ public class TestDataTests {
         Assert.assertEquals(event2, fetchedEvent);
     }
     @Test
+    public void testGetEventFromArrayByPersonCrn() {
+        SessionData sessionData = buildTestSessionDataForMultipleEvents();
+        Event event = sessionData.getEventByValueFromEvents("personCrn", "xxx3");
+        Assert.assertEquals(event3, event);
+    }
+    @Test
     public void testGetContactFromArrayByContactID() {
         SessionData sessionData = buildTestSessionDataForMultipleContacts();
         Contact fetchedContact = sessionData.getContactByValueFromContacts("contactID", "2505725100");
@@ -234,13 +240,13 @@ public class TestDataTests {
     private SessionData buildTestSessionDataForMultipleEvents() {
         SessionData sessionData = new SessionData();
         Map<String, Object> body = testEventResponseBody();
-        event1 = new Event().build(body);
+        event1 = new Event().build(body, "xxx1");
         body.replace("eventId", "2505725100");
         body.replace("offenderId", "2500909111");
-        event2 = new Event().build(body);
+        event2 = new Event().build(body, "xxx2");
         body.replace("eventId", "2505725101");
         body.replace("offenderId", "2500909222");
-        event3 = new Event().build(body);
+        event3 = new Event().build(body, "xxx3");
         sessionData.setEvent(event1);
         sessionData.setEvent(event2);
         sessionData.setEvent(event3);

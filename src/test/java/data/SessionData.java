@@ -91,13 +91,19 @@ public class SessionData {
             switch (match) {
                 case "eventId" -> {
                     if (e.getEventId().equals(value)) {
-                        logger.debug("Retrieved event by eventId: " + value);
+                        logger.debug("Retrieved event by eventId: {}", value);
                         return e;
                     }
                 }
                 case "offenderId" -> {
                     if (e.getOffenderId().equals(value)) {
-                        logger.debug("Retrieved event by offenderId: " + value);
+                        logger.debug("Retrieved event by offenderId: {}", value);
+                        return e;
+                    }
+                }
+                case "personCrn" -> {
+                    if (e.getPersonCrn().equalsIgnoreCase(value)) {
+                        logger.debug("Retrieved event by person CRN: {}", value);
                         return e;
                     }
                 }

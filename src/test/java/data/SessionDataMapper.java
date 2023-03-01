@@ -29,8 +29,9 @@ public class SessionDataMapper {
     }
 
     public static void createEvent(String path) {
-        Map<String, Object> body  = insertEvent(path, getSessionData().getPerson().getCrn());
-        Event event = new Event().build(Objects.requireNonNull(body));
+        String crn = getSessionData().getPerson().getCrn();
+        Map<String, Object> body  = insertEvent(path, crn);
+        Event event = new Event().build(Objects.requireNonNull(body), crn);
         getSessionData().setEvent(event);
     }
 
