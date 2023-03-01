@@ -1,4 +1,4 @@
-package frameworkTests;
+package frameworkTests.unitTests;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.testng.annotations.Test;

@@ -1,5 +1,6 @@
 package frameworkTests;
 
+import frameworkTests.unitTests.EmbeddedJetty;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class ConfiguredDriverPreferenceTests {
 
     @Test(dataProvider = "configured-drivers")
     public void testBrowserPrefsAreAppliedAndFileDownloadWorks(ConfiguredDriver testDriver) throws IOException, InterruptedException {
-        System.setProperty("config", "fixtures/sample-config-with-browser-preferences.json");
+        System.setProperty("config", "fixtures/sample-config-with-browser-preferences.json"); // ToDo: This test can be moved into unit test when it can be run in headless mode
         webDriver = testDriver.getDriver();
         webDriver.get(baseUrl);
         String expectedFile = new File("target/run-generated-files/browser/testDownloads").getCanonicalPath() + "/sampleFile.pdf";

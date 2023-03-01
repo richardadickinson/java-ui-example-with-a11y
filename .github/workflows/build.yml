@@ -12,4 +12,4 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
       - name: Build and run framework tests
-        run: mvn verify -Dtest=frameworkTests.**
+        run: mvn verify -Dtest=unitTests.**

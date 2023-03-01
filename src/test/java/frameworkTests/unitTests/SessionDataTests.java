@@ -1,4 +1,4 @@
-package frameworkTests;
+package frameworkTests.unitTests;
 
 import data.*;
 import org.testng.Assert;

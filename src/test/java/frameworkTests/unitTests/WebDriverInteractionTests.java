@@ -1,4 +1,4 @@
-package frameworkTests;
+package frameworkTests.unitTests;
 
 import org.awaitility.core.ConditionTimeoutException;
 import org.openqa.selenium.*;
