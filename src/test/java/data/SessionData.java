@@ -43,16 +43,16 @@ public class SessionData {
         logger.info("Test contact created with ID: " + contact.getContactId());
     }
 
-    public Person getPersonByValueFromPersons(String match, String value) {
+    public Person getPersonByValueFromPersons(PersonDataTypes match, String value) {
         for (Person p : getPersons()) {
             switch (match) {
-                case "crn" -> {
+                case CRN -> {
                     if (p.getCrn().equalsIgnoreCase(value)) {
                         logger.debug("Retrieved person by CRN " + value);
                         return p;
                     }
                 }
-                case "name" -> {
+                case FULL_NAME -> {
                     String name = p.getFirstName() + " " + p.getSurname();
                     if (name.equalsIgnoreCase(value)) {
                         logger.debug("Retrieved person by name: " + value);
@@ -65,16 +65,16 @@ public class SessionData {
         return null;
     }
 
-    public Contact getContactByValueFromContacts(String match, String value) {
+    public Contact getContactByValueFromContacts(ContactDataTypes match, String value) {
         for (Contact c : getContacts()) {
             switch (match) {
-                case "contactID" -> {
+                case CONTACT_ID -> {
                     if (c.getContactId().equals(value)) {
                         logger.debug("Retrieved contact by contactID: " + value);
                         return c;
                     }
                 }
-                case "offenderCRN" -> {
+                case OFFENDER_CRN -> {
                     if (c.getOffenderCRN().equalsIgnoreCase(value)) {
                         logger.debug("Retrieved contact by offenderCRN: " + value);
                         return c;
@@ -86,18 +86,24 @@ public class SessionData {
         return null;
     }
 
-    public Event getEventByValueFromEvents(String match, String value) {
+    public Event getEventByValueFromEvents(EventDataTypes match, String value) {
         for (Event e : getEvents()) {
             switch (match) {
-                case "eventId" -> {
+                case EVENT_ID -> {
                     if (e.getEventId().equals(value)) {
-                        logger.debug("Retrieved event by eventId: " + value);
+                        logger.debug("Retrieved event by eventId: {}", value);
                         return e;
                     }
                 }
-                case "offenderId" -> {
+                case OFFENDER_ID -> {
                     if (e.getOffenderId().equals(value)) {
-                        logger.debug("Retrieved event by offenderId: " + value);
+                        logger.debug("Retrieved event by offenderId: {}", value);
+                        return e;
+                    }
+                }
+                case PERSON_CRN -> {
+                    if (e.getPersonCrn().equalsIgnoreCase(value)) {
+                        logger.debug("Retrieved event by person CRN: {}", value);
                         return e;
                     }
                 }
