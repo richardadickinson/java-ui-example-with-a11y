@@ -1,15 +1,20 @@
 package frameworkTests.unitTests;
 
-import data.*;
+import data.Contact;
+import data.Event;
+import data.Person;
+import data.SessionData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static data.ContactDataTypes.*;
+import static data.ContactDataTypes.CONTACT_ID;
+import static data.ContactDataTypes.OFFENDER_CRN;
 import static data.EventDataTypes.*;
-import static data.PersonDataTypes.*;
+import static data.PersonDataTypes.CRN;
+import static data.PersonDataTypes.FULL_NAME;
 
 
 public class SessionDataTests {

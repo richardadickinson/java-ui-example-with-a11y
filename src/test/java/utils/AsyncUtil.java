@@ -4,10 +4,12 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.awaitility.Awaitility;
 import org.awaitility.core.ConditionTimeoutException;
-import org.openqa.selenium.*;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import utils.webDriver.interactions.TolerantInteraction;
 
 import java.util.concurrent.Callable;

@@ -7,7 +7,8 @@ import pages.LoginPage;
 import pages.caseManagement.contactList.ContactDetailsPage;
 
 import static config.TestDataApiConfig.apiRequestPath;
-import static data.SessionDataMapper.*;
+import static data.SessionDataMapper.createContact;
+import static data.SessionDataMapper.createPerson;
 import static stepDefinitions.BaseSteps.getSessionData;
 import static utils.webDriver.Builder.getWebDriver;
 
