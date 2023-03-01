@@ -3,7 +3,6 @@
   "headless": true,
   "defaultWindowSize": "1400x800",
   "baseUrl": "https://ndelius.test.probation.service.justice.gov.uk",
-  "databaseUrl": "jdbc:oracle:thin:@//localhost:1801/TSTNDA",
   "databaseUsername": "delius_app_schema",
   "browserPreferences": {
     "chrome": {
