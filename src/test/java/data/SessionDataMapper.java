@@ -28,7 +28,7 @@ public class SessionDataMapper {
         }
     }
 
-    public static void createEvent(String path) {
+    public static void createEvent(String path) { // ToDo: this will need to take crn else won't work when multiple persons exist
         Map<String, Object> body  = insertEvent(path, getSessionData().getPerson().getCrn());
         Event event = new Event().build(Objects.requireNonNull(body));
         getSessionData().setEvent(event);
