@@ -20,7 +20,7 @@ public class EventSteps {
     @Given("offender with event is created")
     public void create_offender_with_event() {
         createPerson(apiRequestPath + "create-offender.json");
-        createEvent(apiRequestPath + "create-event.json");
+        createEvent(apiRequestPath + "create-event.json", getSessionData().getPerson().getCrn());
     }
 
     @When("I navigate to Event Details page")
