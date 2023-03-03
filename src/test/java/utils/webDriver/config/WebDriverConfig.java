@@ -21,11 +21,11 @@ public class WebDriverConfig {
 
     private static BrowserType browserType;
     private static URL baseUrl;
-    private static String databaseUsername;
     private boolean isHeadless;
     private JsonNode testConfig;
     private Map<String, ObjectNode> browserPreferences;
     private static Dimension defaultWindowSize;
+    private static String environment;
     private final Logger logger = LoggerFactory.getLogger(WebDriverConfig.class);
 
     @JsonProperty("browser")
@@ -40,29 +40,31 @@ public class WebDriverConfig {
 
     @JsonProperty("baseUrl")
     public void setBaseUrl(String baseUrl) throws MalformedURLException {
-        String jsonBaseUrl = System.getProperty("baseUrl", baseUrl);
-        String envBaseUrl = System.getenv("BASE_URL");
-        if (envBaseUrl != null) {
-            this.baseUrl = new URL(envBaseUrl);
-        } else
-            this.baseUrl = new URL(jsonBaseUrl);
+        String targetBaseUrl;
+
+        switch (getEnvironment()) {
+            case "DEFAULT":
+            case "delius-test":
+                targetBaseUrl = baseUrl;
+                this.baseUrl = new URL(targetBaseUrl);
+                break;
+            case "delius-pre-prod":
+                targetBaseUrl = "https://ndelius.pre-prod.delius.probation.hmpps.dsd.io";
+                this.baseUrl = new URL(targetBaseUrl);
+                break;
+            case "delius-stage":
+                targetBaseUrl = "https://ndelius.stage.probation.service.justice.gov.uk";
+                this.baseUrl = new URL(targetBaseUrl);
+                break;
+            default:
+                throw new MalformedURLException("Could not configure environment URLs");
+        }
         logger.info("Base URL set to: " + this.baseUrl);
     }
 
     public static String getBaseUrl() {
         return baseUrl.toString();
     }
-
-    @JsonProperty("databaseUsername")
-    public void setDatabaseUsername(String dbUsername) {
-        this.databaseUsername = dbUsername;
-        logger.info("Database username set to: " + dbUsername);
-    }
-
-    public static String getDatabaseUsername() {
-        return databaseUsername;
-    }
-
 
     @JsonProperty("headless")
     public void setHeadless(Boolean isHeadless) {
@@ -117,4 +119,19 @@ public class WebDriverConfig {
     public static Dimension getDefaultWindowSize() {
         return defaultWindowSize;
     }
+
+    @JsonProperty("environment")
+    public void setEnvironment(String environment) {
+        String remoteEnvironment = System.getenv("ENVIRONMENT");
+        if (remoteEnvironment == null) {
+            remoteEnvironment = environment;
+        }
+        this.environment = remoteEnvironment;
+        logger.info("Environment set to: " + remoteEnvironment);
+    }
+
+    public static String getEnvironment() {
+        return environment;
+    }
+
 }
