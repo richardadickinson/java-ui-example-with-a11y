@@ -2,6 +2,7 @@ package utils.dbUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.webDriver.config.WebDriverConfig;
 
 import java.sql.*;
 
@@ -10,12 +11,20 @@ import static utils.webDriver.config.WebDriverConfig.getEnvironment;
 
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+
+    /**
+     * This method checks if a Database URL has been set in the Environment variable.
+     * If this has not been set and is null,
+     * then a database URL is assigned according to the delius environment established in the WebDriverConfig
+     * These hardcoded database URLs are needed when running the tests locally on localhost.
+     * When this framework is run remotely (AWS - Codebuild), the database URL is set as Environment Variable "DB_URL"
+     * without any manual intervention
+     */
     public static String dbUrl() {
         String dbUrl = System.getenv("DB_URL");
+        String deliusTestEnv = WebDriverConfig.getEnvironment();
         if (dbUrl == null) {
-            System.out.println("getEnvironment(): "+getEnvironment());
-            switch (getEnvironment()) {
-                case "DEFAULT":
+            switch (deliusTestEnv) {
                 case "delius-test":
                     dbUrl = "jdbc:oracle:thin:@//localhost:1801/TSTNDA";
                     break;
@@ -28,21 +37,15 @@ public class ConnectionPool {
                 default:
                     throw new RuntimeException("Could not configure DataBase URLs for environment: " + getEnvironment());
             }
-
-            logger.info("Database URL is set to: " + dbUrl);
-            return dbUrl;
-
-        } else
-            logger.info("Database URL is set to: " + dbUrl);
+        }
+        logger.info("Database URL is set to: " + dbUrl);
         return dbUrl;
     }
 
     private static Connection establishDatabaseConnection() throws SQLException {
         String dbUsername = "delius_app_schema";
         String dbPassword = System.getenv("DB_PASSWORD");
-
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-
         return DriverManager.getConnection(dbUrl(), dbUsername, dbPassword);
     }
 
