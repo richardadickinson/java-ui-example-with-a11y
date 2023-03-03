@@ -10,7 +10,7 @@ phases:
 
   build:
     commands:
-      - mvn clean test -DthreadCount=${THREADS}
+      - mvn clean verify -DthreadCount=${THREADS}
   post_build:
     commands:
       - OUTPUT_DIR=$(date +%F)/${CODEBUILD_BUILD_NUMBER} && mkdir -p ${OUTPUT_DIR}

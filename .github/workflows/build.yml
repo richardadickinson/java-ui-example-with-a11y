@@ -12,4 +12,4 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
       - name: Build and run unit tests
-        run: mvn verify -Dtest=unitTests.**
+        run: mvn clean test -Dtest=unitTests.**

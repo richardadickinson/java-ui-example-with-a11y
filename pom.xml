@@ -122,7 +122,7 @@
                 <version>2.22.1</version>
                 <configuration>
                     <excludes>
-                        <exclude>frameworkTests/*</exclude>
+                        <exclude>frameworkTests/**</exclude>
                     </excludes>
                     <properties>
                         <property>
