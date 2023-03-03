@@ -38,30 +38,6 @@ public class WebDriverConfig {
         return browserType;
     }
 
-    @JsonProperty("baseUrl")
-    public void setBaseUrl(String baseUrl) throws MalformedURLException {
-        String targetBaseUrl;
-
-        switch (getEnvironment()) {
-            case "DEFAULT":
-            case "delius-test":
-                targetBaseUrl = baseUrl;
-                this.baseUrl = new URL(targetBaseUrl);
-                break;
-            case "delius-pre-prod":
-                targetBaseUrl = "https://ndelius.pre-prod.delius.probation.hmpps.dsd.io";
-                this.baseUrl = new URL(targetBaseUrl);
-                break;
-            case "delius-stage":
-                targetBaseUrl = "https://ndelius.stage.probation.service.justice.gov.uk";
-                this.baseUrl = new URL(targetBaseUrl);
-                break;
-            default:
-                throw new MalformedURLException("Could not configure environment URLs");
-        }
-        logger.info("Base URL set to: " + this.baseUrl);
-    }
-
     public static String getBaseUrl() {
         return baseUrl.toString();
     }
@@ -121,13 +97,29 @@ public class WebDriverConfig {
     }
 
     @JsonProperty("environment")
-    public void setEnvironment(String environment) {
+    public void setEnvironment(String environment) throws MalformedURLException {
         String remoteEnvironment = System.getenv("ENVIRONMENT");
         if (remoteEnvironment == null) {
             remoteEnvironment = environment;
         }
         this.environment = remoteEnvironment;
         logger.info("Environment set to: " + remoteEnvironment);
+
+        switch (remoteEnvironment) {
+            case "delius-test":
+                this.baseUrl = new URL("https://ndelius.test.probation.service.justice.gov.uk");
+                break;
+            case "delius-pre-prod":
+                this.baseUrl = new URL("https://ndelius.pre-prod.delius.probation.hmpps.dsd.io");
+                break;
+            case "delius-stage":
+                this.baseUrl = new URL("https://ndelius.stage.probation.service.justice.gov.uk");
+                break;
+            default:
+                throw new RuntimeException("Could not configure Base URL");
+        }
+        logger.info("Base URL set to: " + this.baseUrl);
+
     }
 
     public static String getEnvironment() {

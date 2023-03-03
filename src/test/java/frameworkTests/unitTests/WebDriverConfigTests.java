@@ -10,7 +10,6 @@ import utils.JsonUtils;
 import utils.webDriver.config.WebDriverConfig;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +21,7 @@ public class WebDriverConfigTests {
     public void testCanCreateInstanceFromJsonFileAndTestGetters() throws IOException {
         WebDriverConfig webDriverConfig = JsonUtils.fromFile(ClassLoader.getSystemResourceAsStream("fixtures/test-config.json"),
                 WebDriverConfig.class);
-        assertThat(webDriverConfig.getBaseUrl(), is("https://google.com"));
+        assertThat(webDriverConfig.getEnvironment(), is("delius-test"));
     }
 
     @Test
@@ -77,9 +76,4 @@ public class WebDriverConfigTests {
                 WebDriverConfig.class));
     }
 
-    @Test
-    public void testSettingBaseUrlWithBadUrlGivesGoodException() {
-        WebDriverConfig webDriverConfig = new WebDriverConfig();
-        assertThrows(MalformedURLException.class, () -> webDriverConfig.setBaseUrl("bad-url"));
-    }
 }

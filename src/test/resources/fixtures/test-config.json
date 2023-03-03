@@ -3,7 +3,6 @@
   "headless": true,
   "defaultWindowSize": "1400x800",
   "environment": "delius-test",
-  "baseUrl": "https://google.com",
   "testConfig": {
     "sample": "sample text"
   },

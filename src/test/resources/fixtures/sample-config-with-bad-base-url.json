@@ -1,6 +1,5 @@
 {
   "browser": "chrome",
-  "baseUrl": "bad-base-url",
   "timeout": "30",
   "headless": true,
   "runType": "LOCAL",

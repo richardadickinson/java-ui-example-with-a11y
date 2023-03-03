@@ -24,6 +24,7 @@ public class DeleteScript {
         PreparedStatement statement = assignStringValueToSqlParam(filename + ".sql", 1, crn);
         logger.info("running " + filename + " script to delete " + crn + "...");
         executeSql(statement);
+        logger.info("checking if crn exists in the database...");
         if (crnExists(crn) == false) {
             logger.info(crn + " successfully deleted");
         } else {

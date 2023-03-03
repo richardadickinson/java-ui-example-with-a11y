@@ -3,7 +3,6 @@
   "headless": false,
   "defaultWindowSize": "1400x800",
   "environment": "delius-test",
-  "baseUrl": "https://google.co.uk",
   "browserPreferences": {
     "chrome": {
       "profile.default_content_settings.popups": 0,

@@ -32,6 +32,6 @@ public class ConfigFileLoaderTests {
         WebDriverConfig webDriverConfig = configLoader
                 .chooseTargetConfiguration()
                 .build();
-        assertThat(webDriverConfig.getBaseUrl(), is("https://google.com"));
+        assertThat(webDriverConfig.isHeadless(), is(true));
     }
 }

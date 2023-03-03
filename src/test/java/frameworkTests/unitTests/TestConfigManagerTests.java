@@ -24,7 +24,6 @@ public class TestConfigManagerTests {
     @Test
     public void testCanAccessTestConfigViaSingleton() {
         assertThat(TestConfigManager.get().getBrowserType(), is(BrowserType.CHROME));
-        assertThat(TestConfigManager.get().getBaseUrl(), is("https://google.com"));
         assertThat(TestConfigManager.get().isHeadless().toString(), is("true"));
         assertThat(TestConfigManager.get().getTestConfig("sample"), is("sample text"));
         assertThat(TestConfigManager.get().getDefaultWindowSize().toString(), is("(1400, 800)"));
