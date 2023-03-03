@@ -16,7 +16,7 @@ To run the tests against the Delius environment from your local machine:
 
 1. set the environment and database password as environment variables:
  - DB_PASSWORD can be found [here](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/delius-test/delius/delius-database/db/delius_app_schema_password/description?region=eu-west-2&tab=Table#list_parameter_filters=Name:Contains:%2Fdelius-test%2Fdelius%2Fdelius-database%2Fdb%2Fdelius_app_schema_password)
- - ENVIRONMENT is an optional variable with the default as test environment. To run locally against other environments such as stage or pre-prod, variable must be set as per below.
+ - ENVIRONMENT is an optional variable with the default as 'delius-test' environment. To run locally against other environments such as stage or pre-prod, variable must be set as per below.
 ```shell
 export DB_PASSWORD="value"
 export ENVIRONMENT="delius-stage", "delius-pre-prod"
@@ -37,49 +37,68 @@ ssh ssh -L localhost:1801:delius-db-1.test.delius.probation.hmpps.dsd.io:1521 de
    CUCUMBER_FILTER_TAGS='insert-your-tag-expression-here' mvn clean test
    ```
 
+### In AWS CodeBuild
+
+To run the tests in AWS CodeBuild,
+
+1. Assume the **MoJTesters** role in the `delius-test`
+   [account](https://signin.aws.amazon.com/switchrole?roleName=MoJTesters&account=hmpps-delius-test&displayName=MoJTesters%20@%20delius-test&redirect_uri=https://eu-west-2.console.aws.amazon.com/codesuite/codebuild/728765553488/projects/del-test-delius-serenity-tests-build/history?region=eu-west-2)
+   .
+2. Navigate to the
+   [del-test-delius-serenity-tests-build](https://eu-west-2.console.aws.amazon.com/codesuite/codebuild/728765553488/projects/del-test-delius-serenity-tests-build/history?region=eu-west-2)
+   CodeBuild project.
+4. Click **Start build**, or **Start build with overrides** to specify a different branch or environment variables - in
+   particular `CUCUMBER_FILTER_TAGS`.
+
+
 ## Creating new tests
+
 #### 1. feature file / step definition / page object - use existing code where appropriate before creating new ones.
+
 ####
 
 #### 2. creating a new PageObject
-   ####  
-   - extend [BasePageOject](src/test/java/pages/BasePageObject.java) 
-     #### 
-   - implement the appropriate [Interface(s)](src/test/java/navigationPanel) based on which links are accessible from the given page
-     #### 
-   - create the expected page title var
-     - `private static final String expectedPageTitle = "National Delius - Login";
-       `
-       ####
-   - create a public page constructor such as, including the page title assertion:
-     - `public LoginPage(WebDriver webDriver) {
-       super(webDriver);
-       assertPageTitle(expectedPageTitle);
-       }`
-       ####
 
-   - all webElements should be private
-     - `@FindBy(id = "j_username")
-       private WebElement usernameField;`
-       ####
+####    
 
-   - all public 'action' methods within the PageObject class should:
+- extend [BasePageOject](src/test/java/pages/BasePageObject.java)
+  ####   
+- implement the appropriate [Interface(s)](src/test/java/navigationPanel) based on which links are accessible from the
+  given page
+  ####   
+- create the expected page title var
+    - `private static final String expectedPageTitle = "National Delius - Login";
+      `
+      ####
+- create a public page constructor such as, including the page title assertion:
+    - `public LoginPage(WebDriver webDriver) {
+      super(webDriver);
+      assertPageTitle(expectedPageTitle);
+      }`
+      ####
 
-      1. return the same PageObject when that action does not trigger a new page object
-         - `public LoginPage enterLoginDetails() {
-           usernameField.sendKeys("username");
-           passwordField.sendKeys("password");
-           return this;
-           }`
-           ####
+- all webElements should be private
+    - `@FindBy(id = "j_username")
+      private WebElement usernameField;`
+      ####
 
-      2. return the appropriate page object when an action triggers it
-         - `public HomePage clickLoginButton() {
-           loginButton.click();
-           return new HomePage(getWebDriver());
-           }`
-         
-           ####
+- all public 'action' methods within the PageObject class should:
+
+    1. return the same PageObject when that action does not trigger a new page object
+        - `public LoginPage enterLoginDetails() {
+          usernameField.sendKeys("username");
+          passwordField.sendKeys("password");
+          return this;
+          }`
+          ####
+
+    2. return the appropriate page object when an action triggers it
+        - `public HomePage clickLoginButton() {
+          loginButton.click();
+          return new HomePage(getWebDriver());
+          }`
+
+          ####
 
 #### 3. writing Scenarios
 ####  
