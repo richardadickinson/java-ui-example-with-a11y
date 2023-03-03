@@ -2,26 +2,43 @@ package utils.dbUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.TestConfigManager;
 
 import java.sql.*;
 
 import static utils.dbUtils.SqlFileReader.readContentsOfSqlFile;
+import static utils.webDriver.config.WebDriverConfig.getEnvironment;
 
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
-
     public static String dbUrl() {
         String dbUrl = System.getenv("DB_URL");
         if (dbUrl == null) {
-            dbUrl = "jdbc:oracle:thin:@//localhost:1801/TSTNDA";
-        }
-        logger.info("Database URL set to "+dbUrl);
+            System.out.println("getEnvironment(): "+getEnvironment());
+            switch (getEnvironment()) {
+                case "DEFAULT":
+                case "delius-test":
+                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/TSTNDA";
+                    break;
+                case "delius-pre-prod":
+                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/PRENDA";
+                    break;
+                case "delius-stage":
+                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/STGNDA";
+                    break;
+                default:
+                    throw new RuntimeException("Could not configure DataBase URLs for environment: " + getEnvironment());
+            }
+
+            logger.info("Database URL is set to: " + dbUrl);
+            return dbUrl;
+
+        } else
+            logger.info("Database URL is set to: " + dbUrl);
         return dbUrl;
     }
 
     private static Connection establishDatabaseConnection() throws SQLException {
-        String dbUsername = TestConfigManager.get().getDatabaseUsername();
+        String dbUsername = "delius_app_schema";
         String dbPassword = System.getenv("DB_PASSWORD");
 
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
