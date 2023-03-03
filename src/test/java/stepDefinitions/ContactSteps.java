@@ -19,7 +19,7 @@ public class ContactSteps {
     @Given("offender with contact is created")
     public void create_offender_with_contact() {
         createPerson(apiRequestPath + "create-offender.json");
-        createContact(apiRequestPath + "create-contact.json");
+        createContact(apiRequestPath + "create-contact.json", getSessionData().getPerson().getCrn());
     }
 
     @When("I navigate to Contact Details page")

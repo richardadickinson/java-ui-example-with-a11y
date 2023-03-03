@@ -28,15 +28,14 @@ public class SessionDataMapper {
         }
     }
 
-    public static void createEvent(String path) { // ToDo: this will need to take crn else won't work when multiple persons exist
-        String crn = getSessionData().getPerson().getCrn();
+    public static void createEvent(String path, String crn) {
         Map<String, Object> body  = insertEvent(path, crn);
         Event event = new Event().build(Objects.requireNonNull(body), crn);
         getSessionData().setEvent(event);
     }
 
-    public static void createContact(String path){
-        Map<String, Object> body = insertContact(path, getSessionData().getPerson().getCrn());
+    public static void createContact(String path, String crn){
+        Map<String, Object> body = insertContact(path, crn);
         Contact contact = new Contact().build(Objects.requireNonNull(body));
         getSessionData().setContact(contact);
     }
