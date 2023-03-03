@@ -4,8 +4,11 @@ import data.Person;
 import data.SessionData;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import testDataApi.Offender;
+import utils.JsonUtils;
+import utils.webDriver.config.WebDriverConfig;
 
 import java.util.Map;
 
@@ -16,6 +19,11 @@ public class DeleteScriptTests {
 
     private SessionData sessionData = new SessionData();
 
+    @BeforeTest
+    public void webDriverSetup() throws Exception {
+        JsonUtils.fromFile(ClassLoader.getSystemResourceAsStream("fixtures/test-config.json"),
+                WebDriverConfig.class);
+    }
 
     @Test
     public void testSingleCrnCanBeDeleted() {
