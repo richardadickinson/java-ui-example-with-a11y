@@ -3,7 +3,7 @@ package config;
 public class TestDataApiConfig {
 
     public static String apiRequestPath = "src/test/java/testDataApi/requests/";
-    public static String apiBaseAddress = "https://testdata-api.test.probation.service.justice.gov.uk/";
+    public static String apiBaseAddress = "<URL TO TEST DATA API>";
 
     public enum Endpoints {
         OFFENDER ("offender/", "offender/update/"),
