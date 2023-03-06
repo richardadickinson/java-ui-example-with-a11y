@@ -1,8 +1,7 @@
-# ndelius-ui-automation
+# java-ui-automation
 
-The test suite herein contains automated end-to-end tests for the Delius application and its satellite resources,
-including Secure Partner Gateway (SPG) and Alfresco document management. This automated test pack uses
-[Cucumber](https://cucumber.io/docs) and testNG.
+The test suite herein contains automated end-to-end tests for the any application and its satellite resources,
+including accessing a test data API. This automated test pack uses [Cucumber](https://cucumber.io/docs) and testNG.
 
 ## Java version
 
@@ -12,19 +11,19 @@ Use Java 18 or above.
 
 ### Locally
 
-To run the tests against the Delius environment from your local machine:
+To run the tests against an environment from your local machine:
 
 1. set the environment and database password as environment variables:
- - DB_PASSWORD can be found [here](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/delius-test/delius/delius-database/db/delius_app_schema_password/description?region=eu-west-2&tab=Table#list_parameter_filters=Name:Contains:%2Fdelius-test%2Fdelius%2Fdelius-database%2Fdb%2Fdelius_app_schema_password)
- - ENVIRONMENT is an optional variable with the default as 'delius-test' environment. To run locally against other environments such as stage or pre-prod, variable must be set as per below.
+ - DB_PASSWORD 
+ - ENVIRONMENT is an optional variable with the default as 'test' environment. To run locally against other environments such as stage or pre-prod, variable must be set as per below.
 ```shell
 export DB_PASSWORD="value"
-export ENVIRONMENT="delius-stage", "delius-pre-prod"
+export ENVIRONMENT="stage", "pre-prod"
 ```
 3. Open a tunnel to the database:
 
 ```shell
-ssh ssh -L localhost:1801:delius-db-1.test.delius.probation.hmpps.dsd.io:1521 delius-db-1.test.delius.probation.hmpps.dsd.io -Nv -Snone
+ssh ssh -L localhost:<db-path>:1521 <db-path> -Nv -Snone
 ```
 
 3. Run the tests:
@@ -41,13 +40,9 @@ ssh ssh -L localhost:1801:delius-db-1.test.delius.probation.hmpps.dsd.io:1521 de
 
 To run the tests in AWS CodeBuild,
 
-1. Assume the **MoJTesters** role in the `delius-test`
-   [account](https://signin.aws.amazon.com/switchrole?roleName=MoJTesters&account=hmpps-delius-test&displayName=MoJTesters%20@%20delius-test&redirect_uri=https://eu-west-2.console.aws.amazon.com/codesuite/codebuild/728765553488/projects/del-test-delius-serenity-tests-build/history?region=eu-west-2)
-   .
-2. Navigate to the
-   [del-test-delius-serenity-tests-build](https://eu-west-2.console.aws.amazon.com/codesuite/codebuild/728765553488/projects/del-test-delius-serenity-tests-build/history?region=eu-west-2)
-   CodeBuild project.
-4. Click **Start build**, or **Start build with overrides** to specify a different branch or environment variables - in
+1. Assume the correct role in `test`
+2. Navigate to the CodeBuild project.
+3. Click **Start build**, or **Start build with overrides** to specify a different branch or environment variables - in
    particular `CUCUMBER_FILTER_TAGS`.
 
 
@@ -67,7 +62,7 @@ To run the tests in AWS CodeBuild,
   given page
   ####   
 - create the expected page title var
-    - `private static final String expectedPageTitle = "National Delius - Login";
+    - `private static final String expectedPageTitle = "Login";
       `
       ####
 - create a public page constructor such as, including the page title assertion:
