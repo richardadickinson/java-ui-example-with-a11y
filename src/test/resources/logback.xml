@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="ndelius-ui-automation" level="debug" additivity="false">
+    <logger name="java-ui-automation" level="debug" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 
