@@ -2,7 +2,7 @@
   "browser": "chrome",
   "headless": true,
   "defaultWindowSize": "1400x800",
-  "environment": "delius-test",
+  "environment": "test",
   "testConfig": {
     "sample": "sample text"
   },
