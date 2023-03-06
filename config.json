@@ -2,7 +2,7 @@
   "browser": "chrome",
   "headless": true,
   "defaultWindowSize": "1400x800",
-  "environment": "delius-test",
+  "environment": "test",
   "browserPreferences": {
     "chrome": {
       "profile.default_content_settings.popups": 0,
