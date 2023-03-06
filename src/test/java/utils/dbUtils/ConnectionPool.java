@@ -7,7 +7,7 @@ import utils.webDriver.config.WebDriverConfig;
 import java.sql.*;
 
 import static utils.dbUtils.SqlFileReader.readContentsOfSqlFile;
-import static utils.webDriver.config.WebDriverConfig.getEnvironment;
+import static utils.TestConfigManager;
 
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
@@ -22,20 +22,20 @@ public class ConnectionPool {
      */
     public static String dbUrl() {
         String dbUrl = System.getenv("DB_URL");
-        String deliusTestEnv = WebDriverConfig.getEnvironment();
+        String testEnv = TestConfigManager.get().getEnvironment();
         if (dbUrl == null) {
-            switch (deliusTestEnv) {
-                case "delius-test":
-                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/TSTNDA";
+            switch (testEnv) {
+                case "test":
+                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/TEST";
                     break;
-                case "delius-pre-prod":
-                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/PRENDA";
+                case "pre-prod":
+                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/PREPROD";
                     break;
-                case "delius-stage":
-                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/STGNDA";
+                case "stage":
+                    dbUrl = "jdbc:oracle:thin:@//localhost:1801/STAGE";
                     break;
                 default:
-                    throw new RuntimeException("Could not configure DataBase URLs for environment: " + getEnvironment());
+                    throw new RuntimeException("Could not configure DataBase URLs for environment: " + testEnv);
             }
         }
         logger.info("Database URL is set to: " + dbUrl);
@@ -43,7 +43,7 @@ public class ConnectionPool {
     }
 
     private static Connection establishDatabaseConnection() throws SQLException {
-        String dbUsername = "delius_app_schema";
+        String dbUsername = "database_app_schema";
         String dbPassword = System.getenv("DB_PASSWORD");
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
         return DriverManager.getConnection(dbUrl(), dbUsername, dbPassword);
