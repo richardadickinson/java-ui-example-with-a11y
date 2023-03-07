@@ -7,7 +7,6 @@ import utils.webDriver.config.WebDriverConfig;
 import java.sql.*;
 
 import static utils.dbUtils.SqlFileReader.readContentsOfSqlFile;
-import static utils.TestConfigManager;
 
 public class ConnectionPool {
     protected static Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
