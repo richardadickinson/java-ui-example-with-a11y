@@ -2,7 +2,7 @@ package utils.dbUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.webDriver.config.WebDriverConfig;
+import utils.TestConfigManager;
 
 import java.sql.*;
 
