@@ -21,7 +21,7 @@ public class WebDriverConfigTests {
     public void testCanCreateInstanceFromJsonFileAndTestGetters() throws IOException {
         WebDriverConfig webDriverConfig = JsonUtils.fromFile(ClassLoader.getSystemResourceAsStream("fixtures/test-config.json"),
                 WebDriverConfig.class);
-        assertThat(webDriverConfig.getEnvironment(), is("delius-test"));
+        assertThat(webDriverConfig.getEnvironment(), is("test"));
     }
 
     @Test
