@@ -23,7 +23,7 @@ public class ConfigFileLoaderTests {
         utils.webDriver.config.WebDriverConfig webDriverConfig = configLoader
                 .chooseTargetConfiguration()
                 .build();
-        assertThat(webDriverConfig.getBaseUrl(), is("https://ndelius.test.probation.service.justice.gov.uk"));
+        assertThat(webDriverConfig.getBaseUrl(), is("https://my-test-app.test.com"));
     }
 
     @Test
