@@ -97,23 +97,23 @@ public class WebDriverConfig {
     }
 
     @JsonProperty("environment")
-    public void setEnvironment(String environment) throws MalformedURLException {
-        String remoteEnvironment = System.getenv("ENVIRONMENT");
-        if (remoteEnvironment == null) {
-            remoteEnvironment = environment;
+    public void setEnvironment(String localEnvironment) throws MalformedURLException {
+        String environment = System.getenv("ENVIRONMENT");
+        if (environment == null) {
+            environment = localEnvironment;
         }
-        this.environment = remoteEnvironment;
-        logger.info("Environment set to: " + remoteEnvironment);
+        this.environment = environment;
+        logger.info("Environment set to: " + environment);
 
-        switch (remoteEnvironment) {
-            case "delius-test":
-                this.baseUrl = new URL("https://ndelius.test.probation.service.justice.gov.uk");
+        switch (environment) {
+            case "test":
+                this.baseUrl = new URL("https://my-test-app.test.com");
                 break;
-            case "delius-pre-prod":
-                this.baseUrl = new URL("https://ndelius.pre-prod.delius.probation.hmpps.dsd.io");
+            case "pre-prod":
+                this.baseUrl = new URL("https://my-preprod-app.test.com");
                 break;
-            case "delius-stage":
-                this.baseUrl = new URL("https://ndelius.stage.probation.service.justice.gov.uk");
+            case "stage":
+                this.baseUrl = new URL("https://my-stage-app.test.com");
                 break;
             default:
                 throw new RuntimeException("Could not configure Base URL");
